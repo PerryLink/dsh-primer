@@ -42,7 +42,7 @@ jobs:
       #     the bare npm name `dsh-plugin-doctor` belongs to a DIFFERENT project
       #     (Xrainsmile/DSH-Plugin-Doctor), so `npx dsh-plugin-doctor` executes
       #     someone else's package and none of these checks run.
-      #     Always: @perrylink/dsh-plugin-doctor@<exact version>
+      #     Always: dsh-clinic@<exact version>
       #
       # ⚠️  `cd /tmp` is REQUIRED, not tidiness. `npm exec` resolves the command
       #     name against the current package.json first, so running this inside a
@@ -59,7 +59,7 @@ jobs:
         run: |
           set +e
           cd /tmp
-          out="$(npx --yes @perrylink/dsh-plugin-doctor@0.4.4 --repo "$GITHUB_WORKSPACE" --no-smoke --only "R,K" --json /tmp/doctor.json 2>&1)"
+          out="$(npx --yes dsh-clinic@0.8.0 --repo "$GITHUB_WORKSPACE" --no-smoke --only "R,K" --json /tmp/doctor.json 2>&1)"
           set -e
           printf '%s\n' "$out"
           echo "$out" | grep -q 'R0 ' || { echo "::error::doctor ran no R checks"; exit 1; }

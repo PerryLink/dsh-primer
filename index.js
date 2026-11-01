@@ -1,7 +1,7 @@
-// dsh-plugin-guide bundle entry point.
+// dsh-primer bundle entry point.
 //
 // Registers the packaged plugin-development knowledge base as one on-demand
-// agent skill named `dsh-plugin-guide`. The skill body is the repository's
+// agent skill named `dsh-primer`. The skill body is the repository's
 // SKILL.md; its relative references (`./guide/...`, `./references/...`) resolve
 // against the package directory through the directory resourceBase, so the
 // agent loads workflow steps, official docs, and community deep-dives only
@@ -14,7 +14,7 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export const name = 'dsh-plugin-guide'
+export const name = 'dsh-primer'
 export const inject = ['skills']
 
 const packageRoot = dirname(fileURLToPath(import.meta.url))
@@ -61,7 +61,7 @@ export function apply(ctx) {
   const { description, body } = splitFrontmatter(readFileSync(skillPath, 'utf8'))
   ctx.effect(() =>
     ctx.skills.register({
-      name: 'dsh-plugin-guide',
+      name: 'dsh-primer',
       source: 'bundled',
       description:
         description

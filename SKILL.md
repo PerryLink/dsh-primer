@@ -1,17 +1,17 @@
 ---
-name: dsh-plugin-guide
-description: Use when developing, reviewing, packaging, debugging, or answering questions about DeepSeek Harness (DSH) plugins — the plugin-based agent harness on vendored Cordis. Applies the official plugin-development constraints (plugin contract, cordis.yml layers, services/events/effects, tool DSL, bundles/profiles) backed by the dsh-plugin-guide knowledge base.
+name: dsh-primer
+description: Use when developing, reviewing, packaging, debugging, or answering questions about DeepSeek Harness (DSH) plugins — the plugin-based agent harness on vendored Cordis. Applies the official plugin-development constraints (plugin contract, cordis.yml layers, services/events/effects, tool DSL, bundles/profiles) backed by the dsh-primer knowledge base.
 ---
 
-# DeepSeek Harness 插件开发（dsh-plugin-guide）
+# DeepSeek Harness 插件开发（dsh-primer）
 
 依据官方资料开发 DeepSeek Harness 插件。本技能是**工作流与约束清单**；事实细节一律引用知识库原文，不凭记忆编造。所有"必须/不得"条款来自官方仓库 `AGENTS.md`、`docs/` 与文档站，冲突时以官方原文为准。
 
 ## 知识库位置（按顺序找，用第一个存在的）
 
-本技能与知识库随同一目录分发（本 SKILL.md 所在目录即知识库根），路径均为相对路径；单独复制本文件而不带 `guide/`、`references/` 时按回退路径找。以 `dsh-plugin-guide` 插件（bundle）安装时，技能 resourceBase 即包目录，下文的 `./guide/`、`./references/` 相对路径由 DSH 的 `skill` 工具按此目录解析：
+本技能与知识库随同一目录分发（本 SKILL.md 所在目录即知识库根），路径均为相对路径；单独复制本文件而不带 `guide/`、`references/` 时按回退路径找。以 `dsh-primer` 插件（bundle）安装时，技能 resourceBase 即包目录，下文的 `./guide/`、`./references/` 相对路径由 DSH 的 `skill` 工具按此目录解析：
 
-1. **本文件同目录**（= 插件包目录 `dsh-plugin-guide`，或 `scripts/install-skill.ps1` 安装的独立技能目录）：`./guide/`（综合指南+速查表+文档链接索引）、`./references/`（调研报告与官方文档全文副本 `references/official-docs/docs/`）、`./downloads/`（原始下载物，可选，需按 §知识库维护 的脚本生成）
+1. **本文件同目录**（= 插件包目录 `dsh-primer`，或 `scripts/install-skill.ps1` 安装的独立技能目录）：`./guide/`（综合指南+速查表+文档链接索引）、`./references/`（调研报告与官方文档全文副本 `references/official-docs/docs/`）、`./downloads/`（原始下载物，可选，需按 §知识库维护 的脚本生成）
 2. 官方仓库 checkout：`D:\deepseek-harness\`（示例路径，按本机实际安装位置调整；`docs/`、`vendor/cordis/`、`packages/`、`examples/`）
 3. 线上：https://github.com/deepseek-ai/deepseek-harness 、 https://deepseek-harness.github.io/deepseek-harness/develop/basic/ 、 https://github.com/cordiverse/cordis
 
@@ -98,7 +98,7 @@ description: Use when developing, reviewing, packaging, debugging, or answering 
 > ⚠️ **调用方式**：`dsh-plugin-dev` **通常不在 PATH 上**（bundle 安装只登记技能，不安装二进制）。
 > 用本 SKILL.md 所在目录下的入口调用：`node "<resourceBase>/bin/dsh-plugin-dev.js" <子命令>`。
 > bundle 安装的包已带 `dist/`；从源码副本用则先跑一次 `pnpm run build`。
-> 只有全局 `npm i -g dsh-plugin-guide` 之后才可以直接敲 `dsh-plugin-dev`。
+> 只有全局 `npm i -g dsh-primer` 之后才可以直接敲 `dsh-plugin-dev`。
 
 - `new <name>`：参数化脚手架，生成 TS 或 JS 插件仓库骨架（`src/index.ts` 契约模板、Schemastery Config、tests、tsdown/vitest、注释齐全的 `cordis.patch.yml`、五语 README），模板与 `references/official-docs` 同步更新。标志：`--lang <ts|js>`、`--dir <path>`、`--force`、`--git`。
 - `check [--json] [--strict] [--cwd <dir>]`：静态检查（`cordis.patch.yml` 合法性、`package.json` 元数据（`dsh.bundle.patch` 指向/peer 依赖/engines/files 白名单）、五语 README 一致性、工程红线模式），输出 CI 可消费的结构化 JSON；每个检查项在输出里引用本知识库对应章节（skill 联动），agent 可继续人工审计。**这 16 项是同族 `dsh-plugin-doctor` 33 项的子集**（逐项对照见 `guide/family-toolchain.md` §3）；发布前建议两个都跑。

@@ -158,10 +158,10 @@
       ]
     },
     "capability": {
-      "id": "dsh-plugin-guide",
+      "id": "dsh-primer",
       "kind": "service",
-      "invocation": "ctx.skills.get('dsh-plugin-guide') resolves a complete SkillDefinition",
-      "expected": "session skill catalog lists dsh-plugin-guide and the loaded body carries the SKILL.md workflow with a directory resourceBase"
+      "invocation": "ctx.skills.get('dsh-primer') resolves a complete SkillDefinition",
+      "expected": "session skill catalog lists dsh-primer and the loaded body carries the SKILL.md workflow with a directory resourceBase"
     },
     "evidence": {
       "install": null,

@@ -116,7 +116,7 @@ describe('apply()', () => {
 
     expect(registered).toHaveLength(1)
     const def = registered[0]
-    expect(def.name).toBe('dsh-plugin-guide')
+    expect(def.name).toBe('dsh-primer')
     expect(def.source).toBe('bundled')
     // Not the generic fallback: the real description mentions when to use it.
     expect(def.description).toMatch(/^Use when /)
