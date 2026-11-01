@@ -1,10 +1,11 @@
 {
-  "name": "dsh-plugin-guide",
-  "version": "0.3.40",
+  "name": "dsh-primer",
+  "version": "0.4.0",
   "description": "DSH plugin development as an on-demand agent skill: official docs mirror, version-compatibility matrix, migration seams, measured pitfalls, plus a scaffolder, checker and pack verifier CLI.",
   "type": "module",
   "main": "index.js",
   "bin": {
+    "dsh-primer": "./bin/dsh-plugin-dev.js",
     "dsh-plugin-dev": "./bin/dsh-plugin-dev.js"
   },
   "exports": {
@@ -34,7 +35,8 @@
     "README-es.md",
     "README-pt.md",
     "README-hi.md",
-    "STANDARDS.md"
+    "STANDARDS.md",
+    "MIGRATION.md"
   ],
   "keywords": [
     "dsh",
@@ -57,7 +59,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PerryLink/dsh-plugin-guide.git"
+    "url": "git+https://github.com/PerryLink/dsh-primer.git"
   },
   "scripts": {
     "build": "tsdown",
@@ -171,5 +173,9 @@
   "funding": {
     "type": "individual",
     "url": "https://github.com/sponsors/PerryLink"
+  },
+  "homepage": "https://www.npmjs.com/package/dsh-primer",
+  "bugs": {
+    "url": "https://github.com/PerryLink/dsh-primer/issues"
   }
 }

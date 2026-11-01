@@ -95,8 +95,8 @@ jobs:
           NPM_CONFIG_LOGLEVEL: verbose
         run: |
           version="$(node -p "require('./package.json').version")"
-          if npm view "dsh-plugin-guide@${version}" version >/dev/null 2>&1; then
-            echo "dsh-plugin-guide@${version} is already published; skipping npm publish"
+          if npm view "dsh-primer@${version}" version >/dev/null 2>&1; then
+            echo "dsh-primer@${version} is already published; skipping npm publish"
             echo "published=false" >> "$GITHUB_OUTPUT"
           else
             npm publish --provenance --access public
@@ -115,7 +115,7 @@ jobs:
           set -euo pipefail
           version="$(node -p "require('./package.json').version")"
           git rev-parse HEAD > expected-head.txt
-          url="https://registry.npmjs.org/dsh-plugin-guide/${version}"
+          url="https://registry.npmjs.org/dsh-primer/${version}"
 
           # Poll rather than sleep-and-hope: the registry accept is asynchronous.
           served=false
@@ -125,7 +125,7 @@ jobs:
             sleep 10
           done
           if [ "$served" != "true" ]; then
-            echo "::error::dsh-plugin-guide@${version} was accepted by npm but is not served after ~400s"
+            echo "::error::dsh-primer@${version} was accepted by npm but is not served after ~400s"
             exit 1
           fi
 
@@ -200,7 +200,7 @@ jobs:
           else
             REF_NAME="v$(node -p "require('./package.json').version")"
           fi
-          TARBALL="$(ls dsh-plugin-guide-*.tgz | head -1)"
+          TARBALL="$(ls dsh-primer-*.tgz | head -1)"
           if gh release view "${REF_NAME}" >/dev/null 2>&1; then
             echo "release ${REF_NAME} already exists; uploading the tarball if missing"
             gh release upload "${REF_NAME}" "${TARBALL}" --clobber

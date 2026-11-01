@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0] - 2026-11-02
+
+### Changed
+
+- Rename the package from `dsh-plugin-guide` to `dsh-primer`.
+- Keep `dsh-plugin-dev` as a legacy bin alias; `dsh-primer` is the new bin.
+- New repository: https://github.com/PerryLink/dsh-primer; the old repository remains as a pointer.
+
+
 ## [0.3.40] - 2026-11-02
 
 ### Changed

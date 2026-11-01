@@ -350,7 +350,7 @@
       "title": "repository-plugin mechanism removed",
       "kind": "mechanism-removed",
       "target": "0.1.0-rc.8",
-      "doc": "https://github.com/PerryLink/dsh-plugin-guide/blob/main/guide/plugin-dev-guide.md",
+      "doc": "https://github.com/PerryLink/dsh-primer/blob/main/guide/plugin-dev-guide.md",
       "removed": [".dsh-plugin manifest", "plugin_search/install/uninstall/status tools", "vendor/loader/src/repository.ts"],
       "replacement": "the web profile bundle channel, plus pure-Cordis insertion through cordis.patch.yml",
       "targets": ["**/*.md", "package.json"],

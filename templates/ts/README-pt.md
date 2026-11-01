@@ -1,6 +1,6 @@
 # {{pkgName}}
 
-Um plugin do DeepSeek Harness (DSH) gerado com [`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-plugin-guide).
+Um plugin do DeepSeek Harness (DSH) gerado com [`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-primer).
 
 ## Compatibility
 

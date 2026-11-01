@@ -1,6 +1,6 @@
 # {{pkgName}}
 
-[`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-plugin-guide) से बनाया गया एक DeepSeek Harness (DSH) प्लगइन।
+[`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-primer) से बनाया गया एक DeepSeek Harness (DSH) प्लगइन।
 
 ## Compatibility
 

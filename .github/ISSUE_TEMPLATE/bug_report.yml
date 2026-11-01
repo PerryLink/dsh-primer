@@ -6,13 +6,13 @@ body:
     attributes:
       value: |
         Thanks for reporting! Please check that the issue is about **this repository's content or bundle**
-        (guide / references / scripts / the dsh-plugin-guide bundle), not about DeepSeek Harness itself.
+        (guide / references / scripts / the dsh-primer bundle), not about DeepSeek Harness itself.
 
   - type: input
     id: package-version
     attributes:
       label: Package version
-      description: The dsh-plugin-guide version (or git commit) you are using.
+      description: The dsh-primer version (or git commit) you are using.
       placeholder: 0.1.0 (or commit 9447366)
     validations:
       required: true

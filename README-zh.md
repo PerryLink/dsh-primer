@@ -1,33 +1,36 @@
 <div align="center">
 
-# 🐳 dsh-plugin-guide
+# 🐳 dsh-primer
+
+> **Renamed:** previously `dsh-plugin-guide`; now **`dsh-primer`**. Old repo stays as a pointer/backup. New home: https://github.com/PerryLink/dsh-primer
+
 
 **构建 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件所需的一切。**
 
 *官方文档档案 · Cordis 入门 · 社区深读 · 实战踩坑 · agent 技能 · CLI 工具链*
 
-> **官方仓库。** 本仓库是 dsh-plugin-guide 的唯一官方仓库，由 PerryLink 维护。其他账号下的同名仓库与本项目无关。
+> **官方仓库。** 本仓库是 dsh-primer 的唯一官方仓库，由 PerryLink 维护。其他账号下的同名仓库与本项目无关。
 
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-plugin-guide)
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-primer)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-plugin-guide.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
+[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-primer.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
-[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-plugin-guide/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-plugin-guide/actions)
-[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-plugin-guide?label=version)](https://github.com/PerryLink/dsh-plugin-guide/releases)
-[![npm version](https://img.shields.io/npm/v/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-plugin-guide?metric=downloads&lang=zh)](https://dshfind.com/zh/plugins/PerryLink/dsh-plugin-guide?ref=badge)
+[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-primer/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-primer/actions)
+[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-primer?label=version)](https://github.com/PerryLink/dsh-primer/releases)
+[![npm version](https://img.shields.io/npm/v/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-primer?metric=downloads&lang=zh)](https://dshfind.com/zh/plugins/PerryLink/dsh-primer?ref=badge)
 
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 ```sh
-dsh plugin --profile <name> add dsh-plugin-guide
+dsh plugin --profile <name> add dsh-primer
 ```
 
 
@@ -35,14 +38,14 @@ dsh plugin --profile <name> add dsh-plugin-guide
 
 ---
 
-**📖 想在网页上读？** [perrylink.github.io/dsh-plugin-guide](https://perrylink.github.io/dsh-plugin-guide/) —— 每章独立成页，另有给助手用的机器可读 [llms.txt](https://perrylink.github.io/dsh-plugin-guide/llms.txt)。
+**📖 想在网页上读？** [perrylink.github.io/dsh-primer](https://perrylink.github.io/dsh-primer/) —— 每章独立成页，另有给助手用的机器可读 [llms.txt](https://perrylink.github.io/dsh-primer/llms.txt)。
 
 ## Install & uninstall
 
-- **git channel**（最新 `main`）：`dsh plugin --profile web add github:PerryLink/dsh-plugin-guide#<sha>` —— 固定提交以可复现；入口是纯 ESM JS，无构建步骤。
-- **npm channel**（发布版本）：`dsh plugin --profile web add dsh-plugin-guide`。
-- **tarball channel**：在本仓库执行 `pnpm pack`，然后 `dsh plugin --profile web add ./dsh-plugin-guide-<version>.tgz`。
-- **uninstall**：`dsh plugin --profile web remove dsh-plugin-guide`。
+- **git channel**（最新 `main`）：`dsh plugin --profile web add github:PerryLink/dsh-primer#<sha>` —— 固定提交以可复现；入口是纯 ESM JS，无构建步骤。
+- **npm channel**（发布版本）：`dsh plugin --profile web add dsh-primer`。
+- **tarball channel**：在本仓库执行 `pnpm pack`，然后 `dsh plugin --profile web add ./dsh-primer-<version>.tgz`。
+- **uninstall**：`dsh plugin --profile web remove dsh-primer`。
 
 ## Why not just read the official docs?
 
@@ -57,7 +60,7 @@ dsh plugin --profile <name> add dsh-plugin-guide
 **60 秒自证：**
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 
 <!-- star-cta -->
@@ -67,13 +70,13 @@ dsh plugin --profile web add dsh-plugin-guide
 
 *English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
-## What is dsh-plugin-guide?
+## What is dsh-primer?
 
 构建 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件所需的一切。
 
 官方文档档案 · Cordis 入门 · 社区深读 · 实战踩坑 · agent 技能 · CLI 工具链
 
-![dsh-plugin-guide 工作流图：请求 → 策略/复核 → 判定。](docs/assets/dsh-plugin-guide-flow.svg)
+![dsh-primer 工作流图：请求 → 策略/复核 → 判定。](docs/assets/dsh-primer-flow.svg)
 
 *工作流概览：请求 → 策略/复核 → 判定。下面的示例使用实际命令面。*
 
@@ -82,7 +85,7 @@ dsh plugin --profile web add dsh-plugin-guide
 
 ## Comparison
 
-![dsh-plugin-guide 的实测对比柱状图](https://raw.githubusercontent.com/PerryLink/dsh-plugin-guide/main/docs/assets/dsh-plugin-guide-evidence.png)
+![dsh-primer 的实测对比柱状图](https://raw.githubusercontent.com/PerryLink/dsh-primer/main/docs/assets/dsh-primer-evidence.png)
 
 content counts as stated in the README (What you get)
 
@@ -97,7 +100,7 @@ content counts as stated in the README (What you get)
 
 ## What you get
 
-`dsh-plugin-guide` 是 DSH 插件开发知识库加 CLI 工具链，打包为一个可安装 bundle。知识库注册为 `dsh-plugin-guide` agent 技能（在每个会话目录可见，按需加载工作流步骤、官方文档与社区深读）；`dsh-plugin-dev` CLI 在其之上提供三个机械层。
+`dsh-primer` 是 DSH 插件开发知识库加 CLI 工具链，打包为一个可安装 bundle。知识库注册为 `dsh-primer` agent 技能（在每个会话目录可见，按需加载工作流步骤、官方文档与社区深读）；`dsh-plugin-dev` CLI 在其之上提供三个机械层。
 
 - **插件契约与红线** —— effect/disposer、waterfall `next()`、模型可见 ⟺ 已记录、Schemastery 配置。
 - **版本适配** —— [guide/version-matrix.md](guide/version-matrix.md)：五个"最新"的区别、子包 `latest` 冻结陷阱、四个破坏性变更断层、peer 区间怎么选、会话格式 V0→V4 谱系，以及 `0.2.1-alpha.2` 落的 19 条破坏性变更。
@@ -115,7 +118,7 @@ content counts as stated in the README (What you get)
 
 | Path | 是什么 |
 |---|---|
-| `SKILL.md` | `dsh-plugin-guide` agent 技能：红线 + 按任务类型的开发路径 |
+| `SKILL.md` | `dsh-primer` agent 技能：红线 + 按任务类型的开发路径 |
 | `package.json` · `cordis.patch.yml` · `index.js` | 可安装 DSH bundle：`dsh.bundle.patch` 清单 + 注册技能的入口 |
 | `guide/plugin-dev-guide.md` | 完整开发指南（10 章） |
 | `guide/version-matrix.md` | **版本适配矩阵**：五个"最新"的区别、子包 `latest` 冻结、破坏性变更断层、peer 区间选择、会话格式谱系、`0.2.1-alpha.2` 的 19 条变更 |
@@ -170,23 +173,23 @@ CLI 无硬编码可调参数——每个都是 flag 或环境变量。
 
 ```sh
 # 1. install the bundle into your profile
-dsh plugin --profile web add github:PerryLink/dsh-plugin-guide
+dsh plugin --profile web add github:PerryLink/dsh-primer
 
 # or from npm (published releases)
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 
 # 2. restart and verify the row
-dsh --profile web --dump-config | grep -A3 'id: dsh-plugin-guide'
+dsh --profile web --dump-config | grep -A3 'id: dsh-primer'
 ```
 
-然后直接问你的 agent：*"用 dsh-plugin-guide 技能帮我构建一个 … 插件。"*
+然后直接问你的 agent：*"用 dsh-primer 技能帮我构建一个 … 插件。"*
 
 或者直接驱动 CLI：
 
 ```sh
-npx dsh-plugin-guide new hello-plugin            # 脚手架生成 TS 插件仓库
-npx dsh-plugin-guide check --json                # 静态检查
-npx dsh-plugin-guide verify                      # 打包 + 干净 profile 冒烟
+npx dsh-primer new hello-plugin            # 脚手架生成 TS 插件仓库
+npx dsh-primer check --json                # 静态检查
+npx dsh-primer verify                      # 打包 + 干净 profile 冒烟
 ```
 
 ## Copy as a plain agent skill
@@ -196,12 +199,12 @@ npx dsh-plugin-guide verify                      # 打包 + 干净 profile 冒�
 ```powershell
 # Windows (PowerShell)
 pwsh -File scripts/install-skill.ps1 `
-  -Target "$env:USERPROFILE\.deepseek\skills\dsh-plugin-guide"   # 或 <project>\.agents\skills\dsh-plugin-guide
+  -Target "$env:USERPROFILE\.deepseek\skills\dsh-primer"   # 或 <project>\.agents\skills\dsh-primer
 ```
 
 ```bash
 # macOS / Linux
-pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-plugin-guide   # 或 <project>/.agents/skills/dsh-plugin-guide
+pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-primer   # 或 <project>/.agents/skills/dsh-primer
 ```
 
 安装器跳过 `downloads/`（生成的）与 `.github/`，然后逐字节校验每个复制的文件。手动 `Copy-Item -Recurse` 整个文件夹也可以。
@@ -249,7 +252,7 @@ node bin/dsh-plugin-dev.js seams no-such-seam-xyz
 no seam or capability matches "no-such-seam-xyz". This is an absence of evidence in the knowledge base, not evidence that the API is absent from your target host — check references/official-docs/ before concluding either way.
 ~~~
 
-*来源 `plugins/dsh-plugin-guide/src/cli/lib/seams.ts:122-130; plugins/dsh-plugin-guide/src/cli/commands/seams.ts:87-92; plugins/dsh-plugin-guide/tests/seams.test.ts:88-90`*
+*来源 `plugins/dsh-primer/src/cli/lib/seams.ts:122-130; plugins/dsh-primer/src/cli/commands/seams.ts:87-92; plugins/dsh-primer/tests/seams.test.ts:88-90`*
 
 #### 简短示例
 
@@ -263,7 +266,7 @@ no seam or capability matches "no-such-seam-xyz". This is an absence of evidence
 
 | Surface | Kind | Notes |
 |---|---|---|
-| `dsh-plugin-guide` | skill | 经 `ctx.skills` 注册；按需加载 `SKILL.md` + `./guide/` + `./references/` |
+| `dsh-primer` | skill | 经 `ctx.skills` 注册；按需加载 `SKILL.md` + `./guide/` + `./references/` |
 | `dsh-plugin-dev` | bin (CLI) | `new` / `check` / `verify` 子命令；非 DSH 插件行 |
 
 ## Permissions & data
@@ -289,7 +292,7 @@ no seam or capability matches "no-such-seam-xyz". This is an absence of evidence
 
 | 渠道 | 真源 | 更新方式 |
 |---|---|---|
-| npm（`dsh-plugin-guide`） | 本仓库的 `package.json` | `v*` tag 触发 `.github/workflows/release.yml`：`verify-kit` 门禁 → 校验 CHANGELOG 有该版本段 → `npm publish --provenance`（版本已存在则跳过） |
+| npm（`dsh-primer`） | 本仓库的 `package.json` | `v*` tag 触发 `.github/workflows/release.yml`：`verify-kit` 门禁 → 校验 CHANGELOG 有该版本段 → `npm publish --provenance`（版本已存在则跳过） |
 | GitHub Release | 同一个 tag | 同一 workflow 幂等创建 |
 | 展示徽章（npm 版本、GitHub tag、DSH Market、dsh-doctor） | 实时查询 | 无需发布——每次渲染都读 npm/registry |
 | Gitee 镜像 | 本仓库 | **只读定时镜像**，不是发布目标：由家族仓的 `gitee-sync` workflow 用 `--force-with-lease` 强制对齐 GitHub tip，所以 `main` 通常落后一次定时运行。**这里从不对 Gitee 推 tag**；报"镜像过期"前先用 `git ls-remote` 与 GitHub 对比 |
@@ -402,7 +405,7 @@ pwsh -File scripts/verify-kit.ps1   # 关键路径 + 链接扫描（加 -Checkou
 | **[dsh-pipeline-check](https://github.com/PerryLink/dsh-pipeline-check)** |  |
 | **[dsh-pleading-draft](https://github.com/PerryLink/dsh-pleading-draft)** |  |
 | **[dsh-plugin-doctor](https://github.com/PerryLink/dsh-plugin-doctor)** |  |
-| **[dsh-plugin-guide](https://github.com/PerryLink/dsh-plugin-guide)** |  |
+| **[dsh-primer](https://github.com/PerryLink/dsh-primer)** |  |
 | **[dsh-plugin-kit](https://github.com/PerryLink/dsh-plugin-kit)** |  |
 | **[dsh-plugin-upgrade](https://github.com/PerryLink/dsh-plugin-upgrade)** |  |
 | **[dsh-policy-brief-draft](https://github.com/PerryLink/dsh-policy-brief-draft)** |  |
@@ -448,7 +451,7 @@ pwsh -File scripts/verify-kit.ps1   # 关键路径 + 链接扫描（加 -Checkou
 
 ## License
 
-[Apache License 2.0](LICENSE) © 2026 dsh-plugin-guide contributors —— 自有文本（`SKILL.md`、`guide/`、`references/`、`scripts/`、本 README）按 Apache-2.0；打包的第三方内容见 [NOTICE.md](NOTICE.md)。
+[Apache License 2.0](LICENSE) © 2026 dsh-primer contributors —— 自有文本（`SKILL.md`、`guide/`、`references/`、`scripts/`、本 README）按 Apache-2.0；打包的第三方内容见 [NOTICE.md](NOTICE.md)。
 
 ### 从 DSH Desktop 市场安装
 

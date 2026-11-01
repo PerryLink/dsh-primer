@@ -1,6 +1,6 @@
 # {{pkgName}}
 
-由 [`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-plugin-guide) 脚手架生成的 DeepSeek Harness（DSH）插件。
+由 [`dsh-plugin-dev new`](https://github.com/PerryLink/dsh-primer) 脚手架生成的 DeepSeek Harness（DSH）插件。
 
 ## Compatibility
 

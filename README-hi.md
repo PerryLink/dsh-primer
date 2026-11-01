@@ -1,6 +1,9 @@
 <div align="center">
 
-# 🐳 dsh-plugin-guide
+# 🐳 dsh-primer
+
+> **Renamed:** previously `dsh-plugin-guide`; now **`dsh-primer`**. Old repo stays as a pointer/backup. New home: https://github.com/PerryLink/dsh-primer
+
 
 **[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) प्लगइन बनाने के लिए आपकी ज़रूरत की हर चीज़।**
 
@@ -8,24 +11,24 @@
 
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-plugin-guide)
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-primer)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-plugin-guide.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
+[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-primer.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
-[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-plugin-guide/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-plugin-guide/actions)
-[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-plugin-guide?label=version)](https://github.com/PerryLink/dsh-plugin-guide/releases)
-[![npm version](https://img.shields.io/npm/v/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-plugin-guide?metric=downloads&lang=hi)](https://dshfind.com/hi/plugins/PerryLink/dsh-plugin-guide?ref=badge)
+[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-primer/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-primer/actions)
+[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-primer?label=version)](https://github.com/PerryLink/dsh-primer/releases)
+[![npm version](https://img.shields.io/npm/v/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-primer?metric=downloads&lang=hi)](https://dshfind.com/hi/plugins/PerryLink/dsh-primer?ref=badge)
 
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 ```sh
-dsh plugin --profile <name> add dsh-plugin-guide
+dsh plugin --profile <name> add dsh-primer
 ```
 
 
@@ -33,14 +36,14 @@ dsh plugin --profile <name> add dsh-plugin-guide
 
 ---
 
-**📖 इसे वेबसाइट के रूप में पढ़ना चाहें?** [perrylink.github.io/dsh-plugin-guide](https://perrylink.github.io/dsh-plugin-guide/) — हर अध्याय अपने पृष्ठ पर, साथ ही असिस्टेंट के लिए मशीन-पठनीय [llms.txt](https://perrylink.github.io/dsh-plugin-guide/llms.txt)।
+**📖 इसे वेबसाइट के रूप में पढ़ना चाहें?** [perrylink.github.io/dsh-primer](https://perrylink.github.io/dsh-primer/) — हर अध्याय अपने पृष्ठ पर, साथ ही असिस्टेंट के लिए मशीन-पठनीय [llms.txt](https://perrylink.github.io/dsh-primer/llms.txt)।
 
 ## Install & uninstall
 
-- **git चैनल** (नवीनतम `main`): `dsh plugin --profile web add github:PerryLink/dsh-plugin-guide#<sha>` — पुनरुत्पादन के लिए एक कमिट पिन करें; प्रवेश बिंदु सादा ESM JS है, कोई बिल्ड चरण नहीं।
-- **npm चैनल** (प्रकाशित रिलीज़): `dsh plugin --profile web add dsh-plugin-guide`.
-- **tarball चैनल**: इस रेपो में `pnpm pack`, फिर `dsh plugin --profile web add ./dsh-plugin-guide-<version>.tgz`.
-- **uninstall**: `dsh plugin --profile web remove dsh-plugin-guide`.
+- **git चैनल** (नवीनतम `main`): `dsh plugin --profile web add github:PerryLink/dsh-primer#<sha>` — पुनरुत्पादन के लिए एक कमिट पिन करें; प्रवेश बिंदु सादा ESM JS है, कोई बिल्ड चरण नहीं।
+- **npm चैनल** (प्रकाशित रिलीज़): `dsh plugin --profile web add dsh-primer`.
+- **tarball चैनल**: इस रेपो में `pnpm pack`, फिर `dsh plugin --profile web add ./dsh-primer-<version>.tgz`.
+- **uninstall**: `dsh plugin --profile web remove dsh-primer`.
 
 ## Why not just read the official docs?
 
@@ -55,7 +58,7 @@ dsh plugin --profile <name> add dsh-plugin-guide
 **60 सेकंड में सत्यापित करें:**
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 
 <!-- star-cta -->
@@ -65,13 +68,13 @@ dsh plugin --profile web add dsh-plugin-guide
 
 *English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
-## What is dsh-plugin-guide?
+## What is dsh-primer?
 
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) प्लगइन बनाने के लिए आपकी ज़रूरत की हर चीज़।
 
 आधिकारिक दस्तावेज़ संग्रह · Cordis प्राइमर · सामुदायिक गहन-विश्लेषण · युद्ध-परीक्षित नुकसान · agent skill · CLI टूलचेन
 
-![dsh-plugin-guide कार्यप्रवाह आरेख: अनुरोध → नीति/समीक्षा → निर्णय।](docs/assets/dsh-plugin-guide-flow.svg)
+![dsh-primer कार्यप्रवाह आरेख: अनुरोध → नीति/समीक्षा → निर्णय।](docs/assets/dsh-primer-flow.svg)
 
 *कार्यप्रवाह: अनुरोध → नीति/समीक्षा → निर्णय। नीचे के उदाहरण वास्तविक कमांड सतह का उपयोग करते हैं।*
 
@@ -80,7 +83,7 @@ dsh plugin --profile web add dsh-plugin-guide
 
 ## Comparison
 
-![dsh-plugin-guide का मापा गया तुलना चार्ट](https://raw.githubusercontent.com/PerryLink/dsh-plugin-guide/main/docs/assets/dsh-plugin-guide-evidence.png)
+![dsh-primer का मापा गया तुलना चार्ट](https://raw.githubusercontent.com/PerryLink/dsh-primer/main/docs/assets/dsh-primer-evidence.png)
 
 content counts as stated in the README (What you get)
 
@@ -95,7 +98,7 @@ content counts as stated in the README (What you get)
 
 ## What you get
 
-`dsh-plugin-guide` DSH प्लगइन-विकास ज्ञान-आधार है, जो एक इंस्टॉल-योग्य बंडल के रूप में पैक किया गया है और पूरी सामग्री को `dsh-plugin-guide` agent skill के रूप में पंजीकृत करता है। यह skill हर सत्र कैटलॉग में दृश्य रहती है और अपने वर्कफ़्लो चरण, आधिकारिक दस्तावेज़ और सामुदायिक गहन-विश्लेषण माँग पर लोड करती है।
+`dsh-primer` DSH प्लगइन-विकास ज्ञान-आधार है, जो एक इंस्टॉल-योग्य बंडल के रूप में पैक किया गया है और पूरी सामग्री को `dsh-primer` agent skill के रूप में पंजीकृत करता है। यह skill हर सत्र कैटलॉग में दृश्य रहती है और अपने वर्कफ़्लो चरण, आधिकारिक दस्तावेज़ और सामुदायिक गहन-विश्लेषण माँग पर लोड करती है।
 
 - **प्लगइन अनुबंध और कठोर नियम** — effects/disposers, waterfall `next()`, मॉडल-दृश्य ⟺ लॉग किया गया, Schemastery विन्यास।
 - **आधिकारिक दस्तावेज़ संग्रह** — आधिकारिक रेपो दस्तावेज़ों की शब्दशः प्रति (EN + ZH), अंतिम सत्यापित स्नैपशॉट पर अपस्ट्रीम से बाइट-समान।
@@ -113,7 +116,7 @@ content counts as stated in the README (What you get)
 
 | Path | यह क्या है |
 |---|---|
-| `SKILL.md` | `dsh-plugin-guide` agent skill: कठोर नियम + कार्य-आधारित विकास पथ |
+| `SKILL.md` | `dsh-primer` agent skill: कठोर नियम + कार्य-आधारित विकास पथ |
 | `package.json` · `cordis.patch.yml` · `index.js` | इंस्टॉल-योग्य DSH बंडल: `dsh.bundle.patch` मैनिफ़ेस्ट + skill पंजीकृत करने वाला प्रवेश बिंदु |
 | `guide/plugin-dev-guide.md` | पूर्ण विकास मार्गदर्शिका (10 अध्याय) |
 | `guide/quick-reference.md` | एक-पृष्ठ चीट शीट (5 भाषाएँ) |
@@ -168,23 +171,23 @@ CLI में कोई हार्डकोडेड ट्यूनेबल 
 
 ```sh
 # 1. install the bundle into your profile
-dsh plugin --profile web add github:PerryLink/dsh-plugin-guide
+dsh plugin --profile web add github:PerryLink/dsh-primer
 
 # or from npm (published releases)
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 
 # 2. restart and verify the row
-dsh --profile web --dump-config | grep -A3 'id: dsh-plugin-guide'
+dsh --profile web --dump-config | grep -A3 'id: dsh-primer'
 ```
 
-फिर बस अपने एजेंट से पूछें: *"मुझे … प्लगइन बनाने के लिए dsh-plugin-guide skill का उपयोग करो।"*
+फिर बस अपने एजेंट से पूछें: *"मुझे … प्लगइन बनाने के लिए dsh-primer skill का उपयोग करो।"*
 
 या सीधे CLI चलाएँ:
 
 ```sh
-npx dsh-plugin-guide new hello-plugin            # TS प्लगइन रेपो स्कैफ़ोल्ड करें
-npx dsh-plugin-guide check --json                # स्थैतिक जाँच
-npx dsh-plugin-guide verify                      # पैक + साफ़ प्रोफ़ाइल स्मोक
+npx dsh-primer new hello-plugin            # TS प्लगइन रेपो स्कैफ़ोल्ड करें
+npx dsh-primer check --json                # स्थैतिक जाँच
+npx dsh-primer verify                      # पैक + साफ़ प्रोफ़ाइल स्मोक
 ```
 
 ## Copy as a plain agent skill
@@ -194,12 +197,12 @@ npx dsh-plugin-guide verify                      # पैक + साफ़ प�
 ```powershell
 # Windows (PowerShell)
 pwsh -File scripts/install-skill.ps1 `
-  -Target "$env:USERPROFILE\.deepseek\skills\dsh-plugin-guide"   # या <project>\.agents\skills\dsh-plugin-guide
+  -Target "$env:USERPROFILE\.deepseek\skills\dsh-primer"   # या <project>\.agents\skills\dsh-primer
 ```
 
 ```bash
 # macOS / Linux
-pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-plugin-guide   # या <project>/.agents/skills/dsh-plugin-guide
+pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-primer   # या <project>/.agents/skills/dsh-primer
 ```
 
 इंस्टॉलर `downloads/` (उत्पन्न) और `.github/` को छोड़ता है, फिर हर कॉपी की गई फ़ाइल को बाइट-दर-बाइट सत्यापित करता है। पूरे फ़ोल्डर की मैन्युअल `Copy-Item -Recurse` भी काम करती है।
@@ -247,7 +250,7 @@ node bin/dsh-plugin-dev.js seams no-such-seam-xyz
 no seam or capability matches "no-such-seam-xyz". This is an absence of evidence in the knowledge base, not evidence that the API is absent from your target host — check references/official-docs/ before concluding either way.
 ~~~
 
-*स्रोत `plugins/dsh-plugin-guide/src/cli/lib/seams.ts:122-130; plugins/dsh-plugin-guide/src/cli/commands/seams.ts:87-92; plugins/dsh-plugin-guide/tests/seams.test.ts:88-90`*
+*स्रोत `plugins/dsh-primer/src/cli/lib/seams.ts:122-130; plugins/dsh-primer/src/cli/commands/seams.ts:87-92; plugins/dsh-primer/tests/seams.test.ts:88-90`*
 
 #### संक्षिप्त उदाहरण
 
@@ -261,7 +264,7 @@ skill बंडल कोई Schemastery `Config` उजागर नहीं �
 
 | Surface | Kind | Notes |
 |---|---|---|
-| `dsh-plugin-guide` | skill | `ctx.skills` से पंजीकृत; माँग पर `SKILL.md` + `./guide/` + `./references/` लोड करता है |
+| `dsh-primer` | skill | `ctx.skills` से पंजीकृत; माँग पर `SKILL.md` + `./guide/` + `./references/` लोड करता है |
 | `dsh-plugin-dev` | bin (CLI) | `new` / `check` / `verify` उप-कमांड; DSH प्लगइन पंक्ति नहीं |
 
 ## Permissions & data
@@ -287,7 +290,7 @@ skill बंडल कोई Schemastery `Config` उजागर नहीं �
 
 | Channel | सत्य-स्रोत | कैसे अपडेट होता है |
 |---|---|---|
-| npm (`dsh-plugin-guide`) | इस repo का `package.json` | `v*` tag पर `.github/workflows/release.yml`: `verify-kit` गेट → CHANGELOG में उस संस्करण का section जाँच → `npm publish --provenance` (संस्करण पहले से हो तो छोड़ देता है) |
+| npm (`dsh-primer`) | इस repo का `package.json` | `v*` tag पर `.github/workflows/release.yml`: `verify-kit` गेट → CHANGELOG में उस संस्करण का section जाँच → `npm publish --provenance` (संस्करण पहले से हो तो छोड़ देता है) |
 | GitHub Release | वही tag | वही workflow इसे idempotent तरीके से बनाता है |
 | Discovery बैज (npm version, GitHub tag, DSH Market, dsh-doctor) | लाइव lookup | प्रकाशित करने को कुछ नहीं — हर render पर npm/registry पढ़ते हैं |
 | Gitee mirror | यह repo | **read-only शेड्यूल्ड mirror**, प्रकाशन लक्ष्य नहीं: परिवार का `gitee-sync` workflow इसे `--force-with-lease` से GitHub tip पर align करता है, इसलिए `main` सामान्यतः एक शेड्यूल्ड रन पीछे रहता है। **यहाँ से Gitee पर tag कभी push नहीं होता**; mirror को पुराना बताने से पहले `git ls-remote` से तुलना करें |
@@ -400,7 +403,7 @@ pwsh -File scripts/verify-kit.ps1   # महत्वपूर्ण पथ + �
 | **[dsh-pipeline-check](https://github.com/PerryLink/dsh-pipeline-check)** |  |
 | **[dsh-pleading-draft](https://github.com/PerryLink/dsh-pleading-draft)** |  |
 | **[dsh-plugin-doctor](https://github.com/PerryLink/dsh-plugin-doctor)** |  |
-| **[dsh-plugin-guide](https://github.com/PerryLink/dsh-plugin-guide)** |  |
+| **[dsh-primer](https://github.com/PerryLink/dsh-primer)** |  |
 | **[dsh-plugin-kit](https://github.com/PerryLink/dsh-plugin-kit)** |  |
 | **[dsh-plugin-upgrade](https://github.com/PerryLink/dsh-plugin-upgrade)** |  |
 | **[dsh-policy-brief-draft](https://github.com/PerryLink/dsh-policy-brief-draft)** |  |
@@ -446,7 +449,7 @@ pwsh -File scripts/verify-kit.ps1   # महत्वपूर्ण पथ + �
 
 ## License
 
-[Apache License 2.0](LICENSE) © 2026 dsh-plugin-guide contributors — हमारा अपना पाठ (`SKILL.md`, `guide/`, `references/`, `scripts/`, यह README) Apache-2.0 है; पैक की गई तृतीय-पक्ष सामग्री [NOTICE.md](NOTICE.md) में दस्तावेज़ित है।
+[Apache License 2.0](LICENSE) © 2026 dsh-primer contributors — हमारा अपना पाठ (`SKILL.md`, `guide/`, `references/`, `scripts/`, यह README) Apache-2.0 है; पैक की गई तृतीय-पक्ष सामग्री [NOTICE.md](NOTICE.md) में दस्तावेज़ित है।
 
 ### DSH Desktop मार्केट से इंस्टॉल करें
 

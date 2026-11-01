@@ -1,6 +1,9 @@
 <div align="center">
 
-# 🐳 dsh-plugin-guide
+# 🐳 dsh-primer
+
+> **Renamed:** previously `dsh-plugin-guide`; now **`dsh-primer`**. Old repo stays as a pointer/backup. New home: https://github.com/PerryLink/dsh-primer
+
 
 **Tudo o que você precisa para construir plugins do [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).**
 
@@ -8,24 +11,24 @@
 
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-plugin-guide)
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-primer)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-plugin-guide.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
+[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-primer.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
-[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-plugin-guide/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-plugin-guide/actions)
-[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-plugin-guide?label=version)](https://github.com/PerryLink/dsh-plugin-guide/releases)
-[![npm version](https://img.shields.io/npm/v/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-guide)](https://www.npmjs.com/package/dsh-plugin-guide)
-[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-plugin-guide?metric=downloads&lang=pt)](https://dshfind.com/pt/plugins/PerryLink/dsh-plugin-guide?ref=badge)
+[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-primer/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-primer/actions)
+[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-primer?label=version)](https://github.com/PerryLink/dsh-primer/releases)
+[![npm version](https://img.shields.io/npm/v/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-primer?metric=downloads&lang=pt)](https://dshfind.com/pt/plugins/PerryLink/dsh-primer?ref=badge)
 
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 ```sh
-dsh plugin --profile <name> add dsh-plugin-guide
+dsh plugin --profile <name> add dsh-primer
 ```
 
 
@@ -33,14 +36,14 @@ dsh plugin --profile <name> add dsh-plugin-guide
 
 ---
 
-**📖 Prefere ler como site?** [perrylink.github.io/dsh-plugin-guide](https://perrylink.github.io/dsh-plugin-guide/) — cada capítulo em sua própria página, além de um [llms.txt](https://perrylink.github.io/dsh-plugin-guide/llms.txt) legível por máquina para assistentes.
+**📖 Prefere ler como site?** [perrylink.github.io/dsh-primer](https://perrylink.github.io/dsh-primer/) — cada capítulo em sua própria página, além de um [llms.txt](https://perrylink.github.io/dsh-primer/llms.txt) legível por máquina para assistentes.
 
 ## Install & uninstall
 
-- **canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-plugin-guide#<sha>` — fixe um commit para reprodutibilidade; o ponto de entrada é JS ESM puro, sem etapa de build.
-- **canal npm** (versões publicadas): `dsh plugin --profile web add dsh-plugin-guide`.
-- **canal tarball**: `pnpm pack` neste repo, depois `dsh plugin --profile web add ./dsh-plugin-guide-<version>.tgz`.
-- **desinstalar**: `dsh plugin --profile web remove dsh-plugin-guide`.
+- **canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-primer#<sha>` — fixe um commit para reprodutibilidade; o ponto de entrada é JS ESM puro, sem etapa de build.
+- **canal npm** (versões publicadas): `dsh plugin --profile web add dsh-primer`.
+- **canal tarball**: `pnpm pack` neste repo, depois `dsh plugin --profile web add ./dsh-primer-<version>.tgz`.
+- **desinstalar**: `dsh plugin --profile web remove dsh-primer`.
 
 ## Why not just read the official docs?
 
@@ -55,7 +58,7 @@ Porque ela é escrita para quem já sabe qual página abrir, e o DSH publica **u
 **Comprove em 60 segundos:**
 
 ```sh
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 ```
 
 <!-- star-cta -->
@@ -65,13 +68,13 @@ Este plugin faz parte da [família de plugins DSH](https://github.com/PerryLink)
 
 *English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
-## What is dsh-plugin-guide?
+## What is dsh-primer?
 
 Tudo o que você precisa para construir plugins do [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
 
 Arquivo de documentação oficial · primer de Cordis · deep-dives da comunidade · armadilhas testadas em batalha · agent skill · toolchain CLI
 
-![Diagrama de fluxo de dsh-plugin-guide: solicitação → política/revisão → veredito.](docs/assets/dsh-plugin-guide-flow.svg)
+![Diagrama de fluxo de dsh-primer: solicitação → política/revisão → veredito.](docs/assets/dsh-primer-flow.svg)
 
 *Visão geral do fluxo: solicitação → política/revisão → veredito. Os exemplos abaixo usam a superfície real de comandos.*
 
@@ -80,7 +83,7 @@ Arquivo de documentação oficial · primer de Cordis · deep-dives da comunidad
 
 ## Comparison
 
-![Gráfico comparativo medido do dsh-plugin-guide](https://raw.githubusercontent.com/PerryLink/dsh-plugin-guide/main/docs/assets/dsh-plugin-guide-evidence.png)
+![Gráfico comparativo medido do dsh-primer](https://raw.githubusercontent.com/PerryLink/dsh-primer/main/docs/assets/dsh-primer-evidence.png)
 
 content counts as stated in the README (What you get)
 
@@ -95,7 +98,7 @@ content counts as stated in the README (What you get)
 
 ## What you get
 
-O `dsh-plugin-guide` é a base de conhecimento de desenvolvimento de plugins DSH, empacotada como um bundle instalável que registra tudo como a agent skill `dsh-plugin-guide`. A skill permanece visível no catálogo de toda sessão e carrega seus passos de fluxo de trabalho, documentação oficial e deep-dives da comunidade sob demanda.
+O `dsh-primer` é a base de conhecimento de desenvolvimento de plugins DSH, empacotada como um bundle instalável que registra tudo como a agent skill `dsh-primer`. A skill permanece visível no catálogo de toda sessão e carrega seus passos de fluxo de trabalho, documentação oficial e deep-dives da comunidade sob demanda.
 
 - **Contrato de plugin e regras rígidas** — effects/disposers, waterfall `next()`, visível para o modelo ⟺ registrado, configuração Schemastery.
 - **Arquivo de documentação oficial** — uma cópia textual da documentação oficial do repo (EN + ZH), byte-idêntica ao upstream na última instantânea verificada.
@@ -113,7 +116,7 @@ O `dsh-plugin-guide` é a base de conhecimento de desenvolvimento de plugins DSH
 
 | Path | O que é |
 |---|---|
-| `SKILL.md` | A agent skill `dsh-plugin-guide`: regras rígidas + caminhos de desenvolvimento por tarefa |
+| `SKILL.md` | A agent skill `dsh-primer`: regras rígidas + caminhos de desenvolvimento por tarefa |
 | `package.json` · `cordis.patch.yml` · `index.js` | O bundle DSH instalável: manifesto `dsh.bundle.patch` + ponto de entrada que registra a skill |
 | `guide/plugin-dev-guide.md` | O guia de desenvolvimento completo (10 capítulos) |
 | `guide/quick-reference.md` | Folha de referência de uma página (5 idiomas) |
@@ -168,23 +171,23 @@ O `dsh-plugin-dev` é um candidato upstream para o CLI oficial de desenvolviment
 
 ```sh
 # 1. install the bundle into your profile
-dsh plugin --profile web add github:PerryLink/dsh-plugin-guide
+dsh plugin --profile web add github:PerryLink/dsh-primer
 
 # or from npm (published releases)
-dsh plugin --profile web add dsh-plugin-guide
+dsh plugin --profile web add dsh-primer
 
 # 2. restart and verify the row
-dsh --profile web --dump-config | grep -A3 'id: dsh-plugin-guide'
+dsh --profile web --dump-config | grep -A3 'id: dsh-primer'
 ```
 
-Depois é só pedir ao seu agente: *"Use a skill dsh-plugin-guide para me construir um plugin de …."*
+Depois é só pedir ao seu agente: *"Use a skill dsh-primer para me construir um plugin de …."*
 
 Ou use o CLI diretamente:
 
 ```sh
-npx dsh-plugin-guide new hello-plugin            # gera um repo de plugin TS
-npx dsh-plugin-guide check --json                # check estático
-npx dsh-plugin-guide verify                      # pack + smoke de perfil limpo
+npx dsh-primer new hello-plugin            # gera um repo de plugin TS
+npx dsh-primer check --json                # check estático
+npx dsh-primer verify                      # pack + smoke de perfil limpo
 ```
 
 ## Copy as a plain agent skill
@@ -194,12 +197,12 @@ Você também pode copiar a pasta inteira para o diretório de skills do seu age
 ```powershell
 # Windows (PowerShell)
 pwsh -File scripts/install-skill.ps1 `
-  -Target "$env:USERPROFILE\.deepseek\skills\dsh-plugin-guide"   # ou <project>\.agents\skills\dsh-plugin-guide
+  -Target "$env:USERPROFILE\.deepseek\skills\dsh-primer"   # ou <project>\.agents\skills\dsh-primer
 ```
 
 ```bash
 # macOS / Linux
-pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-plugin-guide   # ou <project>/.agents/skills/dsh-plugin-guide
+pwsh -File scripts/install-skill.ps1 -Target ~/.deepseek/skills/dsh-primer   # ou <project>/.agents/skills/dsh-primer
 ```
 
 O instalador pula `downloads/` (gerado) e `.github/`, e então verifica cada arquivo copiado byte a byte. Um `Copy-Item -Recurse` manual da pasta inteira também funciona.
@@ -247,7 +250,7 @@ node bin/dsh-plugin-dev.js seams no-such-seam-xyz
 no seam or capability matches "no-such-seam-xyz". This is an absence of evidence in the knowledge base, not evidence that the API is absent from your target host — check references/official-docs/ before concluding either way.
 ~~~
 
-*Observado em `plugins/dsh-plugin-guide/src/cli/lib/seams.ts:122-130; plugins/dsh-plugin-guide/src/cli/commands/seams.ts:87-92; plugins/dsh-plugin-guide/tests/seams.test.ts:88-90`*
+*Observado em `plugins/dsh-primer/src/cli/lib/seams.ts:122-130; plugins/dsh-primer/src/cli/commands/seams.ts:87-92; plugins/dsh-primer/tests/seams.test.ts:88-90`*
 
 #### Exemplos breves
 
@@ -261,7 +264,7 @@ O bundle de skill não expõe nenhum `Config` de Schemastery — ele registra a 
 
 | Surface | Kind | Notes |
 |---|---|---|
-| `dsh-plugin-guide` | skill | Registrada via `ctx.skills`; carrega `SKILL.md` + `./guide/` + `./references/` sob demanda |
+| `dsh-primer` | skill | Registrada via `ctx.skills`; carrega `SKILL.md` + `./guide/` + `./references/` sob demanda |
 | `dsh-plugin-dev` | bin (CLI) | Subcomandos `new` / `check` / `verify`; não é uma linha de plugin DSH |
 
 ## Permissions & data
@@ -287,7 +290,7 @@ Todos os canais resolvem deste repositório ou do npm, então **uma tag chega a 
 
 | Canal | Fonte da verdade | Como atualiza |
 |---|---|---|
-| npm (`dsh-plugin-guide`) | o `package.json` deste repositório | `.github/workflows/release.yml` numa tag `v*`: portão `verify-kit` → verificação da seção do CHANGELOG → `npm publish --provenance` (ignorado quando a versão já existe) |
+| npm (`dsh-primer`) | o `package.json` deste repositório | `.github/workflows/release.yml` numa tag `v*`: portão `verify-kit` → verificação da seção do CHANGELOG → `npm publish --provenance` (ignorado quando a versão já existe) |
 | GitHub Release | a mesma tag | o mesmo workflow a cria de forma idempotente |
 | Selos de descoberta (versão npm, tag do GitHub, DSH Market, dsh-doctor) | consultas ao vivo | nada a publicar — leem o npm/o registro a cada render |
 | Espelho do Gitee | este repositório | **espelho agendado somente leitura**, não um destino de publicação: o workflow `gitee-sync` da família o alinha ao tip do GitHub com `--force-with-lease`, então `main` costuma ficar uma execução atrás. **Aqui nunca se envia tag ao Gitee**; compare com `git ls-remote` antes de reportar o espelho desatualizado |
@@ -400,7 +403,7 @@ Este projeto faz parte da família de plugins do DeepSeek Harness da [PerryLink]
 | **[dsh-pipeline-check](https://github.com/PerryLink/dsh-pipeline-check)** |  |
 | **[dsh-pleading-draft](https://github.com/PerryLink/dsh-pleading-draft)** |  |
 | **[dsh-plugin-doctor](https://github.com/PerryLink/dsh-plugin-doctor)** |  |
-| **[dsh-plugin-guide](https://github.com/PerryLink/dsh-plugin-guide)** |  |
+| **[dsh-primer](https://github.com/PerryLink/dsh-primer)** |  |
 | **[dsh-plugin-kit](https://github.com/PerryLink/dsh-plugin-kit)** |  |
 | **[dsh-plugin-upgrade](https://github.com/PerryLink/dsh-plugin-upgrade)** |  |
 | **[dsh-policy-brief-draft](https://github.com/PerryLink/dsh-policy-brief-draft)** |  |
@@ -446,7 +449,7 @@ Mantido pela comunidade, **não** é um produto oficial da DeepSeek. O DeepSeek 
 
 ## License
 
-[Apache License 2.0](LICENSE) © 2026 dsh-plugin-guide contributors — nosso próprio texto (`SKILL.md`, `guide/`, `references/`, `scripts/`, este README) é Apache-2.0; o conteúdo de terceiros empacotado é documentado em [NOTICE.md](NOTICE.md).
+[Apache License 2.0](LICENSE) © 2026 dsh-primer contributors — nosso próprio texto (`SKILL.md`, `guide/`, `references/`, `scripts/`, este README) é Apache-2.0; o conteúdo de terceiros empacotado é documentado em [NOTICE.md](NOTICE.md).
 
 ### Instalar a partir do mercado do DSH Desktop
 
