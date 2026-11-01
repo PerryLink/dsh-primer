@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1] - 2026-11-02
+
+### Fixed
+
+- Rename the bundle entry and skill id to `dsh-primer` so the published package registers the new name.
+- Update the internal plugin-doctor gate to use `dsh-clinic`.
+
+
 ## [0.4.0] - 2026-11-02
 
 ### Changed
