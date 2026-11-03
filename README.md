@@ -22,7 +22,7 @@ Then just ask: *"Use the dsh-primer skill to build me a … plugin."*
 [![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-primer?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-primer?ref=badge)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-primer/badge)](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-primer)
 
-> **Official repository.** This is the only official repository of dsh-primer, maintained by PerryLink. Same-name repositories under other accounts are not affiliated.
+> **Canonical repository.** This is the repository dsh-primer is published from, maintained by PerryLink. Same-name repositories under other accounts are not affiliated.
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
