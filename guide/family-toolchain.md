@@ -70,7 +70,7 @@
 | `R3` | `cordis.patch.yml` 结构（启发式）：存在、解析为顶层 YAML **数组**；空数组合法；非空必须含 `- insert:` 与 ≥1 个 `id:`；每个 `name:` 等于或命名空间在包名之下 | skip · fail · pass | 否 |
 | `R4` | 入口契约：`main`/`exports` 入口存在且同时导出 `apply` 与 `name`；`inject` 是字符串字面量数组 | fail · warn · pass · skip | 否 |
 | `R5` | 依赖策略：① 任何位置不许裸 `cordis`/`schemastery`；② 导入的 `@deepseek-ai/cordis` 必须被声明；③ 它必须在 `peerDependencies` **和** `devDependencies`，**绝不** `dependencies`；④ `@deepseek-ai/dsh` 不得是直接 `dependencies` | fail · pass · skip | 否（`policy`） |
-| `R6` | `engines.node` 兼容 `^22.19.0 \|\| >=24.0.0`（只声明 Node 23 会失败） | fail · warn · pass | 否 |
+| `R6` | `engines.node` 覆盖 Node 24；`^22.19.0 \|\| >=24.0.0` 或（跟随 dsh 0.2.2-alpha.3 起）`>=24.9.0` 均可，只声明 Node 23 会失败 | fail · warn · pass | 否 |
 | `R7` | `files` 白名单已声明且覆盖入口 + patch；需要构建时入口不得指向源码 | fail · pass | 否 |
 | `R8` | 不得有指向已被取代的预发布线的陈旧 peer 范围（`0.1.0-rc.*`、`0.1.1-rc.*`、`0.1.2-alpha.*`、`0.1.3-alpha.*`），也不得有开顶 `>=` 范围 | skip · fail · warn · pass | 否（`policy`；"报告**陈旧**，不是**损坏**"） |
 

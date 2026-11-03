@@ -23,7 +23,7 @@
 | npm `alpha` / `next` | `alpha`=`0.2.1-alpha.2`、`next`=`0.2.0-rc.2` |
 | 是否存在稳定版 | **否**。全部 31 个 npm 版本都是 `-alpha.N`/`-rc.N`，全部 26 个 GitHub Release 都是 `prerelease: true` |
 | 区间内发布线（9 个） | `0.1.6-alpha.2`(09-17) → `0.1.7-alpha.1`(09-22) → `0.1.5-rc.3`(09-22) → `0.1.7-alpha.2`(09-22) → `0.1.7-rc.1`(09-23) → `0.1.7-rc.2`(09-24) → `0.2.0-rc.1`(09-28) → `0.2.0-rc.2`(09-29) → `0.2.1-alpha.1`(10-03) |
-| Node 门槛 | `^22.19.0 \|\| >=24.0.0`，**区间内未变**（无 `.nvmrc`/`.node-version` 文件） |
+| Node 门槛 | `^22.19.0 \|\| >=24.0.0`；跟随 dsh 0.2.2-alpha.3 的包可用 `>=24.9.0`（无 `.nvmrc`/`.node-version` 文件） |
 | `dsh.version` 字段 | **不存在**。DSH 的包清单只有 `dsh.bundle` / `dsh.profile` / `dsh.client` 三组键 |
 | 官方发布说明在哪 | 仓库里**没有 `CHANGELOG.md`**、也没有 `docs/persistence-changes/releases/*` 新条目，所以逐版本说明只在 GitHub **Releases** 的 body 里（`gh release view <tag>` 或 Releases API）。本文件的每一条都对照过 tag `dsh-v0.1.7-alpha.1` / `dsh-v0.2.0-rc.2` / `dsh-v0.2.1-alpha.1` 的发布说明 |
 

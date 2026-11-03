@@ -311,8 +311,12 @@ function checkManifestEngines(_root: string, pkg?: PackageJson): CheckResult {
   }
   const has22 = /\b22\b/.test(node)
   const has24 = /\b24\b/.test(node)
-  if (!has22 || !has24) {
-    return { id: 'manifest-engines', severity: 'error', kind: 'deterministic', status: 'fail', message: `engines.node "${node}" should allow Node 22 and 24 (^22.19.0 || >=24.0.0)`, skillRef: ref }
+  // 2026-11-03: dsh 0.2.2-alpha.3 raised the host floor to Node 24.9. A package
+  // that follows that floor may drop Node 22, as long as the range starts at 24
+  // (a bare ">=24.0.0" or "^24.x" is fine). Ranges that also cover 22 still pass.
+  const modernOnly = /^(>=\s*|\^|~)?\s*24(\.|$|\s)/.test(node.trim())
+  if (!has24 || (!has22 && !modernOnly)) {
+    return { id: 'manifest-engines', severity: 'error', kind: 'deterministic', status: 'fail', message: `engines.node "${node}" must cover Node 24; drop Node 22 only with a range that starts at 24 (e.g. ">=24.9.0")`, skillRef: ref }
   }
   return { id: 'manifest-engines', severity: 'error', kind: 'deterministic', status: 'pass', message: `engines.node "${node}" covers Node 22 and 24`, skillRef: ref }
 }
