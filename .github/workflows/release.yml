@@ -25,11 +25,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-          # No `registry-url` on purpose: it writes
-          # `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` into a local
-          # .npmrc, and with the secret retired that line is an EMPTY bearer token -
-          # the registry then answers 404 on PUT instead of letting npm perform the
-          # OIDC trusted-publishing exchange.
+          registry-url: 'https://registry.npmjs.org'
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
@@ -90,9 +86,8 @@ jobs:
       - name: Publish to npm
         id: publish
         env:
-          # npm's OIDC exchange never throws: a failure is only visible at verbose
-          # level, otherwise the step just fails with ENEEDAUTH and no reason.
           NPM_CONFIG_LOGLEVEL: verbose
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           version="$(node -p "require('./package.json').version")"
           if npm view "dsh-primer@${version}" version >/dev/null 2>&1; then
