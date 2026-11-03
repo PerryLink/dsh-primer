@@ -28,7 +28,7 @@ Then just ask: *"Use the dsh-primer skill to build me a … plugin."*
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
 [![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-primer.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
-[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
+[![Node](https://img.shields.io/badge/node-%3E%3D24.9-brightgreen.svg)](#)
 [![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-primer/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-primer/actions)
 [![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-primer?label=version)](https://github.com/PerryLink/dsh-primer/releases)
 [![npm version](https://img.shields.io/npm/v/dsh-primer)](https://www.npmjs.com/package/dsh-primer)
@@ -106,7 +106,7 @@ content counts as stated in the README (What you get)
 | Surface | Status |
 |---|---|
 | Harness | DeepSeek Harness `dsh-v0.2.1-alpha.2` (`d743267388641bc76f17c45ce8b4c231aed1d32c`, the newest master tag **and** master HEAD, 2026-10-09); npm `latest` = `next` = `0.2.0-rc.2`, `alpha` = `0.2.1-alpha.2`. **There is no stable line** — all 31 npm versions and all 26 GitHub Releases are prereleases. The official-docs mirror is pinned to that same commit (429 md pages, re-synced 2026-10-13; see [references/official-docs/SNAPSHOT.md](references/official-docs/SNAPSHOT.md)). `guide/migration-0.2.md` covers `0.1.6-alpha.2` → `0.2.1-alpha.1` in §0–§12 and `0.2.1-alpha.1` → `0.2.1-alpha.2` as 19 citable seams in §13; the 20 breaking-change guides added since the previous baseline (19 under `v0.2.1-alpha.1` plus one backfilled into `v0.2.0-rc.2`) are all in the mirror. |
-| Node | `^22.19.0 || >=24.0.0` (DeepSeek Harness runtime) |
+| Node | `>=24.9.0` (DeepSeek Harness 0.2.2 runtime) |
 | Platforms | All (plain ESM bundle; no native code, no network) |
 | Model | Any (no model interaction) |
 
