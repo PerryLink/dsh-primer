@@ -1,3 +1,11 @@
+## [0.4.3] - 2026-11-03
+
+### Fixed
+
+- Rebuilt from source so the published package matches the repository
+  (`dist/` is generated, not committed).
+- README no longer calls the repository "official".
+
 # Changelog
 
 ## [0.4.2] - 2026-11-03
