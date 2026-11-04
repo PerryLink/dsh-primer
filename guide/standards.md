@@ -70,7 +70,7 @@ G0–G2 and G4 pass in static inspection, which supports `recognized`; `runtime`
 
 **What it does not claim.** Security, UI correctness, production readiness, full feature correctness, official endorsement, or that the plugin will work on an untested DSH line.
 
-**How to self-check.** Record `dsh --version`, the host commit, and the artifact mtime. Run `dsh-plugin-dev check --json` for the 16 local static checks (a subset of `dsh-plugin-doctor`'s 33 — see [family-toolchain.md](family-toolchain.md)), then the standards repo's entry checker (commands below). For bundles, also run `dsh --profile <name> --dump-config` and look for `patch: entry <id> not found`, then boot and read the row states. Write the claim as `DSH-ENTRY: runtime (dsh 0.2.1-rc.2, commit <sha>, 2026-11-01)`.
+**How to self-check.** Record `dsh --version`, the host commit, and the artifact mtime. Run `dsh-plugin-dev check --json` for the 16 local static checks (a subset of `dsh-plugin-doctor`'s 33 — see [family-toolchain.md](family-toolchain.md)), then the standards repo's entry checker (commands below). For bundles, also run `dsh --profile <name> --dump-config` and look for `patch: entry <id> not found`, then boot and read the row states. Write the claim as `DSH-ENTRY: runtime (dsh 0.2.2-alpha.3, commit <sha>, 2026-11-04); Node >=24.9`.
 
 ## DSH-FLOW: adoption experience
 

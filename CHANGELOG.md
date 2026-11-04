@@ -1,3 +1,13 @@
+# Changelog
+
+## [0.4.4] - 2026-11-04
+
+### Changed
+
+- Update the DSH-ENTRY self-check example to `dsh 0.2.2-alpha.3` and Node `>=24.9`.
+- The `data/facts.json` mirror remains the 2026-10-18 `dsh-v0.2.1-rc.2` snapshot; it is historical evidence, not the current baseline.
+- Verified: `vitest run` 82/82.
+
 ## [0.4.3] - 2026-11-03
 
 ### Fixed
@@ -5,8 +15,6 @@
 - Rebuilt from source so the published package matches the repository
   (`dist/` is generated, not committed).
 - README no longer calls the repository "official".
-
-# Changelog
 
 ## [0.4.2] - 2026-11-03
 
