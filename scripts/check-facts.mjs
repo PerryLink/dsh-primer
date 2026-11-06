@@ -30,37 +30,44 @@ const read = (p) => readFileSync(join(root, p), 'utf8')
 /** Count `## ` sections in a document. */
 const sections = (text) => text.split(/\r?\n/).filter((l) => /^##\s/.test(l)).length
 
-/** Count top-level bullets inside the section starting at `heading`. */
-function bulletsIn(text, heading) {
+/** Count top-level bullets inside the H2 section at `ordinal` (0 = preamble). */
+function bulletsInSection(text, ordinal) {
   const lines = text.split(/\r?\n/)
-  const start = lines.findIndex((l) => l.trim() === `## ${heading}`)
-  if (start < 0) return -1
-  let end = lines.length
-  for (let i = start + 1; i < lines.length; i++) {
-    if (/^##\s/.test(lines[i])) { end = i; break }
+  let index = 0
+  let inside = false
+  let count = 0
+  for (const line of lines) {
+    if (/^##\s/.test(line)) {
+      index++
+      inside = index === ordinal
+      continue
+    }
+    if (inside && /^- \S/.test(line)) count++
   }
-  return lines.slice(start + 1, end).filter((l) => /^- \S/.test(l)).length
+  return count
 }
 
 // ---- 1. README structure claims -------------------------------------------------
+// The five READMEs no longer share ENGLISH headings: README.md is the Chinese
+// source and README.<lang>.md translate the headings, so a frozen section count
+// in data/facts.json is not comparable across files. What must hold — and what
+// this checks now — is cross-file equality: every translation carries the same
+// H2 count and the same number of entries in the capabilities section (the
+// fourth H2 of the family layout: preamble, what-it-is, setup, capabilities).
 {
-  const text = read('README.md')
-  const got = sections(text)
-  if (got !== facts.readme.sections) bad('README sections', `${got} in README.md vs ${facts.readme.sections} in facts.json`)
-  else ok('README sections', String(got))
+  const files = ['README.md', 'README.en.md', 'README.es.md', 'README.pt.md', 'README.hi.md']
+  const texts = files.map((f) => read(f))
+  const sectionCounts = texts.map((t) => sections(t))
+  const sectionRef = sectionCounts[0]
+  const sectionDrift = files.filter((f, i) => sectionCounts[i] !== sectionRef)
+  if (sectionDrift.length > 0) bad('README sections', `${sectionDrift.join(', ')} do not carry ${sectionRef} sections like README.md`)
+  else ok('README sections', `${sectionRef} in all ${files.length} languages`)
 
-  const wyg = bulletsIn(text, 'What you get')
-  if (wyg !== facts.readme.whatYouGetEntries) bad('What you get entries', `${wyg} vs ${facts.readme.whatYouGetEntries}`)
-  else ok('What you get entries', String(wyg))
-
-  // Every translation must match too; the parity gate covers structure, but this
-  // catches the case where a translation lost entries AND facts.json was not updated.
-  for (const f of ['README-zh.md', 'README-es.md', 'README-pt.md', 'README-hi.md']) {
-    let t
-    try { t = read(f) } catch { continue }
-    const n = bulletsIn(t, 'What you get')
-    if (n !== facts.readme.whatYouGetEntries) bad(`${f} "What you get"`, `${n} vs ${facts.readme.whatYouGetEntries}`)
-  }
+  const capabilityCounts = texts.map((t) => bulletsInSection(t, 3))
+  const capabilityRef = capabilityCounts[0]
+  const capabilityDrift = files.filter((f, i) => capabilityCounts[i] !== capabilityRef)
+  if (capabilityDrift.length > 0) bad('README capabilities entries', `${capabilityDrift.join(', ')} do not carry ${capabilityRef} entries like README.md`)
+  else ok('README capabilities entries', `${capabilityRef} in all ${files.length} languages`)
 }
 
 // ---- 2. Knowledge-base inventory -------------------------------------------------

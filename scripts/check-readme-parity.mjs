@@ -22,12 +22,12 @@ const json = process.argv.includes('--json')
 const maxArg = process.argv.indexOf('--max-drift')
 const maxDrift = maxArg >= 0 ? Number(process.argv[maxArg + 1] ?? 0) : 0
 
-/** The English source and its translations, for each family. */
+/** The Chinese source and its translations, for each family. */
 const FAMILIES = [
   {
     name: 'README',
     base: 'README.md',
-    variants: ['README-zh.md', 'README-es.md', 'README-pt.md', 'README-hi.md'],
+    variants: ['README.en.md', 'README.es.md', 'README.pt.md', 'README.hi.md'],
   },
   {
     name: 'quick-reference',

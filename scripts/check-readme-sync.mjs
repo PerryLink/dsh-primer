@@ -1,27 +1,34 @@
 #!/usr/bin/env node
-// Five-language README sync gate: the English file is the source of truth.
+// Five-language README sync gate: the Chinese file is the source of truth.
 //
-// The READMEs keep ENGLISH `## ` headings in every language (only the prose is
-// translated), so heading TEXT is not compared — a translation that legitimately
-// localises a heading would fail for no reason, and `check-readme-parity.mjs`
-// already compares block-level structure. What this gate owns is:
-//   * the NUMBER and ORDER of `## ` sections (a section added to English must be
-//     added everywhere), and
-//   * the configuration-table keys, which are API names and must match verbatim.
-// The quick references are the opposite convention (translated headings); they
-// are covered by the parity gate instead.
+// The READMEs translate their `## ` headings into each language (the family
+// standard: README.md is Simplified Chinese, README.<lang>.md are the
+// translations), so heading TEXT is not compared — a translation that
+// localises a heading must not fail for no reason, and
+// `check-readme-parity.mjs` already compares block-level structure. What this
+// gate owns is:
+//   * the NUMBER and ORDER of `## ` sections (a section added to the Chinese
+//     source must be added everywhere), and
+//   * the configuration-table keys, which are API names and must match
+//     verbatim (the Configuration / 配置 / Configuración / Configuração /
+//     कॉन्फ़िगरेशन section, whichever language spells it).
+// The quick references keep the opposite convention (English headings in every
+// language); they are covered by the parity gate instead.
 import { readFileSync, existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 const LANGUAGES = [
-  ['README.md', 'en'],
-  ['README-zh.md', 'zh'],
-  ['README-es.md', 'es'],
-  ['README-pt.md', 'pt'],
-  ['README-hi.md', 'hi'],
+  ['README.md', 'zh'],
+  ['README.en.md', 'en'],
+  ['README.es.md', 'es'],
+  ['README.pt.md', 'pt'],
+  ['README.hi.md', 'hi'],
 ]
+
+/** The configuration section heading, in any of the five README languages. */
+const CONFIG_HEADING = /^##\s+(?:Configuration|配置|Configuración|Configuração|कॉन्फ़िगरेशन)\s*$/u
 
 const headingsOf = (text) => text.split(/\r?\n/u)
   .map(line => /^##\s+(.+)$/u.exec(line)?.[1]?.trim())
@@ -31,7 +38,7 @@ const headingsOf = (text) => text.split(/\r?\n/u)
 // "Configuration" section (until the next `## ` heading).
 const configKeysOf = (text) => {
   const lines = text.split(/\r?\n/u)
-  const start = lines.findIndex(line => /^##\s+Configuration\s*$/u.test(line))
+  const start = lines.findIndex(line => CONFIG_HEADING.test(line))
   if (start === -1) return []
   const end = lines.findIndex((line, index) => index > start && line.startsWith('## '))
   const section = lines.slice(start, end === -1 ? undefined : end)
