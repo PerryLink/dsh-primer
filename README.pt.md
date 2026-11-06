@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-dark.svg">
-  <img src="docs/assets/dsh-primer-flow-light.svg" width="100%" alt="Montagem e chamada do dsh-primer: cordis.patch.yml insere uma linha → index.js registra a skill via ctx.skills → SKILL.md, guide/ e references/ carregam sob demanda; o CLI dsh-plugin-dev new/check/verify fica ao lado">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-hero-en-dark.webp">
+  <img src="docs/assets/dsh-primer-hero-en-light.webp" width="100%" alt="dsh-primer: pergunte primeiro a versão do host — a base de conhecimento carrega como skill de agente sob demanda; só name + description ficam no catálogo, o corpo do SKILL.md carrega ao ser acionado e guide/ e references/ são lidos apenas quando citados; além do CLI dsh-plugin-dev new / check / verify">
 </picture>
 
 # dsh-primer
@@ -46,6 +46,11 @@ Por que não basta ler a documentação oficial? Porque ela é escrita para quem
 | **"Contra qual DSH eu estou desenvolvendo?"** | Uma [matriz de versões](guide/version-matrix.md): os cinco valores que se chamam "latest", as tags `latest` congeladas dos subpacotes, os seams de mudança incompatível e como escolher um intervalo de `peerDependencies`. **Não existe linha estável.** |
 | **"O que esta versão quebra?"** | Um [guia de migração](guide/migration-0.2.md) que organiza `0.1.6-alpha.2` → `0.2.1-alpha.2` como seams citáveis, cada um com sintoma *e* correção e sua fonte oficial, incluindo um risco de perda de dados e uma mudança que faz os prompts falharem antes de a requisição ao modelo ser montada. |
 | **"Meu plugin está realmente correto?"** | Um [CLI sem dependências](SKILL.md) (`dsh-plugin-dev new / check / verify`) mais um [espelho literal offline](references/official-docs/) da documentação oficial, para que o agente cite a página exata em vez de adivinhar. |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="Estrutura de dois canais do dsh-primer: um bundle somente leitura alimenta uma camada cognitiva (registro da skill → uma entrada de catálogo → páginas sob demanda) e uma camada mecânica (new / check / verify / seams); os dois canais convergem num mesmo veredicto">
+</picture>
 
 ## Instalação em três passos
 
@@ -361,7 +366,7 @@ pnpm pack
 pwsh -File scripts/verify-kit.ps1   # caminhos críticos + varredura de links (+ deriva de docs com -Checkout <checkout>)
 ```
 
-As imagens do README são geradas por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow); é idempotente e reescreve `docs/assets/dsh-primer-flow-{light,dark}.svg`.
+As imagens do README são geradas por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow para o hero, SVG escrito à mão para o diagrama); é idempotente e reescreve `docs/assets/dsh-primer-hero-{zh,en}-{light,dark}.webp` e `docs/assets/dsh-primer-flow-v5-{light,dark}.svg`.
 
 Tópicos: `dsh`, `deepseek-harness`, `dsh-plugin`, `cordis`, `agent-skill`, `plugin-development`, `knowledge-base`, `cli`, `scaffold`, `checker`
 

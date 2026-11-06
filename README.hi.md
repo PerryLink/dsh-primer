@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-dark.svg">
-  <img src="docs/assets/dsh-primer-flow-light.svg" width="100%" alt="dsh-primer का संयोजन और कॉल पथ: cordis.patch.yml एक पंक्ति जोड़ता है → index.js, ctx.skills से स्किल रजिस्टर करता है → SKILL.md, guide/ और references/ माँगने पर लोड होते हैं; साथ में dsh-plugin-dev new/check/verify CLI">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-hero-en-dark.webp">
+  <img src="docs/assets/dsh-primer-hero-en-light.webp" width="100%" alt="dsh-primer: पहले होस्ट संस्करण पूछें — ज्ञान-आधार माँगने पर एजेंट स्किल के रूप में लोड होता है; कैटलॉग में केवल name + description रहते हैं, ट्रिगर पर SKILL.md का मुख्य भाग लोड होता है और guide/ तथा references/ केवल उद्धरण पर पढ़े जाते हैं; साथ में dsh-plugin-dev new / check / verify CLI">
 </picture>
 
 # dsh-primer
@@ -46,6 +46,11 @@ dsh plugin --profile <name> add dsh-primer
 | **"मैं किस DSH के लिए बना रहा हूँ?"** | एक [संस्करण मैट्रिक्स](guide/version-matrix.md): वे पाँच मान जो स्वयं को "latest" कहते हैं, उप-पैकेजों के जमे हुए `latest` टैग, असंगत-बदलाव seam, और `peerDependencies` रेंज कैसे चुनें। **कोई स्थिर लाइन नहीं है।** |
 | **"यह संस्करण क्या तोड़ता है?"** | एक [माइग्रेशन गाइड](guide/migration-0.2.md) जो `0.1.6-alpha.2` → `0.2.1-alpha.2` को उद्धरण-योग्य seam के रूप में व्यवस्थित करता है, हर एक में लक्षण *और* समाधान तथा आधिकारिक स्रोत — जिसमें डेटा-हानि का एक जोखिम और एक ऐसा बदलाव शामिल है जो मॉडल अनुरोध बनने से पहले ही prompt विफल कर देता है। |
 | **"मेरा प्लगइन सचमुच सही है?"** | एक [शून्य-निर्भरता CLI](SKILL.md) (`dsh-plugin-dev new / check / verify`) और आधिकारिक दस्तावेज़ों का [शब्दशः ऑफ़लाइन मिरर](references/official-docs/), ताकि एजेंट अनुमान न लगाए बल्कि सटीक पृष्ठ उद्धृत करे। |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="dsh-primer की दो-चैनल संरचना: एक केवल-पढ़ने योग्य bundle संज्ञानात्मक परत (स्किल पंजीकरण → कैटलॉग में एक प्रविष्टि → माँगने पर पृष्ठ) और यांत्रिक परत (new / check / verify / seams) को भरता है; दोनों चैनल एक ही निष्कर्ष पर मिलते हैं">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -361,7 +366,7 @@ pnpm pack
 pwsh -File scripts/verify-kit.ps1   # महत्वपूर्ण पथ + लिंक स्कैन (+ -Checkout <checkout> के साथ दस्तावेज़ ड्रिफ़्ट)
 ```
 
-README के चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से बनते हैं (Python + Pillow); यह इडेम्पोटेंट है और `docs/assets/dsh-primer-flow-{light,dark}.svg` फिर से लिखता है।
+README के चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से बनते हैं (hero के लिए Pillow, आरेख के लिए हाथ से लिखा SVG); यह इडेम्पोटेंट है और `docs/assets/dsh-primer-hero-{zh,en}-{light,dark}.webp` तथा `docs/assets/dsh-primer-flow-v5-{light,dark}.svg` फिर से लिखता है।
 
 विषय: `dsh`, `deepseek-harness`, `dsh-plugin`, `cordis`, `agent-skill`, `plugin-development`, `knowledge-base`, `cli`, `scaffold`, `checker`
 

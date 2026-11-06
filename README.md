@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-dark.svg">
-  <img src="docs/assets/dsh-primer-flow-light.svg" width="100%" alt="dsh-primer 装配与调用：cordis.patch.yml 插入一行 → index.js 经 ctx.skills 注册技能 → SKILL.md 与 guide/、references/ 按需加载；另附 dsh-plugin-dev new/check/verify CLI">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-primer-hero-zh-light.webp" width="100%" alt="dsh-primer：先问版本，再写插件——知识库以 agent 技能按需加载，会话目录只常驻 name + description，触发后读 SKILL.md，引用时再取 guide/ 与 references/；另附 dsh-plugin-dev new / check / verify CLI">
 </picture>
 
 # dsh-primer
@@ -46,6 +46,11 @@ dsh plugin --profile <name> add dsh-primer
 | **"我到底在对着哪一版开发？"** | [版本矩阵](guide/version-matrix.md)：五个都自称"最新"的值、子包 `latest` 冻结陷阱、破坏性变更断层，以及 `peerDependencies` 区间怎么选。**不存在稳定版**。 |
 | **"这一版破坏了什么？"** | [迁移指南](guide/migration-0.2.md)：把 `0.1.6-alpha.2` → `0.2.1-alpha.2` 整理成可引用的 seam，每条含症状*与*修法并附官方出处——包括一处数据丢失风险和一处"模型请求还没发出就失败"的变更。 |
 | **"我的插件真的对吗？"** | [零依赖 CLI](SKILL.md)（`dsh-plugin-dev new / check / verify`）+ [官方文档逐字离线镜像](references/official-docs/)，让 agent 能引确切页面而不是靠猜。 |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-primer-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="dsh-primer 双通道结构：同一个只读 bundle 分成认知层（技能注册 → 目录常驻 1 条 → 按需取页）与机械层（new / check / verify / seams），两条通道汇成同一个结论">
+</picture>
 
 ## 三步上手
 
@@ -361,7 +366,7 @@ pnpm pack
 pwsh -File scripts/verify-kit.ps1   # 关键路径 + 链接扫描（加 -Checkout <checkout> 做文档漂移）
 ```
 
-配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow），可重复执行、幂等覆盖 `docs/assets/dsh-primer-flow-{light,dark}.svg`。
+配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Pillow 画 hero、手写 SVG 画结构图），可重复执行、幂等覆盖 `docs/assets/dsh-primer-hero-{zh,en}-{light,dark}.webp` 与 `docs/assets/dsh-primer-flow-v5-{light,dark}.svg`。
 
 Topics：`dsh`, `deepseek-harness`, `dsh-plugin`, `cordis`, `agent-skill`, `plugin-development`, `knowledge-base`, `cli`, `scaffold`, `checker`
 
