@@ -486,3 +486,8 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 [Apache License 2.0](LICENSE) © 2026 dsh-primer contributors — our own text (`SKILL.md`, `guide/`, `references/`, `scripts/`, this README) is Apache-2.0; bundled third-party content is documented in [NOTICE.md](NOTICE.md).
 
 <p align="center"><sub>Apache-2.0 · Community plugin, not affiliated with DeepSeek.</sub></p>
+
+## Toolchain and upstream (facts, 2026-11)
+
+- This repository is the legacy development skill / CLI; current checks live in `dsh-standards`, the guide in `dsh-plugin-guide`, and the scaffolder in `dsh-plugin-start`.
+- Upstream: `dsh-plugin-hub` main includes a version-aware npm metadata check ([`4f3a560`](https://github.com/dshplugin/dsh-plugin-hub/commit/4f3a560), 2026-11-09); scope is install-time npm metadata only; it does not run ENTRY and is not an endorsement.
