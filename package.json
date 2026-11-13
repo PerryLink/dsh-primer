@@ -1,6 +1,6 @@
 {
   "name": "dsh-primer",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "DSH plugin development as an on-demand agent skill: official docs mirror, version-compatibility matrix, migration seams, measured pitfalls, plus a scaffolder, checker and pack verifier CLI.",
   "type": "module",
   "main": "index.js",

@@ -172,7 +172,7 @@ Community dev docs — templates/tutorials/pitfalls, full list in [references/co
 
 ## Key source index
 
-- Official docs verbatim: `references/official-docs/docs/**` (429 md pages, all 212 `.zh.md` pairs included, mirror at `dsh-v0.2.1-alpha.2`); the pages **not on the documentation site** (session-format-status, `upgrade-guide/**`, `persistence-changes/**`, ui-radius, web-styling, module-graph) are listed in [links.md](links.md) §2.1
+- Official docs verbatim: `references/official-docs/docs/**` (717 md pages, all 356 `.zh.md` pairs included, mirror at `dsh-v0.2.2-rc.2`); the pages **not on the documentation site** (session-format-status, `upgrade-guide/**`, `persistence-changes/**`, ui-radius, web-styling, module-graph) are listed in [links.md](links.md) §2.1
 - Migration checklist: [migration-0.2.md](migration-0.2.md) — §0–§12 cover every breaking change from `0.1.6-alpha.2` → `0.2.1-alpha.1`, and §13 covers `0.2.1-alpha.1` → `0.2.1-alpha.2` as 19 citable seams (`L1`–`L19`); each entry cites its official upgrade-guide source
 - The official in-repo plugin-development skill: [references/official-plugin-dev-skill.md](../references/official-plugin-dev-skill.md)
 - Repo-root constraints: `references/official-docs/AGENTS.md`, `references/official-docs/packages/AGENTS.md`, `references/official-docs/vendor/README.md`; sync state in `references/official-docs/SNAPSHOT.md`

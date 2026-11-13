@@ -172,7 +172,7 @@ Consumer (`dsh-tool-my-cap`): `inject = ['tools','myCap']`, `ctx.tools.register(
 
 ## मुख्य स्रोत सूची
 
-- आधिकारिक दस्तावेज़ हूबहू: `references/official-docs/docs/**` (215 पृष्ठ, `.zh.md` जोड़े सहित)
+- आधिकारिक दस्तावेज़ हूबहू: `references/official-docs/docs/**` (717 पृष्ठ, 356 `.zh.md` जोड़े सहित; मिरर `dsh-v0.2.2-rc.2` पर)
 - रिपो-रूट बाधाएँ: `references/official-docs/AGENTS.md`, `references/official-docs/packages/AGENTS.md`, `references/official-docs/vendor/README.md`; सिंक स्थिति `references/official-docs/SNAPSHOT.md` में
 - साइट क्रॉल HTML: `downloads/web/site/**` (EN+ZH पूर्ण साइट) + `downloads/manifest.tsv`
 - अपस्ट्रीम Cordis: `downloads/github/cordis/**` + शोध `references/upstream-cordis.md`

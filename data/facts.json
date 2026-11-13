@@ -1,17 +1,18 @@
 {
   "schema": "dsh-plugin-guide/facts/v1",
-  "measuredAt": "2026-10-19",
+  "measuredAt": "2026-11-13",
   "notes": [
     "One home per fact. Prose, tables and badges must agree with these numbers; `scripts/check-facts.mjs` enforces the ones a machine can check.",
     "These are the counts that caused real defects when they drifted: the family roster was stated four different ways, the pitfall list was '30+' in one language and '20+' in another, and the mirror page count was '215' long after it reached 429.",
-    "Recounted 2026-11-01 after adding guide/standards.md and guide/standards.zh-CN.md: guideDocuments 19, whatYouGetEntries 11 (the standards bullet was added to all five READMEs)."
+    "Recounted 2026-11-01 after adding guide/standards.md and guide/standards.zh-CN.md: guideDocuments 19, whatYouGetEntries 11 (the standards bullet was added to all five READMEs).",
+    "Mirror recounted 2026-11-13 after re-syncing references/official-docs to deepseek-harness e8f7b93 (dsh-v0.2.2-rc.2): 717 md pages, 356 .zh.md pairs."
   ],
   "mirror": {
-    "mdPages": 481,
-    "zhPairs": 238,
-    "pinnedCommit": "687f282e8625c6b8d11ff58211a90524be2e4317",
-    "pinnedTag": "dsh-v0.2.1-rc.2",
-    "syncedAt": "2026-10-18"
+    "mdPages": 717,
+    "zhPairs": 356,
+    "pinnedCommit": "e8f7b93a344964de3dca1ace9e72b6e4d6de87cb",
+    "pinnedTag": "dsh-v0.2.2-rc.2",
+    "syncedAt": "2026-11-13"
   },
   "readme": {
     "sections": 24,

@@ -309,7 +309,7 @@ This plugin does **not** interfere with other plugins:
 
 | Surface | Status |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Current host line: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, newest tag = `dsh-v0.2.1-rc.2`; **there is no stable line** — all 31 npm versions and all 26 GitHub Releases are prereleases. The official-docs mirror is pinned to the same commit (`687f282e…`, synced 2026-10-18, 481 md pages / 238 EN-ZH pairs). |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Current host line: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, newest tag = `dsh-v0.2.1-rc.2`; **there is no stable line** — all 31 npm versions and all 26 GitHub Releases are prereleases. The official-docs mirror is pinned to `e8f7b93a…` (synced 2026-11-13, 717 md pages / 356 EN-ZH pairs). |
 | Node | `>=24.9.0` |
 | Platforms | Anywhere DSH runs (plain ESM bundle; no native code, no network) |
 | Model | Any (no model interaction: the host injects the skill body into context) |

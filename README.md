@@ -309,7 +309,7 @@ no seam or capability matches "no-such-seam-xyz". This is an absence of evidence
 
 | 维度 | 状态 |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`。当前宿主线：npm `latest` = `next` = `0.2.1-rc.2`、`alpha` = `0.2.1-alpha.5`，最新 tag = `dsh-v0.2.1-rc.2`；**不存在稳定版**——31 个 npm 版本与 26 个 GitHub Release 全是 prerelease。官方文档镜像钉在同一提交（`687f282e…`，2026-10-18 同步，481 篇 md / 238 对中英双语）。 |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`。当前宿主线：npm `latest` = `next` = `0.2.1-rc.2`、`alpha` = `0.2.1-alpha.5`，最新 tag = `dsh-v0.2.1-rc.2`；**不存在稳定版**——31 个 npm 版本与 26 个 GitHub Release 全是 prerelease。官方文档镜像钉在 `e8f7b93a…`（2026-11-13 同步，717 篇 md / 356 对中英双语）。 |
 | Node | `>=24.9.0` |
 | 平台 | 任何 DSH 可运行处（纯 ESM bundle；无原生代码、无网络） |
 | 模型 | 任意（不调用模型：技能正文由宿主注入上下文） |

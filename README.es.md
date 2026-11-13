@@ -309,7 +309,7 @@ Este plugin **no** interfiere con otros plugins:
 
 | Superficie | Estado |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Línea actual del host: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, etiqueta más reciente = `dsh-v0.2.1-rc.2`; **no existe línea estable** — las 31 versiones de npm y las 26 releases de GitHub son prereleases. El espejo de la documentación oficial está fijado al mismo commit (`687f282e…`, sincronizado el 2026-10-18, 481 páginas md / 238 pares EN-ZH). |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Línea actual del host: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, etiqueta más reciente = `dsh-v0.2.1-rc.2`; **no existe línea estable** — las 31 versiones de npm y las 26 releases de GitHub son prereleases. El espejo de la documentación oficial está fijado en `e8f7b93a…` (sincronizado el 2026-11-13, 717 páginas md / 356 pares EN-ZH). |
 | Node | `>=24.9.0` |
 | Plataformas | Donde corra DSH (bundle ESM puro; sin código nativo, sin red) |
 | Modelo | Cualquiera (sin interacción con modelos: el host inyecta el cuerpo de la skill en el contexto) |
@@ -486,3 +486,8 @@ Este proyecto forma parte de la familia de plugins de DeepSeek Harness de [Perry
 [LICENSE](LICENSE) (Apache License 2.0) © 2026 dsh-primer contributors — nuestro propio texto (`SKILL.md`, `guide/`, `references/`, `scripts/`, este README) es Apache-2.0; el contenido de terceros empaquetado está documentado en [NOTICE.md](NOTICE.md).
 
 <p align="center"><sub>Apache-2.0 · Plugin de la comunidad, no afiliado a DeepSeek.</sub></p>
+
+## Cadena de herramientas y upstream (datos, 2026-11)
+
+- Este repositorio es la skill / CLI de desarrollo heredada; las comprobaciones actuales viven en `dsh-standards`, la guía en `dsh-plugin-guide` y el generador en `dsh-plugin-start`.
+- Upstream: `dsh-plugin-hub` main incluye una comprobación de metadatos npm consciente de la versión ([`4f3a560`](https://github.com/dshplugin/dsh-plugin-hub/commit/4f3a560), 2026-11-09); el alcance es solo metadatos npm en la instalación; no ejecuta ENTRY ni constituye un aval.

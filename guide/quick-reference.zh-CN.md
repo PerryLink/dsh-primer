@@ -171,7 +171,7 @@ Chunk 协议：`block-start` → `text-delta*` → `block-end`（完整块）→
 
 ## 关键源索引
 
-- 本地官方文档全文：`references/official-docs/docs/**`（429 篇，含全部 212 个 `.zh.md`；镜像基线 `dsh-v0.2.1-alpha.2`）；**没上文档站**的那些页（session-format-status、`upgrade-guide/**`、`persistence-changes/**`、ui-radius、web-styling、module-graph）见 [links.md](links.md) §2.1
+- 本地官方文档全文：`references/official-docs/docs/**`（717 篇，含全部 356 个 `.zh.md`；镜像基线 `dsh-v0.2.2-rc.2`）；**没上文档站**的那些页（session-format-status、`upgrade-guide/**`、`persistence-changes/**`、ui-radius、web-styling、module-graph）见 [links.md](links.md) §2.1
 - 迁移清单：[migration-0.2.md](migration-0.2.md) —— §0–§12 覆盖 `0.1.6-alpha.2` → `0.2.1-alpha.1` 的全部破坏性变更，**§13 把 `0.2.1-alpha.1` → `0.2.1-alpha.2` 整理成 19 个可引用 seam（`L1`–`L19`）**；每条都附官方 upgrade-guide 出处
 - 官方自带插件开发技能：[references/official-plugin-dev-skill.md](../references/official-plugin-dev-skill.md)
 - 仓库根约束：`references/official-docs/AGENTS.md`、`references/official-docs/packages/AGENTS.md`、`references/official-docs/vendor/README.md`；同步状态见 `references/official-docs/SNAPSHOT.md`

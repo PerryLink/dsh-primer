@@ -10,7 +10,7 @@ $info = New-Object System.Collections.Generic.List[string]
 
 # ---- 1) 关键路径 ----
 $critical = @(
-  'SKILL.md','README.md','README-zh.md','README-es.md','README-pt.md','README-hi.md','LICENSE','NOTICE.md','.gitignore',
+  'SKILL.md','README.md','README.en.md','README.es.md','README.pt.md','README.hi.md','LICENSE','NOTICE.md','.gitignore',
   # 2026-10-13: 入口点与行尾策略。index.js/index.d.ts 曾是唯一无测试、也不受门禁保护的出厂代码，
   # CRLF 缺陷就是从那里进的（见 tests/entry.test.ts 顶部注释）；.gitattributes 是那类缺陷的根治手段。
   'index.js','index.d.ts','.gitattributes',
@@ -135,7 +135,7 @@ if ($Checkout -and (Test-Path $Checkout)) {
       'CONTRIBUTING.md'        = 'CONTRIBUTING.md';
       'CONTRIBUTING.zh.md'     = 'CONTRIBUTING.zh.md';
       'CONTRIBUTING.i18n.yaml' = 'CONTRIBUTING.i18n.yaml';
-      'README-zh.md'           = 'README-zh.md';
+      'README.zh.md'           = 'README.zh.md';
       'README.i18n.yaml'       = 'README.i18n.yaml';
       'THIRD_PARTY_NOTICES.md' = 'THIRD_PARTY_NOTICES.md';
       'LICENSE'                = 'LICENSE';
