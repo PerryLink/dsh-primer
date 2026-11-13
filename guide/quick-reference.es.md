@@ -172,7 +172,7 @@ Documentación comunitaria de desarrollo — plantillas/tutoriales/errores, list
 
 ## Índice de fuentes clave
 
-- Documentación oficial textual: `references/official-docs/docs/**` (215 páginas, incluye pares `.zh.md`)
+- Documentación oficial textual: `references/official-docs/docs/**` (717 páginas, incluye 356 pares `.zh.md`; espejo en `dsh-v0.2.2-rc.2`)
 - Restricciones raíz del repo: `references/official-docs/AGENTS.md`, `references/official-docs/packages/AGENTS.md`, `references/official-docs/vendor/README.md`; estado de sincronización en `references/official-docs/SNAPSHOT.md`
 - HTML del sitio: `downloads/web/site/**` (sitio completo EN+ZH) + `downloads/manifest.tsv`
 - Cordis upstream: `downloads/github/cordis/**` + investigación `references/upstream-cordis.md`

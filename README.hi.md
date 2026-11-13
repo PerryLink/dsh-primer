@@ -309,7 +309,7 @@ CI में चार द्वार चलते हैं: `check:readmes` �
 
 | सतह | स्थिति |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`। वर्तमान होस्ट लाइन: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, नवीनतम टैग = `dsh-v0.2.1-rc.2`; **कोई स्थिर लाइन नहीं** — सभी 31 npm संस्करण और सभी 26 GitHub Release prerelease हैं। आधिकारिक-दस्तावेज़ मिरर उसी कमिट पर पिन है (`687f282e…`, 2026-10-18 को सिंक, 481 md पृष्ठ / 238 EN-ZH जोड़े)। |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`। वर्तमान होस्ट लाइन: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, नवीनतम टैग = `dsh-v0.2.1-rc.2`; **कोई स्थिर लाइन नहीं** — सभी 31 npm संस्करण और सभी 26 GitHub Release prerelease हैं। आधिकारिक-दस्तावेज़ मिरर `e8f7b93a…` पर पिन है (2026-11-13 को सिंक, 717 md पृष्ठ / 356 EN-ZH जोड़े)। |
 | Node | `>=24.9.0` |
 | प्लेटफ़ॉर्म | जहाँ DSH चले (शुद्ध ESM bundle; कोई नेटिव कोड नहीं, कोई नेटवर्क नहीं) |
 | मॉडल | कोई भी (मॉडल के साथ कोई अंतःक्रिया नहीं: होस्ट स्किल-भाग को संदर्भ में डालता है) |
@@ -486,3 +486,8 @@ README के चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readm
 [LICENSE](LICENSE) (Apache License 2.0) © 2026 dsh-primer contributors — हमारा अपना पाठ (`SKILL.md`, `guide/`, `references/`, `scripts/`, यह README) Apache-2.0 है; पैक की गई तृतीय-पक्ष सामग्री [NOTICE.md](NOTICE.md) में दर्ज है।
 
 <p align="center"><sub>Apache-2.0 · सामुदायिक प्लगइन, DeepSeek से असंबद्ध।</sub></p>
+
+## टूलचेन और अपस्ट्रीम (तथ्य, 2026-11)
+
+- यह रेपो पुराना डेवलपमेंट skill / CLI है; वर्तमान जाँचें `dsh-standards` में, गाइड `dsh-plugin-guide` में और स्कैफ़ोल्डर `dsh-plugin-start` में हैं।
+- अपस्ट्रीम: `dsh-plugin-hub` main में संस्करण-जागरूक npm मेटाडेटा जाँच शामिल हो गई है ([`4f3a560`](https://github.com/dshplugin/dsh-plugin-hub/commit/4f3a560), 2026-11-09); दायरा केवल इंस्टॉल-समय npm मेटाडेटा है; यह ENTRY नहीं चलाता और कोई अनुमोदन नहीं है।

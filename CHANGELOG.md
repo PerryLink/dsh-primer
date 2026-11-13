@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.5] - 2026-11-13
+
+### Docs
+
+- Refresh `references/official-docs` to deepseek-harness `master` `e8f7b93a344964de3dca1ace9e72b6e4d6de87cb` (`dsh-v0.2.2-rc.2`) with `scripts/sync-official-docs.ps1`: 717 md pages / 356 `.zh.md` pairs (was 481 / 238). Closes the docs-drift reports #4 and #5.
+- Recount the mirror in `data/facts.json`, and cite the new pin in the five READMEs, the five quick references, `references/sources.md`, `SKILL.md`, `references/official-docs/README.md` and `guide/unfixed-issues.md`.
+- Add the missing `## Toolchain and upstream` section to the es/pt/hi READMEs; its absence is why `verify-kit` was already failing on `main`.
+- Verified: `vitest run` 82/82, `typecheck:ci`, `check:readmes`, `check:parity`, `check:facts`, `check:ps1-bom`, `build`, `verify:artifacts`.
+
 ## [0.4.4] - 2026-11-04
 
 ### Changed

@@ -309,7 +309,7 @@ Este plugin **não** interfere em outros plugins:
 
 | Superfície | Estado |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Linha atual do host: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, tag mais recente = `dsh-v0.2.1-rc.2`; **não existe linha estável** — as 31 versões do npm e as 26 releases do GitHub são prereleases. O espelho da documentação oficial está fixado no mesmo commit (`687f282e…`, sincronizado em 2026-10-18, 481 páginas md / 238 pares EN-ZH). |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Linha atual do host: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, tag mais recente = `dsh-v0.2.1-rc.2`; **não existe linha estável** — as 31 versões do npm e as 26 releases do GitHub são prereleases. O espelho da documentação oficial está fixado em `e8f7b93a…` (sincronizado em 2026-11-13, 717 páginas md / 356 pares EN-ZH). |
 | Node | `>=24.9.0` |
 | Plataformas | Onde o DSH rodar (bundle ESM puro; sem código nativo, sem rede) |
 | Modelo | Qualquer (sem interação com modelos: o host injeta o corpo da skill no contexto) |
@@ -486,3 +486,8 @@ Este projeto faz parte da família de plugins do DeepSeek Harness da [PerryLink]
 [LICENSE](LICENSE) (Apache License 2.0) © 2026 dsh-primer contributors — nosso próprio texto (`SKILL.md`, `guide/`, `references/`, `scripts/`, este README) é Apache-2.0; o conteúdo de terceiros empacotado está documentado em [NOTICE.md](NOTICE.md).
 
 <p align="center"><sub>Apache-2.0 · Plugin da comunidade, sem afiliação com a DeepSeek.</sub></p>
+
+## Cadeia de ferramentas e upstream (fatos, 2026-11)
+
+- Este repositório é a skill / CLI de desenvolvimento legada; as verificações atuais ficam em `dsh-standards`, o guia em `dsh-plugin-guide` e o gerador em `dsh-plugin-start`.
+- Upstream: `dsh-plugin-hub` main inclui uma verificação de metadados npm ciente da versão ([`4f3a560`](https://github.com/dshplugin/dsh-plugin-hub/commit/4f3a560), 2026-11-09); o escopo é apenas metadados npm na instalação; não executa ENTRY nem constitui aval.

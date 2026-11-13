@@ -5,7 +5,7 @@
 
 | 内容 | 位置 | 来源（仓库内路径） |
 |---|---|---|
-| 官方 `docs/` 全文（215 篇 md，含全部 `.zh.md` 双语对） | [`docs/`](docs/) | `docs/` |
+| 官方 `docs/` 全文（717 篇 md，含 356 个 `.zh.md` 双语对） | [`docs/`](docs/) | `docs/` |
 | 仓库根开发红线 | [`AGENTS.md`](AGENTS.md) | `AGENTS.md` |
 | CLAUDE 入口（上游为 symlink，此处为其目标文本） | [`CLAUDE.md`](CLAUDE.md) | `CLAUDE.md` → `AGENTS.md` |
 | 基准测试说明 | [`BENCHMARK.md`](BENCHMARK.md) | `BENCHMARK.md` |
