@@ -33,13 +33,13 @@
 
 ## C. 本地 checkout 文档副本（references/official-docs/）
 
-- `docs/**`（**717 个 md**，含 356 个 `.zh.md` 双语对；2026-11-13 重同步到 `dsh-v0.2.2-rc.2`）— 教程/架构/子系统/API/cookbook/upgrade-guide/persistence-changes 全量（计数以 `references/official-docs/SNAPSHOT.md` 为准）
+- `docs/**`（**709 个 md**，含 352 个 `.zh.md` 双语对；2026-11-14 按**发布 tag** `dsh-v0.2.2-rc.3`（`38a6a5c965aa99ab525161efb7cc5cf1fe62fced`）重同步，不再取 master HEAD）— 教程/架构/子系统/API/cookbook/upgrade-guide/persistence-changes 全量（计数以 `references/official-docs/SNAPSHOT.md` 为准）
 - 仓库根文件（**2026-08-14 晚新增**）：`AGENTS.md`、`CLAUDE.md`（上游为 symlink→AGENTS.md，副本存其目标文本）、`BENCHMARK.md`、`CONTRIBUTING.md`/`.zh.md`/`.i18n.yaml`、`README.zh.md`/`.i18n.yaml`、`THIRD_PARTY_NOTICES.md`、`LICENSE`
 - `packages/AGENTS.md` · `packages/README.md` · `vendor/README.md`
 - `website-docs.ts`（站点投影清单）
 - 上游英文 `README.md` 不进入本目录（与 KB 索引同名），线上快照在 `downloads/github/harness/README.md`
 - 同步脚本本次加固：pathspec 全部 `:(top)` 锚定（避免 basename 全局匹配误收仓库深处 symlink）；Windows 下无法解出的 symlink 按其 blob 目标文本落地；目的目录只保留范围内条目（曾因一次失败抽取残留污染，已由脚本自动修剪 107 项）。
-- **不在站点路由表里的重要文档**（本地有副本、站上找不到）：`session-format-status.md`、`upgrade-guide/**`（6 篇，**无 index、无任何入链**）、`persistence-changes/**`、`ui-radius.md`、`web-styling.md`、`module-graph.md`、`dependency-catalog.json`、`persistence-schema.json`——清单见 [guide/links.md](../guide/links.md) §2.1。
+- **不在站点路由表里的重要文档**（本地有副本、站上找不到）：`session-format-status.md`、`upgrade-guide/**`（rc.3 tag 内 12 个版本目录、46 条 0.2.2 线指南；**无 index、无任何入链**）、`persistence-changes/**`、`ui-radius.md`、`web-styling.md`、`module-graph.md`、`dependency-catalog.json`、`persistence-schema.json`——清单见 [guide/links.md](../guide/links.md) §2.1。
 - **官方自带插件开发技能不在 `docs/` 下**：在 `packages/preset/agent-preset/skills/**`（本库要点摘录见 [official-plugin-dev-skill.md](official-plugin-dev-skill.md)）。
 
 ## D. 社区与生态（downloads/community/ + references/community-ecosystem.md）

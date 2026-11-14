@@ -6,11 +6,13 @@
 | Item | Value |
 |---|---|
 | Source checkout | `D:\deepseek-harness` |
-| Source ref | `origin/master` |
-| Source commit | `e8f7b93a344964de3dca1ace9e72b6e4d6de87cb` |
-| Synced at (UTC) | 2026-11-13T04:36:21Z |
+| Source ref | `dsh-v0.2.2-rc.3` |
+| Source commit | `38a6a5c965aa99ab525161efb7cc5cf1fe62fced` |
+| Synced at (UTC) | 2026-11-14T04:50:35Z |
 | Scope | tracked files at the ref: `docs/`, root `AGENTS.md`, `BENCHMARK.md`, `CLAUDE.md` (symlink target text), `CONTRIBUTING.md`/`.zh.md`/`.i18n.yaml`, `README.zh.md`/`.i18n.yaml` (the upstream English `README.md` is not in this dir; its snapshot lives in `downloads/github/harness/README.md`), `THIRD_PARTY_NOTICES.md`, `LICENSE`, `packages/AGENTS.md`, `packages/README.md`, `vendor/README.md`, `website/docs.ts` |
-| File counts | docs/: 717 md files (356 .zh.md pairs) |
-| Pruned this run | 0 out-of-scope/upstream-deleted entries |
+| File counts | docs/: 709 md files (352 .zh.md pairs) |
+| Pruned this run | 12 out-of-scope/upstream-deleted entries |
+
+> Pinned to `dsh-v0.2.2-rc.3` (commit `38a6a5c965aa99ab525161efb7cc5cf1fe62fced`), not the checkout's master HEAD. Docs that exist only after this ref are not part of the snapshot.
 
 Drift check: `pwsh -File scripts/verify-kit.ps1 -Checkout <checkout>` (tracked files only).

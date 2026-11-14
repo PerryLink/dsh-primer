@@ -5,7 +5,7 @@
 
 | 内容 | 位置 | 来源（仓库内路径） |
 |---|---|---|
-| 官方 `docs/` 全文（717 篇 md，含 356 个 `.zh.md` 双语对） | [`docs/`](docs/) | `docs/` |
+| 官方 `docs/` 全文（709 篇 md，含 352 个 `.zh.md` 双语对） | [`docs/`](docs/) | `docs/` |
 | 仓库根开发红线 | [`AGENTS.md`](AGENTS.md) | `AGENTS.md` |
 | CLAUDE 入口（上游为 symlink，此处为其目标文本） | [`CLAUDE.md`](CLAUDE.md) | `CLAUDE.md` → `AGENTS.md` |
 | 基准测试说明 | [`BENCHMARK.md`](BENCHMARK.md) | `BENCHMARK.md` |
@@ -25,11 +25,16 @@
 ## 同步与校验
 
 ```sh
-# 同步（源固定为 checkout 的 origin/master，未跟踪/未推送内容不会进来）
-pwsh -File scripts/sync-official-docs.ps1 [-Checkout <deepseek-harness-checkout>]
+# 同步（默认取 checkout 的 origin/master；用 -Ref 钉一个发布 tag 得到可复现快照；未跟踪/未推送内容不会进来）
+pwsh -File scripts/sync-official-docs.ps1 [-Checkout <deepseek-harness-checkout>] [-Ref <tag|sha>]
 
-# 漂移校验（KB 与 checkout 的 git 已跟踪文件逐一哈希对比）
+# 漂移校验（有 checkout 时逐文件哈希对比）
 pwsh -File scripts/verify-kit.ps1 -Checkout <checkout>
+
+# 新鲜度校验（无 checkout；比较"最新 release tag"与 SNAPSHOT 的 Source ref）
+node scripts/check-docs-drift.mjs
 ```
 
 同步范围只包含 git 已跟踪文件；checkout 里的本地草稿（未跟踪）与未推送提交的改动不会进入本目录。同步后 README 里的"最后核验"日期与提交号请引用 `SNAPSHOT.md`。
+
+**当前快照钉的是发布 tag，不是 master HEAD**：`references/official-docs` 对齐 `dsh-v0.2.2-rc.3`（`38a6a5c9…`，709 篇 md / 352 对中英），用 `-Ref dsh-v0.2.2-rc.3` 可复现。只在 tag 之后 master 才出现的文档（例如 `docs/upgrade-guide/v0.2.2-rc.2/**` 的 13 条指南）**不属于本快照**，属于下一版内容，别把它们算进 rc.3。

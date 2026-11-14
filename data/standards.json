@@ -2,7 +2,7 @@
   "schema": "dsh-plugin-guide-standards/1",
   "version": "1.0.0",
   "nonOfficial": true,
-  "updatedAt": "2026-11-01",
+  "updatedAt": "2026-11-14",
   "localized": {
     "en": "guide/standards.md",
     "zh-CN": "guide/standards.zh-CN.md"
@@ -10,16 +10,19 @@
   "canonical": {
     "repo": "PerryLink/dsh-standards",
     "version": "1.0.0-rc.1",
-    "status": "draft",
+    "status": "published",
     "clauses": [
       "31-DSH-ENTRY入门规范.md",
       "32-DSH-FLOW顺畅规范.md",
       "33-DSH-BOOST加速实践.md",
       "34-三层分级模型-GB-GBT-GBZ类比.md"
     ],
-    "auditStatus": "available in the private standards repository; not bundled with this guide",
+    "auditStatus": "available — the checkers ship in the public dsh-standards package (>=1.6.10) and are no longer private or planned",
     "entryChecker": "40-checker/bin/dsh-plugin-verify.mjs",
-    "private": true
+    "private": false,
+    "packageName": "dsh-standards",
+    "packageVersion": "1.6.10",
+    "packageUrl": "https://www.npmjs.com/package/dsh-standards"
   },
   "disclaimer": "Not an official DeepSeek standard, not a certification, not a security audit, and not a legal GB/GB-T/GB-Z instrument. The GB analogy is a communication aid only. Certification grades A-D are orthogonal to the three levels.",
   "axes": {
@@ -271,21 +274,24 @@
   "tools": {
     "audit": {
       "path": "40-checker/scripts/level-audit.mjs",
-      "url": "40-checker/scripts/level-audit.mjs",
-      "status": "planned",
-      "command": "node 40-checker/scripts/level-audit.mjs <plugin-dir>",
-      "note": "Not bundled with this guide; run only if the file exists in your checkout."
+      "url": "https://www.npmjs.com/package/dsh-standards",
+      "status": "available",
+      "command": "dsh-levels <plugin-dir> --no-runtime --format json   # bin/dsh-levels.mjs shipped by dsh-standards",
+      "note": "Ships in the public npm package dsh-standards (>=1.6.10). Paths are relative to that package root, not to this guide.",
+      "package": "dsh-standards@1.6.10"
     },
     "entryChecker": {
       "path": "40-checker/bin/dsh-plugin-verify.mjs",
-      "url": "40-checker/bin/dsh-plugin-verify.mjs",
-      "command": "node 40-checker/bin/dsh-plugin-verify.mjs <plugin-dir> --scope entry --entry-claim static"
+      "url": "https://www.npmjs.com/package/dsh-standards",
+      "command": "node 40-checker/bin/dsh-plugin-verify.mjs <plugin-dir> --scope entry --entry-claim static",
+      "package": "dsh-standards@1.6.10",
+      "note": "Ships in the public npm package dsh-standards (>=1.6.10); path relative to that package root."
     },
     "localStatic": {
       "command": "dsh-plugin-dev check --json",
       "note": "16 static checks (a subset of dsh-plugin-doctor's 33); not a level audit."
     },
-    "private": true
+    "private": false
   },
   "certification": {
     "orthogonal": true,

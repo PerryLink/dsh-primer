@@ -70,7 +70,7 @@ G0–G2 与 G4 在静态检查里通过，支持 `recognized`；`runtime` 需要
 
 **不声称什么。** 不声称安全、UI 正确、生产可用、功能完整、官方背书，也不声称在未测过的 DSH 线上可用。
 
-**怎么自检。** 记录 `dsh --version`、宿主 commit、产物 mtime。先跑 `dsh-plugin-dev check --json` 的 16 项本地静态检查（它是 `dsh-plugin-doctor` 33 项的子集，见 [family-toolchain.md](family-toolchain.md)）；再跑标准仓的 entry 检查器（命令见下）。bundle 还要跑 `dsh --profile <name> --dump-config`，确认没有 `patch: entry <id> not found`，然后真实 boot 并读行状态。声明写成 `DSH-ENTRY: runtime (dsh 0.2.1-rc.2, commit <sha>, 2026-11-01)`。
+**怎么自检。** 记录 `dsh --version`、宿主 commit、产物 mtime。先跑 `dsh-plugin-dev check --json` 的 16 项本地静态检查（它是 `dsh-plugin-doctor` 33 项的子集，见 [family-toolchain.md](family-toolchain.md)）；再跑标准仓的 entry 检查器（命令见下）。bundle 还要跑 `dsh --profile <name> --dump-config`，确认没有 `patch: entry <id> not found`，然后真实 boot 并读行状态。声明写成 `DSH-ENTRY: runtime (dsh 0.2.2-rc.3, commit <sha>, 2026-11-14); Node >=24.9`。
 
 ## DSH-FLOW：采用体验
 

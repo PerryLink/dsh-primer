@@ -3,9 +3,9 @@
 > **这份文件回答一个问题**：我的插件要跑在哪个 DSH 上，那个版本有什么、没有什么、
 > 哪一版开始行为变了。
 >
-> **测量时间**：2026-10-09（官方版本线）／2026-10-13（生态数字）。
-> **数据来源**：npm registry `@deepseek-ai/dsh`、GitHub REST API（tags/commits/releases）、
-> 官方 `docs/upgrade-guide/**`、官方 `docs/persistence-changes/**`。逐条可复现命令见 §7。
+> **测量时间**：2026-11-14（官方版本线 = `0.2.2-rc.3`；镜像与计数同日重核）。
+> **数据来源**：npm registry `@deepseek-ai/dsh` 的 dist-tags 与版本清单、GitHub REST API（tags/releases）、
+> 官方 `docs/upgrade-guide/**`（镜像已钉发布 tag `dsh-v0.2.2-rc.3`）、官方 `docs/persistence-changes/**`。逐条可复现命令见 §7。
 >
 > **口径**：本文件只写**有出处**的数字。取不到的一律写 `未核`，不写推测值。
 > 官方说法与社区实测冲突时分别标注。
@@ -16,42 +16,44 @@
 
 这是插件作者**第一个**要做的判断。五个数可以不相等，而 peer 范围按线分叉：
 
-| # | 说法 | 值（2026-10-09） | 怎么查 | 性质 |
+| # | 说法 | 值（2026-11-14） | 怎么查 | 性质 |
 |---|---|---|---|---|
-| 1 | npm `latest` | `0.2.0-rc.2` | `npm view @deepseek-ai/dsh dist-tags` | 默认装的就是这个 |
-| 2 | npm `next` | `0.2.0-rc.2` | 同上 | 与 latest 同值 |
-| 3 | npm `alpha` | `0.2.1-alpha.2` | 同上 | 最新发布 |
-| 4 | master 最新 tag | `dsh-v0.2.1-alpha.2` | GitHub `/tags` | 源码线的名字；**等于 master HEAD** |
-| 5 | **本机实际** | — | `dsh --version` | **唯一真正要紧的数** |
+| 1 | npm `latest` | `0.2.2-rc.1` | `npm view @deepseek-ai/dsh dist-tags` | 默认装的就是这个；**它已不是最新** |
+| 2 | npm `next` | `0.2.2-rc.3` | 同上 | 最新发布（本机 CLI 即此版本） |
+| 3 | npm `alpha` | `0.2.2-alpha.3` | 同上 | alpha 通道最新 |
+| 4 | 最新 tag | `dsh-v0.2.2-rc.3`（`38a6a5c9…`，2026-11-13） | GitHub `/tags`、`/releases` | 源码线的名字；master 已合并 rc.3 发布 |
+| 5 | **本机实际** | `0.2.2-rc.3`（本库核验机） | `dsh --version` | **唯一真正要紧的数** |
 
 ### 1.1 没有"稳定版"这回事
 
-- **全部 31 个 npm 版本都带 `-alpha.N` / `-rc.N` 后缀；全部 26 个 GitHub Release 都是 `prerelease: true`。**
+- **全部 44 个 npm 版本都带 `-alpha.N` / `-rc.N` 后缀；全部 39 个 GitHub Release 都是 `prerelease: true`。** 另有 40 个 tag，比 release 多 1 个——`dsh-v0.1.5-rc.3` 有 tag 无 release。
 - 所以 npm 的 `latest` 标签在这里**不代表稳定**——它只是"默认安装会拿到的那一个"。
-- 给作者的有效读法：**最新 = `0.2.1-alpha.2`（npm `alpha`）；默认安装 = `0.2.0-rc.2`（npm `latest`/`next`）**。
+- 给作者的有效读法（2026-11-14）：**默认安装 = `0.2.2-rc.1`（npm `latest`）；最新发布 = `0.2.2-rc.3`（npm `next`，也是最新 tag `dsh-v0.2.2-rc.3`）；alpha 通道 = `0.2.2-alpha.3`**。注意 `latest` 与 `next` **已不再相等**：`latest` 落后 `next` 两个 prerelease（`rc.1` vs `rc.3`），0.2.1 时代两者同值。
 - 官方 `CONTRIBUTING.md` 明确**不接受外部 PR**，`AGENTS.md` 声明 API 处于 pre-stable。
   插件作者无法"等它稳定"，只能**钉版本 + 声明区间**。
 
 ### 1.2 ★ 陷阱：子包的 `latest` 是冻住的
 
 主包 `@deepseek-ai/dsh` 每次发版都会重发全部子包到 `alpha`/`next`，但**每个子包的 `latest`
-标签停在它第一次被设置的那个版本，永不前进**。裸装子包会装到远古版本：
+标签停在它第一次被设置的那个版本，永不前进**。裸装子包会装到远古版本（2026-11-14 实测）：
 
 | 包 | `latest`（冻住的值） | `next` | `alpha` |
 |---|---|---|---|
-| `@deepseek-ai/dsh` | `0.2.0-rc.2` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-base` | **`0.0.1-rc.1`** | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-session` | **`0.0.1-rc.1`** | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-tools` | **`0.0.1-rc.1`** | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-subagent` | **`0.0.1-rc.1`** | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-home-paths` | `0.0.1-rc.3` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-client-ui-primitives` | **`0.0.1-rc.1`** | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-agent` | `0.1.0-rc.6` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-typert-protocol` | `0.1.0-rc.6` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-package-manifest` | `0.1.3-alpha.2` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-plugin-manager` | `0.1.6-alpha.2` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-experimental-ptc-runtime-python` | `0.1.6-alpha.1` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
-| `@deepseek-ai/dsh-otel` | `0.2.0-rc.1` | `0.2.0-rc.2` | `0.2.1-alpha.2` |
+| `@deepseek-ai/dsh` | `0.2.2-rc.1`（主包 latest 已前进，但仍**不是最新**） | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-base` | **`0.0.1-rc.1`** | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-session` | **`0.0.1-rc.1`** | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-tools` | **`0.0.1-rc.1`** | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-subagent` | **`0.0.1-rc.1`** | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-home-paths` | `0.0.1-rc.3` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-client-ui-primitives` | **`0.0.1-rc.1`** | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-agent` | `0.1.0-rc.6` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-typert-protocol` | `0.1.0-rc.6` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-package-manifest` | `0.1.3-alpha.2` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-plugin-manager` | `0.1.6-alpha.2` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-experimental-ptc-runtime-python` | `0.1.6-alpha.1` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+| `@deepseek-ai/dsh-otel` | `0.2.0-rc.1` | `0.2.2-rc.3` | `0.2.2-alpha.3` |
+
+**结论三条**（不变）：1) 子包 `latest` 继续冻在远古版本，绝不裸装；2) 判断宿主代次只认 `dsh --version`；3) 共享实例的 dsh 包只放 peer + dev，区间按 §4 选。
 
 **结论三条**：
 
@@ -72,10 +74,15 @@
 | 断层 | 引入版本（目录名） | 落到哪一版 | 影响面 |
 |---|---|---|---|
 | **即插即拔基础设施** | `0.1.6-alpha.2` | 同版 | `dsh-hmr` / `dsh-plugin-manager` / `ui-plugin-manager` 三包一次性出现；新增 `ctx.hmr` / `ctx.pluginManager` / `ctx.profileContext` |
-| **peer 从"声明"变"运行时门禁"** | `0.1.7-rc.1` | 同版 | `plugin-compatibility.ts` 三文件首次出现；不匹配的行被直接 `disabled`，模块永不导入 |
+| **peer/`engines.dsh` 兼容性门禁** | `0.1.7-rc.1`（peer）→ `0.2.1-alpha.4`（engines 优先） | 同版 | 不匹配的行被直接 `disabled`，模块永不导入；**有 `engines.dsh` 时它单独决定并忽略 peers**，无它才回退 peers（见 §4） |
 | **会话格式 V4 + 本世代破坏性变更** | `0.1.7-alpha.1` | 同版 | `SESSION_FORMAT_VERSION` 3→4、settings 重写、`readBytes`、Messages-only 适配器 |
 | **0.2.0 世代清理** | `0.2.0-rc.2` | 下一版 | 移除 runtime invariants、schedule bundle 退役、子路径插件不再读 `package.json`、新增 `no-response` 错误码 |
-| **0.2.1-alpha.2 大批变更** | `0.2.1-alpha.1` | `0.2.1-alpha.2` | **19 条**破坏性变更（见 §3） |
+| **0.2.1-alpha.2 大批变更** | `0.2.1-alpha.1` | `0.2.1-alpha.2` | **19 条**破坏性变更（见 §3，`L1`–`L19`） |
+| **0.2.2-alpha.2 批次** | `0.2.2-alpha.2` | `0.2.2-alpha.3` | **22 条**（`K1`–`K22`：context menu 类型、CSS 锚定菜单、loader entry tree、projection/LLM/schedule/search 等） |
+| **0.2.2-alpha.3 批次** | `0.2.2-alpha.3` | `0.2.2-rc.1` | **5 条**（`K23`–`K27`：`office-kit` 替换 `office-to-pdf`、Office 工具化、subagent 按名寻址等） |
+| **0.2.2-rc.1 批次** | `0.2.2-rc.1` | `0.2.2-rc.2` | **19 条**（`K28`–`K46`：`dsh-doc-skill`、`plugin-update-method`、`session-append-overloads`、`window-drag-regions`、`attachment-error-codes` 等） |
+
+**rc.3 自身没有新增迁移指南**：rc.3 tag 的 `docs/upgrade-guide` 到 `v0.2.2-rc.1` 为止，上面三批合计 46 条就是 rc.3 发布包覆盖的全部 0.2.2 线变更（逐条 ID/症状/修法见 [migration-0.2.md](migration-0.2.md) §14）。rc.3 的发布内容只有**加性**实验能力（见 §6.1）。`v0.2.2-rc.2` 的 13 条指南只存在于 rc.3 **之后**的 master，**属于下一版，不要算进 rc.3**。
 
 > ⚠ **两个断层不属于同一层面，别混**：`0.1.6-alpha.2` 解决"能不能热插拔"，
 > `0.1.7-rc.1` 才解决"版本不匹配时会不会被拦"。`0.1.6-alpha.2` 上的
@@ -91,7 +98,8 @@
 ## 3. `0.2.1-alpha.1 → 0.2.1-alpha.2`：19 条破坏性变更
 
 如果你在 `0.2.0-rc.2` 或更早的线上，**这 19 条与你无关**；如果你跟的是 master/alpha 线，
-**逐条核对**。官方 release notes 也列了这 5 条为 "other changes"：Python PTC 沙箱、
+**逐条核对**。本章是 0.2.1 线；rc.3（`0.2.2-rc.2` 及更新）用户还要看
+[migration-0.2.md](migration-0.2.md) §14 的 46 条 0.2.2 线 seam（`K1`–`K46`）。官方 release notes 也列了这 5 条为 "other changes"：Python PTC 沙箱、
 `both` 模式移除、`dshHome` 移除、子代理执行统一、Agent Team 直投收件箱。
 
 | # | 变更 | 破坏了什么 | 你要做什么 |
@@ -128,23 +136,30 @@ Python 环境）。它放在旧目录属于例外——上游自己的规则是"
 
 ## 4. 我该声明什么 peer 区间
 
-两条硬事实：
+三条硬事实（rc.3 语义）：
 
-1. **peer 是运行时门禁，不是声明。** 从 `0.1.7-rc.1` 起，`app-boot/src/plugin-compatibility.ts`
-   在插件被 import **之前**校验 `peerDependencies` 里的 `@deepseek-ai/dsh` / `@deepseek-ai/dsh-*`；
+1. **`engines.dsh` 是运行时门禁，且单独决定。** 从 `0.2.1-alpha.4` 起，`app-boot/src/plugin-compatibility.ts`
+   在插件被 import **之前**先读清单：**只要有 `engines.dsh`，就用该范围单独决定结果，并忽略 `@deepseek-ai/dsh*` 的 `peerDependencies`**；
    不匹配的行被**直接置为 `disabled`**，模块永不导入。
-2. **门禁语义是 `includePrerelease: true`**（`plugin-compatibility.ts:77`），比裸 semver **宽松**。
-   `engines.dsh` 与 `dsh.manifestVersion` 则是**纯声明、零强制**——写了不生效。
+2. **只有缺失 `engines.dsh` 时才回退到 peers。** 这时才校验 `peerDependencies` 里的 `@deepseek-ai/dsh` / `@deepseek-ai/dsh-*`（同一套 disabled 行为）。
+   声明了 `engines.dsh` 的包，peers 不再放宽或收窄它——所以 `engines.dsh` 必须覆盖**全部**支持版本。`workspace:` 只在 peer 中有效，出现在 `engines.dsh` 里即判不兼容。
+3. **门禁语义是 `includePrerelease: true`**（`plugin-compatibility.ts:52`），比裸 semver **宽松**。
+   所以 0.2.2 线要写 `>=0.2.2-0 <0.3.0` 这类带预发布下界的范围；`dsh.manifestVersion` 仍是纯声明，不参与门禁。
+   官方原文：`references/official-docs/docs/upgrade-guide/v0.2.1-alpha.3/plugin-engines-dsh/guide.md`。
 
 ### 4.1 家族内当前使用的规范区间
 
 ```
->=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0
+>=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0 || >=0.2.2-0 <0.3.0
 ```
 
-这是 `dsh-plugin-kit` 的 `data/peer-range.json`（`canonicalRange`，2026-09-26 更新）所记录的
-规范值，六个子句按线枚举。**本仓库 `src/cli/templates.ts` 生成的区间与它逐字节一致**，
-是仓库内唯一副本。
+这是 `dsh-plugin-kit` 的 `data/peer-range.json`（`canonicalRange`）所记录的规范区间；本库上次核该文件是
+2026-09-26 的六子句版本，本节按 0.2.2 线新增第七子句 `>=0.2.2-0 <0.3.0`（0.2.2 的预发布要求下界带 `-0`，
+否则严格 semver 下 `0.2.2-rc.3` 不落进范围）。**本仓库 `src/cli/templates.ts` 的 `DSH_PEER_RANGE` 与本节逐字节一致**，
+`package.json` 的 `engines.dsh` 与 `peerDependencies` 也同步含该子句。
+
+> ⚠️ **0.2.2 线优先把范围写进 `engines.dsh`**：写了它，peers 就完全不参与判定；`engines.dsh` 里不能用 `workspace:`。
+> 只有不发 `engines.dsh` 的包才靠 peers 兜底。
 
 ### 4.2 选区间的判断法
 
@@ -155,6 +170,7 @@ Python 环境）。它放在旧目录属于例外——上游自己的规则是"
 | 依赖 peer 门禁本身、或 0.1.7 的 API | `>=0.1.7-0` |
 | 用了 0.2.0 世代接口（settings 重写后） | `>=0.2.0-0` |
 | 用了 §3 里任何一条新形态（如 `webStartup`、`BundleInfo.official`） | `>=0.2.1-0` |
+| 用了 0.2.2 线（`engines.dsh` 门禁语义、`BundleInfo.update`、`dsh-doc`、Office kit、`Session.append` 双 overload、`window-drag-regions` 等，见 migration §14） | `>=0.2.2-0` |
 
 **不要**写开区间上界（如 `>=0.1.2-rc.1 <0.3.0`）：它跨过了整代破坏性变更，
 门禁放行但运行时会炸。**上界必须按世代切**（`<0.2.0` / `<0.3.0`）。
@@ -247,9 +263,11 @@ Python 环境）。它放在旧目录属于例外——上游自己的规则是"
 | `@deepseek-ai/dsh-experimental-schedule-bundle` | `0.2.0-rc.2` 退役 | `upgrade-guide/v0.2.0-rc.2/schedule-bundle-retired` |
 | 子路径插件读自己的 `package.json` 取展示文案 | ≤`0.2.0-rc.2` → `0.2.1-alpha.1` **不再读** | `upgrade-guide/v0.2.0-rc.2/subpath-plugin-display-manifest` |
 | `repository-plugin`（`.dsh-plugin`） | 2026-08-09 推出 → **08-11 移除** | 社区实测（`vlln/plugin-registry` 档案，**该仓 2026-10-03 已归档**） |
+| slot `sidebar.session.action`（hoc）+ `workspace.picker` SlotFactory / `workspace.picker.directoryFlow` | `0.2.2-rc.3` | rc.3 树：`ui-sidebar/.../contract/slots.ts`、`ui-workspace/.../contract/slots.ts`；**加性**，无迁移指南 |
+| 服务 seam `ctx.deepseekChatImport`（配置 `maxSessions`/`maxUploadBytes`/`maxEntryBytes`/`maxTitleBytes`）+ 实验 bundle `@deepseek-ai/dsh-deepseek-chat-import` | `0.2.2-rc.3` | `docs/capability-seams.md`、`docs/config-catalog.md`；**加性**，默认未装，无迁移指南 |
 
 > 22 面全表连同每面的**工具名、API 名、配置键与逐条出处行号**，来自一次
-> read-only 清点。**清点时 checkout 在 `dsh-v0.2.1-alpha.1` / `5badb15`；本库镜像现已同步到 `dsh-v0.2.1-alpha.2` / `d743267`**，
+> read-only 清点。**清点时 checkout 在 `dsh-v0.2.1-alpha.1` / `5badb15`；本库镜像现已同步到发布 tag `dsh-v0.2.2-rc.3` / `38a6a5c9`**，
 > 本文只摘"引入版本"一列；**要完整清单请按上文口径重跑**，或读官方
 > `docs/subsystems/*.md` + `docs/capability-seams.md` + `docs/tool-catalog.md`。
 
@@ -260,13 +278,18 @@ Python 环境）。它放在旧目录属于例外——上游自己的规则是"
 ```powershell
 # 五个"最新"里的前四个
 npm view @deepseek-ai/dsh dist-tags
-# { latest: '0.2.0-rc.2', next: '0.2.0-rc.2', alpha: '0.2.1-alpha.2' }
+# { latest: '0.2.2-rc.1', next: '0.2.2-rc.3', alpha: '0.2.2-alpha.3' }
 
 # 子包 latest 是否冻结（换包名即可）
 npm view @deepseek-ai/dsh-tools dist-tags
-# { latest: '0.0.1-rc.1', next: '0.2.0-rc.2', alpha: '0.2.1-alpha.2' }
+# { latest: '0.0.1-rc.1', next: '0.2.2-rc.3', alpha: '0.2.2-alpha.3' }
 
-# master 最新 tag 与 HEAD
+# 版本/Release 计数（2026-11-14：44 / 39）
+npm view @deepseek-ai/dsh versions --json | ConvertFrom-Json | Measure-Object | Select-Object Count
+Invoke-RestMethod -Headers @{'User-Agent'='x'} `
+  'https://api.github.com/repos/deepseek-ai/deepseek-harness/releases?per_page=100' | Measure-Object | Select-Object Count
+
+# 最新 tag 与 HEAD
 Invoke-RestMethod -Headers @{'User-Agent'='x'} `
   https://api.github.com/repos/deepseek-ai/deepseek-harness/tags | Select-Object -First 3 name
 
@@ -278,7 +301,7 @@ Invoke-RestMethod -Headers @{'User-Agent'='x'} `
 dsh --version
 ```
 
-**维护节奏**：官方 3 周内发过 9 个 prerelease。每次官方发版后按
+**维护节奏**：0.2.2 线在 17 天内发了 5 个 prerelease（2026-10-27 `alpha.2` → 11-03 `alpha.3` → 11-04 `rc.1` → 11-12 `rc.2` → 11-13 `rc.3`，npm 发布时刻）。每次官方发版后按
 `docs/upgrade-guide/**`（**无 index、无入链，必须主动看**）+ `docs/persistence-changes/**`
 + GitHub Releases 三处增量更新本文件与 `guide/migration-0.2.md`。
 

@@ -45,12 +45,12 @@
 | 主题 | 本地副本 | GitHub 直链 |
 |---|---|---|
 | 会话格式版本状态（**版本权威**） | `docs/session-format-status.md`（**版本权威**；镜像基线已更新为 `latestReleasedVersion: 4` / `evidenceTag: dsh-v0.2.0-rc.2`） | [blob](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/session-format-status.md) |
-| 逐版本迁移指南（**无 index、无入链**，6 篇） | `docs/upgrade-guide/v0.1.7-rc.2/**`、`docs/upgrade-guide/v0.2.0-rc.2/**`（schedule-optional-bundle、transcript-view-legacy-normal、account-sign-in-errors、remove-runtime-invariants、schedule-bundle-retired、subpath-plugin-display-manifest） | [目录](https://github.com/deepseek-ai/deepseek-harness/tree/master/docs/upgrade-guide) |
+| 逐版本迁移指南（**无 index、无入链**；镜像 tag `dsh-v0.2.2-rc.3` 内 12 个版本目录，0.2.2 线 46 条） | `docs/upgrade-guide/v0.1.7-rc.2/**`、`v0.2.0-rc.2/**`、**`v0.2.2-alpha.2/**`（22 条）、`v0.2.2-alpha.3/**`（5 条）、`v0.2.2-rc.1/**`（19 条）** | [目录（rc.3 tag）](https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.2.2-rc.3/docs/upgrade-guide) |
 | 持久化类型变更记录（含 V4 声明） | `docs/persistence-changes/**`（`2026-09-16-session-format-v4.md`、`finalized/v4.json`、`historical-formats/v3.md`…） | [目录](https://github.com/deepseek-ai/deepseek-harness/tree/master/docs/persistence-changes) |
 | 圆角规范 | `docs/ui-radius.md` | [blob](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/ui-radius.md) |
 | Web 样式 | `docs/web-styling.md` | [blob](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/web-styling.md) |
 | 模块图 / 依赖目录 / 持久化 schema | `docs/module-graph.md`、`docs/dependency-catalog.json`、`docs/persistence-schema.json` | [docs 目录](https://github.com/deepseek-ai/deepseek-harness/tree/master/docs) |
-| **官方自带插件开发技能**（preset 内，最该读的一份） | 不在 `docs/` 下：`packages/preset/agent-preset/skills/cordis-plugin-development/**`；本库要点摘录见 [../references/official-plugin-dev-skill.md](../references/official-plugin-dev-skill.md) | [目录](https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/preset/agent-preset/skills) |
+| **官方自带插件开发技能**（preset 内，最该读的一份） | 不在 `docs/` 下：rc.3 起是**单个 `dsh-doc` 技能**（`packages/preset/agent-preset/skills/dsh-doc/**`，17 份 references + 2 套模板）；本库要点摘录见 [../references/official-plugin-dev-skill.md](../references/official-plugin-dev-skill.md) | [目录（rc.3 tag）](https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.2.2-rc.3/packages/preset/agent-preset/skills) |
 
 ## 3. 官方仓库与直链（GitHub，master 分支）
 

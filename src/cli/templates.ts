@@ -28,7 +28,7 @@ export type TemplateLang = 'ts' | 'js'
  * 0.2.x harness (`installation rejected: ... is incompatible with dsh <runtime>`).
  */
 export const DSH_PEER_RANGE =
-  '>=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0'
+  '>=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0 || >=0.2.2-0 <0.3.0'
 
 /**
  * The DSH release this scaffold was last verified against, single-sourced here
@@ -39,7 +39,7 @@ export const DSH_PEER_RANGE =
  * line (every published version and GitHub release carries `-alpha.N`/`-rc.N`),
  * so a scaffold that claimed a stable baseline would be lying.
  */
-export const DSH_BASELINE = '0.2.1-alpha.2'
+export const DSH_BASELINE = '0.2.2-rc.3'
 
 /** Placeholder values substituted into template files. */
 export interface TemplateContext {

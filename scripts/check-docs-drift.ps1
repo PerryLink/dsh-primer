@@ -1,4 +1,7 @@
-﻿# dsh-plugin-guide official-docs freshness probe.
+﻿# dsh-plugin-guide official-docs freshness probe (LEGACY branch-tip probe).
+# NOTE: since 0.4.6 the mirror is pinned to a release tag (`Source ref` in SNAPSHOT.md);
+# comparing the master tip is then always "drift". Use `node scripts/check-docs-drift.mjs`
+# (also what CI runs) for tag pinning; keep this script for a branch-pinned snapshot.
 # Purpose: detect drift between the KB mirror (references/official-docs) and the
 #   upstream deepseek-harness repository WITHOUT a local checkout. It compares the
 #   upstream branch tip SHA (git ls-remote) against the pinned "Source commit" SHA

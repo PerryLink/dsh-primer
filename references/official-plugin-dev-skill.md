@@ -2,21 +2,23 @@
 
 > **这是什么**：DeepSeek Harness 自带的 preset（`packages/preset/agent-preset/`）里有一整套**官方插件开发技能**，是 0.2 世代最重要的新增资料——它描述的正是"在当前 Harness 里、由 agent 自己写并安装插件"的官方流程。
 > **本文件性质**：**要点摘录 + 原文定位**（不是逐字全文；逐字全文随官方文档副本一起在 `references/official-docs/` 之外的仓库路径，需 checkout 才能读）。凡写"官方明确"的地方都能在上游文件里逐字查到。
-> **基线**：`d743267388641bc76f17c45ce8b4c231aed1d32c`（`dsh-v0.2.1-alpha.2`，2026-10-09）。升级宿主后若与上游冲突，以上游为准。
-> **上游路径**（在 checkout 里，如 `D:\deepseek-harness`）：`packages/preset/agent-preset/skills/`
+> **基线**：`38a6a5c965aa99ab525161efb7cc5cf1fe62fced`（`dsh-v0.2.2-rc.3`，2026-11-13）。升级宿主后若与上游冲突，以上游为准。
+> **上游路径**（在 checkout 里，如 `D:\deepseek-harness`）：`packages/preset/agent-preset/skills/dsh-doc/`
 
-## 1. 四个技能与各自职责
+## 1. 一个技能：`dsh-doc`
+
+从 `0.2.2-rc.1` 起，Creator mode 原来的四个技能（`cordis-plugin-development`、`editing-cordis-compositions`、`cordis-composition-reference`、`agent-experience`）被**合并成一个 `dsh-doc` 技能**（官方指南 `docs/upgrade-guide/v0.2.2-rc.1/dsh-doc-skill/guide.md`）；rc.3 的 preset 技能目录里只有 `dsh-doc/`（43 个文件）。旧的四个名字只作历史，**不要再去 `skills/cordis-plugin-development/` 找路径**。
 
 | 技能 | 职责 |
 |---|---|
-| `cordis-plugin-development/SKILL.md` | 主流程：设计/评审/启用/安装/配置/调试插件、bundle、页面、面板、工具、MCP 连接 |
-| `cordis-plugin-development/references/{host-plugin,ui-plugin,mcp-bundle,practices,user-actions,verification}.md` | 六份分面参考（见 §3） |
-| `cordis-plugin-development/templates/{decoration,mcp}/**` | 可直接复制的 UI 插件模板与 MCP bundle 模板（含 locale 与 icon） |
-| `cordis-composition-reference/SKILL.md` | Loader patch 方言 + 可安装插件包清单 |
-| `editing-cordis-compositions/SKILL.md` | agent preset 组合的编辑流程 |
-| `agent-experience/SKILL.md` | 面向"模型体验"的写作/设计约束 |
+| `dsh-doc/SKILL.md` | 入口：按"运行时 inspection → 已装文档/包源码 → 声明未核实"的顺序查事实；要改宿主/插件只在用户明确要求时动手 |
+| `dsh-doc/references/plugin-development.md` | **主流程**：bundle 的编写/安装/启用/调试；`plugin_manager` `install_bundle`；禁止手写 profile 清单与在 profile 里跑 pnpm |
+| `dsh-doc/references/{locate-docs,host-plugin,plugin-details,configuration,ui-plugin,mcp-bundle,practices,user-actions,verification,artwork,compositions,upgrading,composition-reference,packages,tool-design}.md` | 分面参考（见 §3；`locate-docs` 讲怎么找当前版本的文档与包源码，`upgrading` 讲升级插件/组合） |
+| `dsh-doc/templates/{decoration,mcp}/**` | 可直接复制的 UI 插件模板与 MCP bundle 模板（含多语 locale 与 icon） |
 
-## 2. 主流程（`cordis-plugin-development/SKILL.md` 的硬性规定）
+> 仓库贡献者向的 `.agents/skills/**`（如 `dsh-doc-writing`、`dsh-pre-push-checks`）不是 preset 技能、不给插件作者用，别和 `dsh-doc` 混谈。
+
+## 2. 主流程（`dsh-doc/SKILL.md` + `dsh-doc/references/plugin-development.md` 的硬性规定）
 
 **安装方式（官方唯一推荐）**：在工作区用普通文件写 bundle，然后用 **`plugin_manager` 工具的 `install_bundle`**，`target` 传**绝对包目录**装进当前 profile。改动对该 profile 的**所有会话**生效并跨重启保留。
 
@@ -46,7 +48,9 @@
 
 **启用随包发布但默认关闭的插件**：行 id 与原因写在随包 patch（源码 checkout 的 `packages/bundle/*/cordis.patch.yml`）里。写一个工作区 bundle，用 patch 覆盖该行为 `disabled: false`，并把它依赖的 Host 行一起插入；源码 checkout 的 `apps/cli/config/examples/<feature>/cordis.yml` 会列出这些行。**随 dsh 发布的包从 dsh 安装位置解析，所以这种 bundle 不声明对它们的依赖。**
 
-## 3. 六份分面参考的要点
+## 3. 分面参考的要点（都位于 `dsh-doc/references/`）
+
+> 下面按旧文件里最常引用的六份（host-plugin / ui-plugin / mcp-bundle / practices / user-actions / verification）展开；rc.3 的 `dsh-doc/references/` 另有 `plugin-development`、`locate-docs`、`plugin-details`、`configuration`、`artwork`、`compositions`、`upgrading`、`composition-reference`、`packages`、`tool-design` 共 17 份参考，按 SKILL.md 的 "Read next" 表取用。
 
 ### 3.1 `host-plugin.md` — bundle 与 Host 插件
 
@@ -121,4 +125,4 @@
 
 - 本文件是**索引与摘录**；机制细节（精确签名、事件 `@mode`、Config schema）永远以 **inspection** 与 `references/official-docs/docs/**` 为准。
 - 官方这份技能覆盖"在会话里让 agent 写并安装插件"；本知识库另外覆盖**对外发布**（npm/tarball/git 通道、`prepare` + `allowBuilds`、五语 README、质量门禁）与**版本迁移**（[migration-0.2.md](../guide/migration-0.2.md)）。
-- 上游路径随宿主版本变化（本文件基线 `d743267`）；`preset/agent-presets` → `preset/agent-preset` 的改名发生在 `d1e22a7e24`。
+- 上游路径随宿主版本变化（本文件基线 `dsh-v0.2.2-rc.3` / `38a6a5c9`）；`preset/agent-presets` → `preset/agent-preset` 的改名发生在 `d1e22a7e24`，`cordis-plugin-development` → `dsh-doc` 的合并发生在 `v0.2.2-rc.1`。

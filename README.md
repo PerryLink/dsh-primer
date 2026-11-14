@@ -44,7 +44,7 @@ dsh plugin --profile <name> add dsh-primer
 | 缺口 | 本插件补什么 |
 |---|---|
 | **"我到底在对着哪一版开发？"** | [版本矩阵](guide/version-matrix.md)：五个都自称"最新"的值、子包 `latest` 冻结陷阱、破坏性变更断层，以及 `peerDependencies` 区间怎么选。**不存在稳定版**。 |
-| **"这一版破坏了什么？"** | [迁移指南](guide/migration-0.2.md)：把 `0.1.6-alpha.2` → `0.2.1-alpha.2` 整理成可引用的 seam，每条含症状*与*修法并附官方出处——包括一处数据丢失风险和一处"模型请求还没发出就失败"的变更。 |
+| **"这一版破坏了什么？"** | [迁移指南](guide/migration-0.2.md)：把 `0.1.6-alpha.2` → `0.2.2-rc.3` 整理成可引用的 seam（§0–§13 覆盖 0.1.6→0.2.1 线，§14 是 rc.3 包内 0.2.2 线的 46 个 `K1`–`K46`），每条含症状*与*修法并附官方出处——包括一处数据丢失风险和一处"模型请求还没发出就失败"的变更。 |
 | **"我的插件真的对吗？"** | [零依赖 CLI](SKILL.md)（`dsh-plugin-dev new / check / verify`）+ [官方文档逐字离线镜像](references/official-docs/)，让 agent 能引确切页面而不是靠猜。 |
 
 <picture>
@@ -103,7 +103,7 @@ dsh plugin --profile <name> add dsh-primer
 
 - **插件契约与红线** —— effect/disposer、waterfall 必调 `next()`、宿主自有会话事件、模型可见 ⟺ 已记录、Schemastery 配置、UI 与性能规则。
 - **官方文档逐字镜像** —— `references/official-docs/`：官方仓库文档（英 + 中）逐字副本，在最近核验快照处与上游逐字节一致，含从不进文档站的页面。
-- **版本适配矩阵** —— [guide/version-matrix.md](guide/version-matrix.md)：五个"最新"的区别、子包 `latest` 冻结陷阱、四条破坏性变更断层、peer 区间怎么选、会话格式 V0→V4 谱系，以及 `0.2.1-alpha.2` 落的 19 条破坏性变更。
+- **版本适配矩阵** —— [guide/version-matrix.md](guide/version-matrix.md)：五个"最新"的区别、子包 `latest` 冻结陷阱、四条破坏性变更断层、peer 区间怎么选、会话格式 V0→V4 谱系，以及 `0.2.1-alpha.2` 的 19 条与 rc.3 包内 0.2.2 线的 46 条破坏性变更（`K1`–`K46`，见 migration §14）。
 - **迁移指南** —— [guide/migration-0.2.md](guide/migration-0.2.md)：`0.1.6-alpha.2` → `0.2.1-alpha.1` 的每条破坏性变更（会话格式 V4、settings 重建、不变量移除、`readBytes`、新 slot、退役的 `plugin` 消息源），每条附官方出处与 12 项检查清单。
 - **Cordis 入门与官方技能要点** —— Cordis 的五个概念与机制时间线；[references/official-plugin-dev-skill.md](references/official-plugin-dev-skill.md) 提炼官方 `cordis-plugin-development` 的禁则、展示元数据清单与 UI/性能规则。
 - **来源可核验的 bug 索引** —— [guide/unfixed-issues.md](guide/unfixed-issues.md)：22 条未修 + 11 条新验证条目，每条带 `path:line`、规避法与修复提交，另有"设计取舍 vs 真 bug"对照表与明确的"无法复现"小节。
@@ -127,8 +127,8 @@ dsh plugin --profile <name> add dsh-primer
 | `SKILL.md` | `dsh-primer` agent 技能：红线 + 按任务类型的开发路径 |
 | `package.json` · `cordis.patch.yml` · `index.js` · `locale/` · `icon.svg` | 可安装 DSH bundle：`dsh.bundle.patch` 清单、注册技能的入口，以及 Plugin Manager 读取的展示元数据 |
 | `guide/plugin-dev-guide.md` | 完整开发指南（10 章） |
-| `guide/version-matrix.md` | 版本适配矩阵：五个"最新"的区别、子包 `latest` 冻结、破坏性变更断层、peer 区间选择、会话格式谱系、`0.2.1-alpha.2` 的 19 条变更 |
-| `guide/migration-0.2.md` | 0.2 世代破坏性变更迁移指南（§0–§12 覆盖到 `0.2.1-alpha.1`，§13 覆盖 `0.2.1-alpha.2` 的 19 个 seam） |
+| `guide/version-matrix.md` | 版本适配矩阵：五个"最新"的区别、子包 `latest` 冻结、破坏性变更断层、peer 区间选择、会话格式谱系、`0.2.1-alpha.2` 的 19 条与 0.2.2 线的 46 条变更 |
+| `guide/migration-0.2.md` | 0.2 世代破坏性变更迁移指南（§0–§12 覆盖到 `0.2.1-alpha.1`，§13 覆盖 `0.2.1-alpha.2` 的 19 个 seam，§14 覆盖 rc.3 包内 0.2.2 线的 46 个 seam（`K1`–`K46`），并单列下一版 13 条） |
 | `guide/unfixed-issues.md` | 来源可核验的 bug 索引 + 已修清单 + 设计 vs bug 对照表 |
 | `guide/quick-reference.md` | 一页速查表（5 语言） |
 | `guide/links.md` | 精选 URL 索引：官方开发文档（站点 ↔ 本地副本）+ 社区文档链接 + 仅仓库内页面 |
@@ -194,7 +194,7 @@ L3  webRuntime service replaced by webStartup
     detectable  yes — inspect: src/**/*.ts, cordis.patch.yml
 ```
 
-*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:44`*
+*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:66`*
 
 ### 失败分支
 
@@ -290,7 +290,7 @@ no seam or capability matches "no-such-seam-xyz". This is an absence of evidence
 
 ## 已知限制
 
-- **官方文档是快照。** 上游变化时用 `scripts/sync-official-docs.ps1` 重新同步；新鲜度戳与提交号引用 `references/official-docs/SNAPSHOT.md`。
+- **官方文档是快照。** 镜像钉发布 tag（当前 `dsh-v0.2.2-rc.3` / `38a6a5c9`），上游发新版时用 `scripts/sync-official-docs.ps1 -Ref <tag>` 重新同步；`node scripts/check-docs-drift.mjs` 判断是否有更新的 release tag。新鲜度戳与提交号引用 `references/official-docs/SNAPSHOT.md`。
 - **`downloads/` 由脚本生成、不入库。** 原始快照（社区仓库归档、Discussions、文章）使用前需用 `scripts/download-*.ps1` 生成。
 - **`awesome-dsh-plugins` 内容仅本地。** 其上游声明内部使用约束，故不随仓库再分发。
 
@@ -309,7 +309,7 @@ no seam or capability matches "no-such-seam-xyz". This is an absence of evidence
 
 | 维度 | 状态 |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`。当前宿主线：npm `latest` = `next` = `0.2.1-rc.2`、`alpha` = `0.2.1-alpha.5`，最新 tag = `dsh-v0.2.1-rc.2`；**不存在稳定版**——31 个 npm 版本与 26 个 GitHub Release 全是 prerelease。官方文档镜像钉在 `e8f7b93a…`（2026-11-13 同步，717 篇 md / 356 对中英双语）。 |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0`。当前宿主线：npm `latest` = `0.2.2-rc.1`、`next` = `0.2.2-rc.3`、`alpha` = `0.2.2-alpha.3`，最新 tag = `dsh-v0.2.2-rc.3`；**不存在稳定版**——44 个 npm 版本与 39 个 GitHub Release 全是 prerelease。官方文档镜像钉在发布 tag `dsh-v0.2.2-rc.3`（`38a6a5c9…`，2026-11-14 同步，709 篇 md / 352 对中英双语）。 |
 | Node | `>=24.9.0` |
 | 平台 | 任何 DSH 可运行处（纯 ESM bundle；无原生代码、无网络） |
 | 模型 | 任意（不调用模型：技能正文由宿主注入上下文） |

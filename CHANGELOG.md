@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.4.6] - 2026-11-14
+
+Target: DeepSeek Harness `0.2.2-rc.3` (tag `dsh-v0.2.2-rc.3` = `38a6a5c9…`), Node `>=24.9.0`, Cordis wrapper `4.1.0` (upstream `4.0.0-rc.11`).
+
+### Fixed
+
+- **`engines.dsh` gate semantics were backwards in 10 places.** The guide said `engines.dsh` is declarative and `peerDependencies` are the only gate; the host does the opposite. With a manifest `engines.dsh`, that range decides alone and `@deepseek-ai/dsh*` peers are ignored; peers are the fallback only when it is absent, matched with `includePrerelease: true`, and `workspace:` is invalid in `engines.dsh`. Fixed in `guide/version-matrix.md` §4, `guide/migration-0.2.md` §1/§5, `SKILL.md`, all five `guide/quick-reference.*.md`, and `guide/plugin-dev-guide.md` §2.2/§7.0.1/§7.3, each citing the official `plugin-engines-dsh` guide.
+- **The official-docs snapshot was mislabelled and one release behind.** `e8f7b93` is a master sync commit 17 minutes after the rc.2 tag, not `dsh-v0.2.2-rc.2` (tag `ddac9676…`); it carried 4 master-only `v0.2.2-rc.1` guides. Re-synced verbatim from the release tag `dsh-v0.2.2-rc.3` (`38a6a5c9…`): **709 md / 352 `.zh.md` pairs** (was 717/356), 26 files refreshed, 12 out-of-ref files removed. `scripts/sync-official-docs.ps1` gains a `-Ref` parameter so a tag pin is reproducible instead of always taking `origin/master`.
+
+### Changed
+
+- Version matrix rewritten against the measured rc.3 line: npm `latest`=`0.2.2-rc.1`, `next`=`0.2.2-rc.3`, `alpha`=`0.2.2-alpha.3`, newest tag `dsh-v0.2.2-rc.3`, **44 npm versions / 39 GitHub Releases**; sub-package frozen-`latest` table refreshed; three new 0.2.2 gap rows (22 + 5 + 19 seam batches landing in alpha.3 / rc.1 / rc.2); rc.3's additive slot/service/bundle changes recorded in §6.1; canonical peer range gains `|| >=0.2.2-0 <0.3.0` (`src/cli/templates.ts` scaffold range and `package.json` agree).
+- `guide/migration-0.2.md` gains **§14: the 46 seams of the 0.2.2 line inside the rc.3 tag (`K1`–`K46`)** with authored/landed version, symptom, fix and static detectability; the 13 `v0.2.2-rc.2` guides are listed separately as next-version content. The known-divergences section moved to §15 and now records the corrected pin.
+- `data/facts.json`, the five READMEs, `SKILL.md`, the five quick references, `references/sources.md`, `references/official-docs/README.md` and `guide/unfixed-issues.md` restate the new host line and mirror pin; `data/standards.json` records dsh-standards as published `1.6.10` (audit tools available, `private: false`).
+- `data/seams/index.json` baselines on `dsh-v0.2.2-rc.3` and adds the `K` corridor (46 seams: 32 detectable / 14 advisory with reasons) plus an `unreleased` array for the 13 next-version guides; `references/official-plugin-dev-skill.md` now documents the single `dsh-doc` skill and its 17 references (the four old Creator-mode skill paths are history).
+- `package.json` version 0.4.6; dev/test pins move to `0.2.2-rc.3`; `engines.dsh` and the peer union gain the 0.2.2 clause; `dshWorkshop.compatibility.dshVersions` appends the 0.2.2 prerelease line; compat workflow installs `0.2.2-rc.3` on Node 24.
+- New `scripts/check-docs-drift.mjs` and `check:drift` script: the weekly docs-drift probe now compares the newest remote `dsh-v*` tag with the pinned `Source ref` instead of the master tip (a branch-tip probe is permanently red for a tag pin). The workflow runs the Node probe; the PowerShell probe is documented as the legacy branch-pin path.
+- `scripts/check-facts.mjs` gains 31 assertions: SNAPSHOT source ref = pinned tag, rc.3 upgrade-guide counts (22/5/19/46), the 13 next-version guides absent from the mirror, host-line tokens in 7 prose files, mirror pin in 13, and the K corridor / `unreleased` counts.
+
+### Verified
+
+- `check:facts` OK (44 assertions), `check:readmes` OK, `check:parity` OK, `check:ps1-bom` OK.
+- The mirror was rebuilt from the rc3 tag with a one-off script that mirrors `sync-official-docs.ps1` (no `pwsh` on the Linux fix host): every one of the 1128 mirrored `docs/` files and all 13 root in-scope files hash-compare equal to the tag blobs.
+- Not run here (no `node_modules`): `vitest`, `typecheck`, `build`, `verify:artifacts`; `pwsh`-based `verify-kit` drift check.
+
 ## [0.4.5] - 2026-11-13
 
 ### Docs

@@ -44,7 +44,7 @@ Mantenido por la comunidad, **no** es un producto oficial de DeepSeek. DeepSeek 
 | Brecha | Qué añade este plugin |
 |---|---|
 | **"¿Contra qué versión de DSH estoy desarrollando?"** | Una [matriz de versiones](guide/version-matrix.md): los cinco valores que se llaman "latest", las etiquetas `latest` congeladas de los subpaquetes, los seams de cambio incompatible y cómo elegir un rango de `peerDependencies`. **No existe línea estable.** |
-| **"¿Qué rompe esta versión?"** | Una [guía de migración](guide/migration-0.2.md) que ordena `0.1.6-alpha.2` → `0.2.1-alpha.2` como seams citables, cada uno con síntoma *y* arreglo y su fuente oficial, incluido un riesgo de pérdida de datos y un cambio que hace fallar los prompts antes de construir la petición al modelo. |
+| **"¿Qué rompe esta versión?"** | Una [guía de migración](guide/migration-0.2.md) que ordena `0.1.6-alpha.2` → `0.2.2-rc.3` como seams citables (§0–§13 cubren la línea 0.1.6→0.2.1; §14 son los 46 seams `K1`–`K46` de la línea 0.2.2 publicados en rc.3), cada uno con síntoma *y* arreglo y su fuente oficial, incluido un riesgo de pérdida de datos y un cambio que hace fallar los prompts antes de construir la petición al modelo. |
 | **"¿Mi plugin es realmente correcto?"** | Un [CLI sin dependencias](SKILL.md) (`dsh-plugin-dev new / check / verify`) más un [espejo literal sin conexión](references/official-docs/) de la documentación oficial, para que el agente cite la página exacta en vez de adivinar. |
 
 <picture>
@@ -103,7 +103,7 @@ Todos los plugins de PerryLink se pueden explorar en el mercado integrado de DSH
 
 - **Contrato de plugin y reglas duras** — effects/disposers, listeners waterfall que deben llamar a `next()`, eventos de sesión propiedad del host, visible-para-el-modelo ⟺ registrado, configuración Schemastery, reglas de UI y rendimiento.
 - **Espejo literal de la documentación oficial** — `references/official-docs/`: copia byte a byte de los documentos del repositorio oficial (EN + ZH), idéntica a upstream en la última instantánea verificada, incluidas las páginas que nunca llegan al sitio de documentación.
-- **Matriz de adaptación de versiones** — [guide/version-matrix.md](guide/version-matrix.md): los cinco valores "latest", las etiquetas `latest` congeladas de los subpaquetes, los cuatro seams de cambio incompatible, cómo elegir el rango peer, el linaje del formato de sesión V0→V4 y los 19 cambios incompatibles de `0.2.1-alpha.2`.
+- **Matriz de adaptación de versiones** — [guide/version-matrix.md](guide/version-matrix.md): los cinco valores "latest", las etiquetas `latest` congeladas de los subpaquetes, los cuatro seams de cambio incompatible, cómo elegir el rango peer, el linaje del formato de sesión V0→V4 los 19 cambios incompatibles de `0.2.1-alpha.2` y los 46 seams de la línea 0.2.2 publicados en rc.3 (`K1`–`K46`, ver migración §14).
 - **Guía de migración** — [guide/migration-0.2.md](guide/migration-0.2.md): cada cambio incompatible de `0.1.6-alpha.2` a `0.2.1-alpha.1` (formato de sesión V4, reconstrucción de settings, retirada de invariantes, `readBytes`, slots nuevos, la fuente de mensaje `plugin` retirada), cada uno con su fuente oficial y una lista de 12 comprobaciones.
 - **Primer de Cordis y la skill oficial, destilada** — los cinco conceptos de Cordis y la línea temporal de mecanismos; [references/official-plugin-dev-skill.md](references/official-plugin-dev-skill.md) destila las prohibiciones de `cordis-plugin-development`, la lista de metadatos de presentación y las reglas de UI/rendimiento.
 - **Índice de bugs verificados** — [guide/unfixed-issues.md](guide/unfixed-issues.md): 22 sin arreglar + 11 recién verificados, cada uno con `path:line`, workaround y commit de arreglo, más una tabla diseño-vs-bug y una sección explícita de "no reproducible".
@@ -127,8 +127,8 @@ Todos los plugins de PerryLink se pueden explorar en el mercado integrado de DSH
 | `SKILL.md` | La skill de agente `dsh-primer`: reglas duras + rutas de desarrollo por tipo de tarea |
 | `package.json` · `cordis.patch.yml` · `index.js` · `locale/` · `icon.svg` | El bundle DSH instalable: manifiesto `dsh.bundle.patch`, entrada que registra la skill y metadatos de presentación que lee el Plugin Manager |
 | `guide/plugin-dev-guide.md` | La guía de desarrollo completa (10 capítulos) |
-| `guide/version-matrix.md` | Matriz de adaptación de versiones: los cinco "latest", etiquetas `latest` congeladas, seams de cambio incompatible, elección de rango peer, linaje del formato de sesión, los 19 cambios de `0.2.1-alpha.2` |
-| `guide/migration-0.2.md` | Guía de migración de cambios incompatibles de la generación 0.2 (§0–§12 hasta `0.2.1-alpha.1`, §13 con los 19 seams de `0.2.1-alpha.2`) |
+| `guide/version-matrix.md` | Matriz de adaptación de versiones: los cinco "latest", etiquetas `latest` congeladas, seams de cambio incompatible, elección de rango peer, linaje del formato de sesión, los 19 cambios de `0.2.1-alpha.2` más los 46 de la línea 0.2.2 |
+| `guide/migration-0.2.md` | Guía de migración de cambios incompatibles de la generación 0.2 (§0–§12 hasta `0.2.1-alpha.1`, §13 con los 19 seams de `0.2.1-alpha.2`, §14 con los 46 seams (`K1`–`K46`) publicados en rc.3 y los 13 de la próxima versión aparte) |
 | `guide/unfixed-issues.md` | Índice de bugs verificado en fuentes + lista arreglada en master + tabla diseño-vs-bug |
 | `guide/quick-reference.md` | Chuleta de una página (5 idiomas) |
 | `guide/links.md` | Índice de URL curado: documentación oficial de desarrollo (sitio ↔ copias locales) + enlaces de la comunidad + páginas solo del repositorio |
@@ -194,7 +194,7 @@ L3  webRuntime service replaced by webStartup
     detectable  yes — inspect: src/**/*.ts, cordis.patch.yml
 ```
 
-*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:44`*
+*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:66`*
 
 ### Rama de fallo
 
@@ -309,7 +309,7 @@ Este plugin **no** interfiere con otros plugins:
 
 | Superficie | Estado |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Línea actual del host: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, etiqueta más reciente = `dsh-v0.2.1-rc.2`; **no existe línea estable** — las 31 versiones de npm y las 26 releases de GitHub son prereleases. El espejo de la documentación oficial está fijado en `e8f7b93a…` (sincronizado el 2026-11-13, 717 páginas md / 356 pares EN-ZH). |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0`. Línea actual del host: npm `latest` = `0.2.2-rc.1`, `next` = `0.2.2-rc.3`, `alpha` = `0.2.2-alpha.3`, etiqueta más reciente = `dsh-v0.2.2-rc.3`; **no existe línea estable** — las 44 versiones de npm y las 39 releases de GitHub son prereleases. El espejo de la documentación oficial está fijado en la etiqueta `dsh-v0.2.2-rc.3` (`38a6a5c9…`, sincronizado el 2026-11-14, 709 páginas md / 352 pares EN-ZH). |
 | Node | `>=24.9.0` |
 | Plataformas | Donde corra DSH (bundle ESM puro; sin código nativo, sin red) |
 | Modelo | Cualquiera (sin interacción con modelos: el host inyecta el cuerpo de la skill en el contexto) |

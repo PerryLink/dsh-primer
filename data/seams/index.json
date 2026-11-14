@@ -2,16 +2,18 @@
   "schema": "dsh-plugin-guide/seam-index/v1",
   "generatedFrom": {
     "guide/version-matrix.md": "§2 seams, §3 the 0.2.1-alpha.2 breaking changes, §5 session formats, §6.1 create-only seams",
-    "guide/migration-0.2.md": "§13 the L1–L19 corridor table",
-    "references/official-docs/": "verbatim mirror of the official docs at the pinned commit"
+    "guide/migration-0.2.md": "§13 the L1–L19 corridor, §14 the K1–K46 0.2.2 line",
+    "references/official-docs/": "verbatim mirror pinned to dsh-v0.2.2-rc.3 (tag commit 38a6a5c9)"
   },
-  "measuredAt": "2026-10-13",
-  "hostBaseline": "dsh-v0.2.1-alpha.2",
+  "measuredAt": "2026-11-14",
+  "hostBaseline": "dsh-v0.2.2-rc.3",
   "notes": [
     "Every `target` value names the release in which the change LANDS, not the directory it is documented under. The official upgrade-guide directory name is the version at which the break was authored: docs/upgrade-guide/v0.2.1-alpha.1/ describes what the NEXT release removes.",
     "`confidence` is the honest state of the evidence. `documented` = stated by an official upgrade guide or a source-verified first-tag search. `inferred` = derived from a document but not stated as a rule. `unknown` = the knowledge base does not establish it; consumers MUST treat `unknown` as 'cannot answer', never as 'no'.",
     "`targets` is the corpus a scanner must inspect to find a violation. It is a hint, not a guarantee: a scanner that cannot resolve the target must report `unknown`, not `pass`. This mirrors the verdict discipline in guide/family-toolchain.md §2.1, where an unevaluated check must never be rendered as a pass.",
-    "Detectability is limited. A change that only breaks at runtime for a given configuration cannot be proven by static inspection, and a data-loss hazard cannot be detected at all. Those records carry `detectable: false` plus the reason, so no consumer can quietly upgrade them to a pass."
+    "Detectability is limited. A change that only breaks at runtime for a given configuration cannot be proven by static inspection, and a data-loss hazard cannot be detected at all. Those records carry `detectable: false` plus the reason, so no consumer can quietly upgrade them to a pass.",
+    "The 0.2.2 line is recorded as the K corridor: K1–K22 land in 0.2.2-alpha.3, K23–K27 in 0.2.2-rc.1, K28–K46 in 0.2.2-rc.2. All 46 are inside the rc.3 release tag (docs/upgrade-guide/{v0.2.2-alpha.2,v0.2.2-alpha.3,v0.2.2-rc.1}), so the rc.3 baseline includes them.",
+    "`unreleased` lists the 13 guides authored at v0.2.2-rc.2. They exist only on master after the rc.3 tag, so they are NOT rc.3 changes and carry no landing version; consumers must not count them as present in 0.2.2-rc.3."
   ],
   "seams": [
     {
@@ -20,12 +22,23 @@
       "kind": "api-removed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/subagent-activations/guide.md",
-      "removed": ["config key backgroundMode", "config key enableRunInBackground", "tool parameter run_in_background", "package @deepseek-ai/dsh-subagent-in-process-driver", "ctx.subagents.start()"],
+      "removed": [
+        "config key backgroundMode",
+        "config key enableRunInBackground",
+        "tool parameter run_in_background",
+        "package @deepseek-ai/dsh-subagent-in-process-driver",
+        "ctx.subagents.start()"
+      ],
       "replacement": "ctx.subagents.startActivation({ ..., delivery: 'caller' }) then await activation.result",
-      "targets": ["src/**/*.ts", "package.json"],
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["subagent-activations"]
+      "ids": [
+        "subagent-activations"
+      ]
     },
     {
       "id": "L2",
@@ -33,12 +46,21 @@
       "kind": "value-rejected",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/tool-presentation-mode/guide.md",
-      "removed": ["mode: both", "DSH_TOOLS_MODE=both", "ctx.tools.presentAs('both')"],
+      "removed": [
+        "mode: both",
+        "DSH_TOOLS_MODE=both",
+        "ctx.tools.presentAs('both')"
+      ],
       "replacement": "native or ptc",
-      "targets": ["src/**/*.ts", "cordis.patch.yml"],
+      "targets": [
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["tool-presentation-mode"]
+      "ids": [
+        "tool-presentation-mode"
+      ]
     },
     {
       "id": "L3",
@@ -46,12 +68,22 @@
       "kind": "service-renamed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/web-listener-trust-config/guide.md",
-      "removed": ["service webRuntime", "row web-runtime", "ctx.webRuntime.lanAddresses", "wildcard --host"],
+      "removed": [
+        "service webRuntime",
+        "row web-runtime",
+        "ctx.webRuntime.lanAddresses",
+        "wildcard --host"
+      ],
       "replacement": "webStartup (row web-startup), concrete host literals",
-      "targets": ["src/**/*.ts", "cordis.patch.yml"],
+      "targets": [
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["web-listener-trust-config"]
+      "ids": [
+        "web-listener-trust-config"
+      ]
     },
     {
       "id": "L4",
@@ -59,12 +91,20 @@
       "kind": "template-variable-removed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/working-directory/guide.md",
-      "removed": ["prompt variable {{cwd}}", "config.cwd for ACP and DSH-SDK subagents"],
+      "removed": [
+        "prompt variable {{cwd}}",
+        "config.cwd for ACP and DSH-SDK subagents"
+      ],
       "replacement": "pass the directory on the child request, or call working_directory({ cd }) first",
-      "targets": ["src/**/*.ts", "**/*.md"],
+      "targets": [
+        "src/**/*.ts",
+        "**/*.md"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["working-directory"]
+      "ids": [
+        "working-directory"
+      ]
     },
     {
       "id": "L5",
@@ -72,12 +112,22 @@
       "kind": "export-removed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/session-title-provider-strategy/guide.md",
-      "removed": ["registerSessionTitleLlmProvider", "generateSessionTitleWithLlm", "SessionTitleLlmMessageSelector", "shared Config targetWords", "shared Config targetCjkCharacters"],
+      "removed": [
+        "registerSessionTitleLlmProvider",
+        "generateSessionTitleWithLlm",
+        "SessionTitleLlmMessageSelector",
+        "shared Config targetWords",
+        "shared Config targetCjkCharacters"
+      ],
       "replacement": "ctx.sessionTitle.register({ id, automatic, generate })",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["session-title-provider-strategy"]
+      "ids": [
+        "session-title-provider-strategy"
+      ]
     },
     {
       "id": "L6",
@@ -87,11 +137,15 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/session-title-adapters/guide.md",
       "removed": [],
       "replacement": "register an adapter with ctx.llm.registerAdapter(); order reasoning.efforts low-to-high",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": false,
       "undetectableReason": "A composition that only mounted llm/stream middleware keeps working for ordinary calls; whether title generation still reaches a provider depends on which adapters a deployment mounts, which static inspection of this repository cannot establish.",
       "confidence": "documented",
-      "ids": ["session-title-adapters"]
+      "ids": [
+        "session-title-adapters"
+      ]
     },
     {
       "id": "L7",
@@ -99,12 +153,20 @@
       "kind": "config-shape-changed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/ssh-helper-launch/guide.md",
-      "removed": ["ssh keys node/bootstrapPath/bootstrapHash", "dsh-ptc-runtime-node keys nodeExecutable/bootstrapPath"],
+      "removed": [
+        "ssh keys node/bootstrapPath/bootstrapHash",
+        "dsh-ptc-runtime-node keys nodeExecutable/bootstrapPath"
+      ],
       "replacement": "launch: { kind: 'node-script' } or { kind: 'executable' }, SSH protocol 2",
-      "targets": ["src/**/*.ts", "cordis.patch.yml"],
+      "targets": [
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["ssh-helper-launch"]
+      "ids": [
+        "ssh-helper-launch"
+      ]
     },
     {
       "id": "L8",
@@ -112,13 +174,18 @@
       "kind": "data-loss",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/team-direct-inbox/guide.md",
-      "removed": ["separate mailbox", "maxPendingMessagesPerMember"],
+      "removed": [
+        "separate mailbox",
+        "maxPendingMessagesPerMember"
+      ],
       "replacement": "send_message returns {\"sent\":true}; re-send anything still pending before upgrading",
       "targets": [],
       "detectable": false,
       "undetectableReason": "Queued messages live in runtime state, not in the plugin source or its configuration. No static inspection can prove that nothing was pending at the moment of an upgrade. This record exists so the hazard is discoverable, not auditable.",
       "confidence": "documented",
-      "ids": ["team-direct-inbox"]
+      "ids": [
+        "team-direct-inbox"
+      ]
     },
     {
       "id": "L9",
@@ -126,12 +193,19 @@
       "kind": "config-key-removed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/instruction-home-override/guide.md",
-      "removed": ["dshHome config field"],
+      "removed": [
+        "dshHome config field"
+      ],
       "replacement": "the DSH_HOME process environment variable via resolveDshHome()",
-      "targets": ["cordis.patch.yml", "src/**/*.ts"],
+      "targets": [
+        "cordis.patch.yml",
+        "src/**/*.ts"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["instruction-home-override"]
+      "ids": [
+        "instruction-home-override"
+      ]
     },
     {
       "id": "L10",
@@ -139,13 +213,20 @@
       "kind": "lifecycle-changed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/experimental-package-composition/guide.md",
-      "removed": ["hook bridge from install dependencies"],
+      "removed": [
+        "hook bridge from install dependencies"
+      ],
       "replacement": "install peers explicitly; select a bundle before overriding its rows; use a full insert instead of enabling a deleted row",
-      "targets": ["package.json", "cordis.patch.yml"],
+      "targets": [
+        "package.json",
+        "cordis.patch.yml"
+      ],
       "detectable": false,
       "undetectableReason": "Whether a patch still lands depends on the composed layer stack at runtime and on which rows the selected bundle ships. The patch file alone does not determine it.",
       "confidence": "documented",
-      "ids": ["experimental-package-composition"]
+      "ids": [
+        "experimental-package-composition"
+      ]
     },
     {
       "id": "L11",
@@ -155,10 +236,14 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/native-subagent-bundle-tools/guide.md",
       "removed": [],
       "replacement": "BundleInfo requires official and availability; PluginPackageRef likewise",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["native-subagent-bundle-tools"]
+      "ids": [
+        "native-subagent-bundle-tools"
+      ]
     },
     {
       "id": "L12",
@@ -168,11 +253,15 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/python-ptc-sandbox/guide.md",
       "removed": [],
       "replacement": "mount dsh-sandbox-local plus dsh-sandbox-policy and set the sandbox-policy row mode and workspaceRoot",
-      "targets": ["cordis.patch.yml"],
+      "targets": [
+        "cordis.patch.yml"
+      ],
       "detectable": false,
       "undetectableReason": "Whether the required services are mounted depends on the profile composition a deployment builds, not on the rows this repository ships.",
       "confidence": "documented",
-      "ids": ["python-ptc-sandbox"]
+      "ids": [
+        "python-ptc-sandbox"
+      ]
     },
     {
       "id": "L13",
@@ -180,13 +269,20 @@
       "kind": "resource-moved",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/python-optional-resources/guide.md",
-      "removed": ["bundled Office sidecar wheels", "bundled authoring interpreter"],
+      "removed": [
+        "bundled Office sidecar wheels",
+        "bundled authoring interpreter"
+      ],
       "replacement": "call download_office() or download_primary_runtime(); pre-seed DSH_RESOURCE_CACHE for offline deployments",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": false,
       "undetectableReason": "The failure occurs on first use of a resource, and only when the deployment is offline or the cache is cold. Its absence is not visible in the source.",
       "confidence": "documented",
-      "ids": ["python-optional-resources"]
+      "ids": [
+        "python-optional-resources"
+      ]
     },
     {
       "id": "L14",
@@ -194,12 +290,21 @@
       "kind": "cli-argument-order",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/plugin-option-placement/guide.md",
-      "removed": ["dsh plugin add <pkg> --profile <name>"],
+      "removed": [
+        "dsh plugin add <pkg> --profile <name>"
+      ],
       "replacement": "dsh plugin --profile <name> add <package>",
-      "targets": ["**/*.md", "**/*.sh", "**/*.ps1", "**/*.yml"],
+      "targets": [
+        "**/*.md",
+        "**/*.sh",
+        "**/*.ps1",
+        "**/*.yml"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["plugin-option-placement"]
+      "ids": [
+        "plugin-option-placement"
+      ]
     },
     {
       "id": "L15",
@@ -209,10 +314,15 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/terminal-command-labels/guide.md",
       "removed": [],
       "replacement": "every TerminalBlockLabels object needs commandLine(line: number): string",
-      "targets": ["src/**/*.ts", "src/**/*.tsx"],
+      "targets": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
       "detectable": true,
       "confidence": "documented",
-      "ids": ["terminal-command-labels"]
+      "ids": [
+        "terminal-command-labels"
+      ]
     },
     {
       "id": "L16",
@@ -222,11 +332,15 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/deepseek-model-discovery/guide.md",
       "removed": [],
       "replacement": "configure a key or an apiKeyEnv variable; consumers must handle an empty catalog",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": false,
       "undetectableReason": "The behavior depends on whether a credential is present for the deployment, which is runtime state.",
       "confidence": "documented",
-      "ids": ["deepseek-model-discovery"]
+      "ids": [
+        "deepseek-model-discovery"
+      ]
     },
     {
       "id": "L17",
@@ -234,13 +348,17 @@
       "kind": "behavior-changed",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/new-session-generations/guide.md",
-      "removed": ["empty-session reuse"],
+      "removed": [
+        "empty-session reuse"
+      ],
       "replacement": "use New Session after changing presets; use openWorkspace/connectWorkspace to reuse",
       "targets": [],
       "detectable": false,
       "undetectableReason": "This is a client interaction behavior. Nothing in a plugin's source or manifest expresses it.",
       "confidence": "documented",
-      "ids": ["new-session-generations"]
+      "ids": [
+        "new-session-generations"
+      ]
     },
     {
       "id": "L18",
@@ -250,11 +368,15 @@
       "doc": "docs/upgrade-guide/v0.2.1-alpha.1/mock-messages-events/guide.md",
       "removed": [],
       "replacement": "consume the named events and their data fields rather than filtering anonymous messages",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": false,
       "undetectableReason": "A consumer that filters anonymous messages still works against the mock server; the change adds events rather than removing them, so there is no violation to detect.",
       "confidence": "documented",
-      "ids": ["mock-messages-events"]
+      "ids": [
+        "mock-messages-events"
+      ]
     },
     {
       "id": "L19",
@@ -268,7 +390,9 @@
       "detectable": false,
       "undetectableReason": "A build-configuration default for a test workflow; it is not expressed in plugin source.",
       "confidence": "documented",
-      "ids": ["desktop-test-auth-popup"]
+      "ids": [
+        "desktop-test-auth-popup"
+      ]
     },
     {
       "id": "B1",
@@ -276,13 +400,17 @@
       "kind": "resource-moved",
       "target": "0.2.1-alpha.2",
       "doc": "docs/upgrade-guide/v0.2.0-rc.2/bundled-python-tests/guide.md",
-      "removed": ["NumPy and pandas test directories from the managed runtime"],
+      "removed": [
+        "NumPy and pandas test directories from the managed runtime"
+      ],
       "replacement": "install upstream testing dependencies in a separate Python environment outside the managed runtime dir",
       "targets": [],
       "detectable": false,
       "undetectableReason": "A documentation placement exception: this guide sits in the v0.2.0-rc.2 directory but was added after that release. Whether a deployment runs upstream test suites is not visible in this repository.",
       "confidence": "documented",
-      "ids": ["bundled-python-tests"]
+      "ids": [
+        "bundled-python-tests"
+      ]
     },
     {
       "id": "S1",
@@ -292,7 +420,9 @@
       "doc": "docs/cordis-tutorial/index.md",
       "removed": [],
       "replacement": "declared @deepseek-ai/dsh-* peer ranges are compared against the running version before import; a mismatch disables the row",
-      "targets": ["package.json"],
+      "targets": [
+        "package.json"
+      ],
       "detectable": true,
       "confidence": "inferred",
       "inferredFrom": "The gates are install-time and load-time behavior described across guide/version-matrix.md §4 and guide/plugin-dev-guide.md §7.3. The knowledge base records the observable rejection message rather than an official statement of the mechanism in one page."
@@ -303,9 +433,15 @@
       "kind": "format-changed",
       "target": "0.1.7-alpha.1",
       "doc": "docs/session-format-status.md",
-      "removed": ["tool results as content blocks", "plugin-owned message source wrapper", "request/header.system key"],
+      "removed": [
+        "tool results as content blocks",
+        "plugin-owned message source wrapper",
+        "request/header.system key"
+      ],
       "replacement": "tool-role messages with toolCallId; producer-owned source.kind declared by the producer",
-      "targets": ["src/**/*.ts"],
+      "targets": [
+        "src/**/*.ts"
+      ],
       "detectable": true,
       "confidence": "documented"
     },
@@ -315,9 +451,16 @@
       "kind": "mechanism-removed",
       "target": "0.2.1-alpha.1",
       "doc": "docs/upgrade-guide/v0.2.0-rc.2/remove-runtime-invariants/guide.md",
-      "removed": ["invariants service", "./invariant subpath exports", "@deepseek-ai/dsh-invariants"],
+      "removed": [
+        "invariants service",
+        "./invariant subpath exports",
+        "@deepseek-ai/dsh-invariants"
+      ],
       "replacement": "none; the model-visible-equals-logged rule is now enforced by review only",
-      "targets": ["package.json", "src/**/*.ts"],
+      "targets": [
+        "package.json",
+        "src/**/*.ts"
+      ],
       "detectable": true,
       "confidence": "documented"
     },
@@ -327,9 +470,14 @@
       "kind": "behavior-removed",
       "target": "0.2.1-alpha.1",
       "doc": "docs/upgrade-guide/v0.2.0-rc.2/subpath-plugin-display-manifest/guide.md",
-      "removed": ["display metadata read from the subpath plugin's own package.json"],
+      "removed": [
+        "display metadata read from the subpath plugin's own package.json"
+      ],
       "replacement": "ship display metadata through locale files and the exported icon",
-      "targets": ["package.json", "locale/*.json"],
+      "targets": [
+        "package.json",
+        "locale/*.json"
+      ],
       "detectable": true,
       "confidence": "documented"
     },
@@ -339,9 +487,13 @@
       "kind": "bundle-retired",
       "target": "0.2.0-rc.2",
       "doc": "docs/upgrade-guide/v0.2.0-rc.2/schedule-bundle-retired/guide.md",
-      "removed": ["@deepseek-ai/dsh-experimental-schedule-bundle"],
+      "removed": [
+        "@deepseek-ai/dsh-experimental-schedule-bundle"
+      ],
       "replacement": "the schedule capability moved into the base composition",
-      "targets": ["package.json"],
+      "targets": [
+        "package.json"
+      ],
       "detectable": true,
       "confidence": "documented"
     },
@@ -351,47 +503,1323 @@
       "kind": "mechanism-removed",
       "target": "0.1.0-rc.8",
       "doc": "https://github.com/PerryLink/dsh-primer/blob/main/guide/plugin-dev-guide.md",
-      "removed": [".dsh-plugin manifest", "plugin_search/install/uninstall/status tools", "vendor/loader/src/repository.ts"],
+      "removed": [
+        ".dsh-plugin manifest",
+        "plugin_search/install/uninstall/status tools",
+        "vendor/loader/src/repository.ts"
+      ],
       "replacement": "the web profile bundle channel, plus pure-Cordis insertion through cordis.patch.yml",
-      "targets": ["**/*.md", "package.json"],
+      "targets": [
+        "**/*.md",
+        "package.json"
+      ],
       "detectable": true,
       "confidence": "inferred",
       "inferredFrom": "Community-measured mechanism timeline recorded by the archived vlln/plugin-registry repository, which was archived 2026-10-03 and frozen at a 0.1.5 baseline. The knowledge base carries the timeline because no official page states it."
+    },
+    {
+      "id": "K1",
+      "title": "Context menu types and icons",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/context-menu-target/guide.md",
+      "removed": [
+        "unprefixed context-menu action types and hooks",
+        "unkeyed icon components"
+      ],
+      "replacement": "Use the prefixed context-menu types and hooks and register keyed icon components.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "context-menu-target"
+      ]
+    },
+    {
+      "id": "K2",
+      "title": "Loader entry tree reports and Include persistence",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/cordis-loader-entry-trees/guide.md",
+      "removed": [
+        "Loader entry-tree mutation reports without commit(change)"
+      ],
+      "replacement": "Report entry-tree mutations through commit(change); Include persists them through a journal.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "cordis-loader-entry-trees"
+      ]
+    },
+    {
+      "id": "K3",
+      "title": "CSS-anchored menus",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/css-anchored-menus/guide.md",
+      "removed": [
+        "JavaScript panel positioning",
+        "Menu rectangle callbacks"
+      ],
+      "replacement": "Position menus with CSS anchors instead of JavaScript panel positioning and rectangle callbacks.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "css-anchored-menus"
+      ]
+    },
+    {
+      "id": "K4",
+      "title": "Source-built Computer Use helper identity",
+      "kind": "deployment-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/cua-source-dev-helper/guide.md",
+      "removed": [
+        "source-built CUA helper bundle identity"
+      ],
+      "replacement": "Grant the source-built helper its separate macOS permission.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "cua-source-dev-helper"
+      ],
+      "undetectableReason": "Source-built Computer Use helpers differ by bundle identity and a macOS permission grant; the repository cannot show which helper built or which permission the user granted."
+    },
+    {
+      "id": "K5",
+      "title": "Desktop stable channel name",
+      "kind": "deployment-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/desktop-stable-channel/guide.md",
+      "removed": [
+        "Desktop update channel named latest"
+      ],
+      "replacement": "Subscribe Desktop updates to the renamed stable channel.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "desktop-stable-channel"
+      ],
+      "undetectableReason": "The Desktop update channel is an update-feed and deployment property, not a repository artifact; no source file states which channel a running Desktop build was installed from."
+    },
+    {
+      "id": "K6",
+      "title": "Forge Git query permissions and content conversion",
+      "kind": "behavior-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/forge-git-permissions/guide.md",
+      "removed": [
+        "Forge Git queries not tied to Session permissions",
+        "configured diff helpers during Git queries"
+      ],
+      "replacement": "Let Forge Git queries run under Session permissions; remove configured diff helpers.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "forge-git-permissions"
+      ],
+      "undetectableReason": "Forge Git queries run against live Session permissions and configured diff helpers; whether a caller relied on the previous permission source cannot be established from its source."
+    },
+    {
+      "id": "K7",
+      "title": "One plugin entry for change requests and worktrees",
+      "kind": "ui-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/forge-worktree-entry/guide.md",
+      "removed": [
+        "standalone Git worktrees card on the Plugins page"
+      ],
+      "replacement": "Use the Change requests and worktrees entry on the Plugins page.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "forge-worktree-entry"
+      ],
+      "undetectableReason": "This is a rendered Plugins-page layout (the Git worktrees card is superseded by Change requests and worktrees); static inspection cannot tell which card a user or workflow depends on."
+    },
+    {
+      "id": "K8",
+      "title": "Filesystem mutations no longer require a prior read by default",
+      "kind": "config-default-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.md",
+      "removed": [
+        "fs-observation-policy row enabled by default",
+        "apply_patch absent from dsh-base and the Web standard preset"
+      ],
+      "replacement": "Re-enable the fs-observation-policy row if read-before-write is required; account for apply_patch in the base and standard presets.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "fs-observation-policy-default-off"
+      ],
+      "undetectableReason": "A shipped default only changes behavior when a filesystem mutation actually needs a prior read; a profile that relied on read-before-write fails at tool-call time, not in its declarations."
+    },
+    {
+      "id": "K9",
+      "title": "`new LlmError` accepts only built-in failure codes",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/llm-error-builtin-codes/guide.md",
+      "removed": [
+        "new LlmError with non-builtin failure codes"
+      ],
+      "replacement": "Construct built-in LlmError codes directly; route other cases through LlmError.fromFailure.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "llm-error-builtin-codes"
+      ]
+    },
+    {
+      "id": "K10",
+      "title": "Declare auxiliary LLM request purposes",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/llm-request-purpose-declarations/guide.md",
+      "removed": [
+        "shared fixed union of auxiliary LLM request purposes"
+      ],
+      "replacement": "Declare auxiliary request purposes with producer-owned type declarations.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "llm-request-purpose-declarations"
+      ]
+    },
+    {
+      "id": "K11",
+      "title": "pi-ai request image count",
+      "kind": "behavior-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/pi-ai-request-image-count/guide.md",
+      "removed": [
+        "all retained history images kept per pi-ai request"
+      ],
+      "replacement": "Expect history-image offloading after 50 retained images on pi-ai routes.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "pi-ai-request-image-count"
+      ],
+      "undetectableReason": "History-image offloading happens inside the pi-ai route at request time; the 50-retained-image threshold is not observable in a plugin manifest or source tree."
+    },
+    {
+      "id": "K12",
+      "title": "Projection frames list every key one event changed",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/projection-event-frames/guide.md",
+      "removed": [
+        "one-key-per-frame live projection frames"
+      ],
+      "replacement": "Read frames that list every key one committed event changed.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "projection-event-frames"
+      ]
+    },
+    {
+      "id": "K13",
+      "title": "Released projection units stay in checkpoints",
+      "kind": "behavior-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/projection-released-checkpoint/guide.md",
+      "removed": [
+        "released projection unit omitted from session checkpoints"
+      ],
+      "replacement": "Expect a released projection unit to keep its last checkpoint row.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "projection-released-checkpoint"
+      ],
+      "undetectableReason": "Whether a released projection unit keeps its last checkpoint row is visible only when a checkpoint is written and a restarted processor reads it, not in static source."
+    },
+    {
+      "id": "K14",
+      "title": "Projection snapshot scope",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/projection-snapshot-scope/guide.md",
+      "removed": [
+        "registry cached snapshot read",
+        "context pressure and breakdown in Session list summaries"
+      ],
+      "replacement": "Compute only the units a snapshot returns; stop using the cached registry read and the Session-list pressure fields.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "projection-snapshot-scope"
+      ]
+    },
+    {
+      "id": "K15",
+      "title": "Retained PTC timeout recovery",
+      "kind": "behavior-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/retained-ptc-timeout/guide.md",
+      "removed": [
+        "immediate process termination on retained PTC timeout"
+      ],
+      "replacement": "Expect cooperative stop first and process termination only when acknowledgement fails.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "retained-ptc-timeout"
+      ],
+      "undetectableReason": "Timeout and cancellation recovery depends on a retained process actually stalling; no static artifact distinguishes cooperative stop from enforced termination."
+    },
+    {
+      "id": "K16",
+      "title": "Schedule tools manage every Host task by RRULE and target",
+      "kind": "tool-renamed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/schedule-agent-tools/guide.md",
+      "removed": [
+        "schedule_update tool",
+        "schedule_delete tool"
+      ],
+      "replacement": "Use schedule_create / schedule_list / schedule_view / schedule_edit against every Host task.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "schedule-agent-tools"
+      ]
+    },
+    {
+      "id": "K17",
+      "title": "Schedule uses one Host-wide management API",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/schedule-remote-host-tasks/guide.md",
+      "removed": [
+        "client-side Host task data layout"
+      ],
+      "replacement": "Use the single Host-wide schedule management API and its typed timing records.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "schedule-remote-host-tasks"
+      ]
+    },
+    {
+      "id": "K18",
+      "title": "SDK run accepts native commands",
+      "kind": "api-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/sdk-run-commands/guide.md",
+      "removed": [
+        "SDK run results before native command handling"
+      ],
+      "replacement": "Handle recognized native commands and await RunResult after the input completes.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "sdk-run-commands"
+      ]
+    },
+    {
+      "id": "K19",
+      "title": "Session Header menus and export dialogs",
+      "kind": "ui-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/session-header-menu/guide.md",
+      "removed": [
+        "custom Web compositions without Session context menus",
+        "export dialogs closed by Session switches"
+      ],
+      "replacement": "Provide Session context menus in custom Web compositions; expect export dialogs to stay visible across Session switches.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "session-header-menu"
+      ],
+      "undetectableReason": "A custom Web composition missing Session context menus and export-dialog visibility only fails in the rendered client while switching Sessions."
+    },
+    {
+      "id": "K20",
+      "title": "Subagent reasoning overrides require an explicit route",
+      "kind": "validation-added",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/subagent-explicit-reasoning/guide.md",
+      "removed": [
+        "reasoning overrides without an explicit provider and model"
+      ],
+      "replacement": "Pass an explicit provider and model route; omit effort to inherit the model default.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "subagent-explicit-reasoning"
+      ]
+    },
+    {
+      "id": "K21",
+      "title": "DeepSeek web search and fetch follow the DeepSeek model route",
+      "kind": "config-changed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/web-search-credential-modes/guide.md",
+      "removed": [
+        "shared web-search baseURL / apiKeyEnv / apiKey fields"
+      ],
+      "replacement": "Derive web search and fetch endpoints from the DeepSeek model route and use per-capability fields.",
+      "targets": [
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "web-search-credential-modes"
+      ]
+    },
+    {
+      "id": "K22",
+      "title": "Search defaults to the DeepSeek Search API; Exa and Perplexity are removed",
+      "kind": "package-removed",
+      "target": "0.2.2-alpha.3",
+      "authoredIn": "0.2.2-alpha.2",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.2/web-search-default-provider/guide.md",
+      "removed": [
+        "legacy Messages search default",
+        "@deepseek-ai/dsh-web-search-exa",
+        "@deepseek-ai/dsh-web-search-perplexity"
+      ],
+      "replacement": "Rely on the DeepSeek Search API default and remove the Exa/Perplexity packages.",
+      "targets": [
+        "package.json",
+        "cordis.patch.yml"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "web-search-default-provider"
+      ]
+    },
+    {
+      "id": "K23",
+      "title": "Chat `ProcessActivity` adds `context`",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.1",
+      "authoredIn": "0.2.2-alpha.3",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.3/chat-process-activity-context/guide.md",
+      "removed": [
+        "ProcessActivity without a context category",
+        "older RunningProcessActivity shape"
+      ],
+      "replacement": "Handle the context category and the current RunningProcessActivity shape.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "chat-process-activity-context"
+      ]
+    },
+    {
+      "id": "K24",
+      "title": "`@deepseek-ai/dsh-office-kit` replaces `@deepseek-ai/dsh-office-to-pdf`",
+      "kind": "package-renamed",
+      "target": "0.2.2-rc.1",
+      "authoredIn": "0.2.2-alpha.3",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.3/office-kit-package/guide.md",
+      "removed": [
+        "@deepseek-ai/dsh-office-to-pdf",
+        "office-to-pdf service, Remote methods, exported types and config row"
+      ],
+      "replacement": "Move to @deepseek-ai/dsh-office-kit and its renamed service, Remote methods, types and row.",
+      "targets": [
+        "package.json",
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "office-kit-package"
+      ]
+    },
+    {
+      "id": "K25",
+      "title": "Office operation skills are replaced by Office tools",
+      "kind": "api-removed",
+      "target": "0.2.2-rc.1",
+      "authoredIn": "0.2.2-alpha.3",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.3/office-operation-tools/guide.md",
+      "removed": [
+        "office-render / office-recalculate / office-export-pdf skills",
+        "skill-office node and cli keys",
+        "two Office CLI environment variables"
+      ],
+      "replacement": "Use the skill-activated Office tools instead of the removed skills and CLI keys.",
+      "targets": [
+        "package.json",
+        "**/*.md"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "office-operation-tools"
+      ]
+    },
+    {
+      "id": "K26",
+      "title": "Office skills load from the packaged assets",
+      "kind": "config-changed",
+      "target": "0.2.2-rc.1",
+      "authoredIn": "0.2.2-alpha.3",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.3/office-skill-resources/guide.md",
+      "removed": [
+        "DSH_BUNDLED_OFFICE_SKILLS",
+        "office-skills/ resource directories"
+      ],
+      "replacement": "Load Office skills from the skill-office package assets; drop the environment variable and resource dirs.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "office-skill-resources"
+      ]
+    },
+    {
+      "id": "K27",
+      "title": "Subagent tools address agents by name",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.1",
+      "authoredIn": "0.2.2-alpha.3",
+      "doc": "docs/upgrade-guide/v0.2.2-alpha.3/subagent-names/guide.md",
+      "removed": [
+        "Subagent control and Team task tools addressed by id",
+        "previous list_agents row shape",
+        "subagent catalog payload version 2"
+      ],
+      "replacement": "Address agents by name and handle the new list_agents rows and catalog payload version 3.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "subagent-names"
+      ]
+    },
+    {
+      "id": "K28",
+      "title": "Update account notification consumers",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/account-notification-fields/guide.md",
+      "removed": [
+        "bonus-specific account notification methods",
+        "notification requests outside the Harness domain"
+      ],
+      "replacement": "Use the generic account notification APIs and Harness-domain notification requests.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "account-notification-fields"
+      ]
+    },
+    {
+      "id": "K29",
+      "title": "Account service and Remote imports",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/account-remote-provider/guide.md",
+      "removed": [
+        "abstract account composition",
+        "Remote imports from the abstract account package"
+      ],
+      "replacement": "Compose the concrete deepseek-account service and import its Remote types.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "account-remote-provider"
+      ]
+    },
+    {
+      "id": "K30",
+      "title": "Worktree cleanup on archive",
+      "kind": "behavior-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/archive-worktrees/guide.md",
+      "removed": [
+        "archiving a Session left its worktree untouched"
+      ],
+      "replacement": "Expect archiving to remove a clean worktree while keeping the branch.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "archive-worktrees"
+      ],
+      "undetectableReason": "Whether archiving a Session can remove a clean worktree depends on live worktree and branch state; static source cannot tell whether a worktree is in use."
+    },
+    {
+      "id": "K31",
+      "title": "Attachment failures keep their codes",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/attachment-error-codes/guide.md",
+      "removed": [
+        "AttachmentError not extending HarnessError",
+        "attachment failures recorded as UNKNOWN"
+      ],
+      "replacement": "Treat AttachmentError as a HarnessError subclass and read the preserved attachment codes.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "attachment-error-codes"
+      ]
+    },
+    {
+      "id": "K32",
+      "title": "macOS AX tree read limits",
+      "kind": "config-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/cua-ax-read-limits/guide.md",
+      "removed": [
+        "fixed macOS AX traversal budgets"
+      ],
+      "replacement": "Pass per-read overrides and expect the larger default AX node budget.",
+      "targets": [
+        "src/**/*.ts",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "cua-ax-read-limits"
+      ]
+    },
+    {
+      "id": "K33",
+      "title": "macOS hover keeps the system pointer in place by default",
+      "kind": "behavior-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/cua-hover-ax-only/guide.md",
+      "removed": [
+        "mouseMove that moves the system pointer"
+      ],
+      "replacement": "Expect macOS mouseMove to require AX alternate UI and return HOVER_UNAVAILABLE instead of moving the cursor.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "cua-hover-ax-only"
+      ],
+      "undetectableReason": "Keeping the macOS system pointer in place is a runtime side effect of mouseMove; static inspection cannot observe pointer movement or a HOVER_UNAVAILABLE return."
+    },
+    {
+      "id": "K34",
+      "title": "Native CUA application and window API",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/cua-native-platform/guide.md",
+      "removed": [
+        "global native CUA window input API",
+        "numeric element ids"
+      ],
+      "replacement": "Use scoped window input, string element IDs and platform capabilities.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "cua-native-platform"
+      ]
+    },
+    {
+      "id": "K35",
+      "title": "`dsh-doc` replaces the Creator mode skills",
+      "kind": "resource-moved",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/dsh-doc-skill/guide.md",
+      "removed": [
+        "cordis-plugin-development skill",
+        "editing-cordis-compositions skill",
+        "cordis-composition-reference skill",
+        "agent-experience skill",
+        "packages/preset/agent-preset/skills/cordis-plugin-development/**"
+      ],
+      "replacement": "Load the single dsh-doc skill; its references and templates now live under skills/dsh-doc/.",
+      "targets": [
+        "**/*.md",
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "dsh-doc-skill"
+      ]
+    },
+    {
+      "id": "K36",
+      "title": "Forge snapshots carry the change request overview, and actions report unknown outcomes",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/forge-change-request-overview/guide.md",
+      "removed": [
+        "ChangeRequestSnapshot without overview fields",
+        "ChangeRequestCheck without rerun",
+        "ForgeActionFailure without unknown"
+      ],
+      "replacement": "Populate the required overview and rerun fields and handle the unknown action outcome.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "forge-change-request-overview"
+      ]
+    },
+    {
+      "id": "K37",
+      "title": "Forge diffs read one head commit",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/forge-pinned-diff/guide.md",
+      "removed": [
+        "ForgeProvider.diff without a head commit",
+        "ForgeFailure without stale",
+        "ChangeRequestSnapshot without threadsTruncated"
+      ],
+      "replacement": "Pass the head commit to ctx.forge.diff / ForgeProvider.diff and handle stale plus threadsTruncated.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "forge-pinned-diff"
+      ]
+    },
+    {
+      "id": "K38",
+      "title": "Forge failures report unsupported reads",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/forge-review-reads/guide.md",
+      "removed": [
+        "review reads that silently succeed without provider support"
+      ],
+      "replacement": "Handle ForgeFailure code unsupported returned by ctx.forge.readReview.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "forge-review-reads"
+      ]
+    },
+    {
+      "id": "K39",
+      "title": "`BundleInfo.update` replaces `BundleInfo.updatable`",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/plugin-update-method/guide.md",
+      "removed": [
+        "BundleInfo.updatable"
+      ],
+      "replacement": "Read BundleInfo.update (registry | git | undefined) and handle ManagementError code unexpected-package.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "plugin-update-method"
+      ]
+    },
+    {
+      "id": "K40",
+      "title": "Runtime-context reminder records",
+      "kind": "format-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/runtime-context-reminders/guide.md",
+      "removed": [
+        "runtime-context log text without reminder framing",
+        "clear markers without empty-section records"
+      ],
+      "replacement": "Read the reminder framing and empty-snapshot-section clear markers in runtime-context log text.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "runtime-context-reminders"
+      ],
+      "undetectableReason": "Reminder framing and empty-section clear markers are persisted runtime-context text, a data format observed in session records rather than in plugin declarations."
+    },
+    {
+      "id": "K41",
+      "title": "Update replacements for `Session.append`",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/session-append-overloads/guide.md",
+      "removed": [
+        "a replacement Session.append that implements only one overload"
+      ],
+      "replacement": "Implement both the single-event and array overloads when replacing Session.append.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "session-append-overloads"
+      ]
+    },
+    {
+      "id": "K42",
+      "title": "Built-in configurations disable agent interruption",
+      "kind": "config-default-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/subagent-interrupt-default/guide.md",
+      "removed": [
+        "interrupt_agent enabled by default for subagents and Team mode"
+      ],
+      "replacement": "Re-enable interrupt_agent explicitly in built-in configurations if interruption is required.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "subagent-interrupt-default"
+      ],
+      "undetectableReason": "A built-in composition default for interrupt_agent is applied by the Host at run time; nothing in a third-party package states whether it relied on interruption being enabled."
+    },
+    {
+      "id": "K43",
+      "title": "`TerminalBackendCleanupError` extends `TerminalError`",
+      "kind": "api-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/terminal-backend-cleanup-error/guide.md",
+      "removed": [
+        "TerminalBackendCleanupError extending AggregateError"
+      ],
+      "replacement": "Extend TerminalError and carry the CLEANUP_FAILED code.",
+      "targets": [
+        "src/**/*.ts"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "terminal-backend-cleanup-error"
+      ]
+    },
+    {
+      "id": "K44",
+      "title": "Persistent terminals open in the Web sidebar",
+      "kind": "bundle-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/terminal-bundle-sidebar-backend/guide.md",
+      "removed": [
+        "optional-terminal-bash row",
+        "optional-terminal-pwsh row"
+      ],
+      "replacement": "Target optional-terminal-panel rows; Agent terminals now open in the Web sidebar.",
+      "targets": [
+        "cordis.patch.yml",
+        "package.json"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "terminal-bundle-sidebar-backend"
+      ]
+    },
+    {
+      "id": "K45",
+      "title": "DeepSeek web search and fetch choose their credential by billing",
+      "kind": "config-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/web-search-billing/guide.md",
+      "removed": [
+        "provider authentication fields on DeepSeek Search/Fetch"
+      ],
+      "replacement": "Use per-capability billing and ordered credential sources for DeepSeek Search and Fetch.",
+      "targets": [
+        "src/**/*.ts",
+        "cordis.patch.yml"
+      ],
+      "detectable": true,
+      "confidence": "documented",
+      "ids": [
+        "web-search-billing"
+      ]
+    },
+    {
+      "id": "K46",
+      "title": "Explicit window regions for custom Client overlays",
+      "kind": "ui-changed",
+      "target": "0.2.2-rc.2",
+      "authoredIn": "0.2.2-rc.1",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.1/window-drag-regions/guide.md",
+      "removed": [
+        "global macOS no-drag exclusions for custom overlays"
+      ],
+      "replacement": "Declare explicit window regions for custom Client overlays.",
+      "targets": [],
+      "detectable": false,
+      "confidence": "documented",
+      "ids": [
+        "window-drag-regions"
+      ],
+      "undetectableReason": "A missing window-region declaration only breaks drag behavior in the rendered macOS client; the declaration is runtime UI metadata, not a load-time contract."
     }
   ],
   "capabilities": [
-    { "id": "A1", "area": "Subagents", "introducedIn": "<=dsh-v0.1.0-rc.7", "anchor": "note 2026-06-21; continuable note 2026-07-28; control tools first commit 2026-08-02", "confidence": "documented" },
-    { "id": "A2", "area": "Agent Teams (experimental)", "introducedIn": "dsh-v0.1.0-rc.8", "anchor": "packages first commit 2026-08-19; profile bundle 2026-09-04 -> dsh-v0.1.3-alpha.1", "confidence": "documented" },
-    { "id": "A3", "area": "Workflow orchestration", "introducedIn": "dsh-v0.1.6-alpha.1", "anchor": "tool-workflow 2026-07-05 and tool-ralph 2026-07-20 were earlier; workflow-ptc 2026-09-13 -> this release", "confidence": "documented" },
-    { "id": "A4", "area": "Background jobs", "introducedIn": "<=dsh-v0.1.0-rc.7", "anchor": "first commit 2026-08-13; consolidation note 2026-09-03", "confidence": "documented" },
-    { "id": "A5", "area": "Scheduling and cron", "introducedIn": "dsh-v0.2.1-alpha.1", "anchor": "after 2026-08-05 and fixed-rate+cron 2026-08-06 were earlier; the tool package became preset-scoped 2026-09-24 -> this release", "confidence": "documented" },
-    { "id": "A6", "area": "Goal tracking", "introducedIn": "<=dsh-v0.1.0-rc.7", "anchor": "2026-07-19", "confidence": "documented" },
-    { "id": "A7", "area": "Plan mode", "introducedIn": "<=dsh-v0.1.0-rc.7", "anchor": "2026-07-22", "confidence": "documented" },
-    { "id": "A8", "area": "Todo list", "introducedIn": "<=dsh-v0.1.0-rc.7", "anchor": "2026-06-29", "confidence": "documented" },
-    { "id": "A9", "area": "LSP navigation", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "seam 2026-07-16; lsp-stdio 2026-08-13 was earlier; tool-lsp 2026-09-04 -> this release", "confidence": "documented" },
-    { "id": "A10", "area": "Browser automation", "introducedIn": "dsh-v0.1.6-alpha.1", "anchor": "2026-09-12/13; seam is native, provider is experimental", "confidence": "documented" },
-    { "id": "A11", "area": "Computer use", "introducedIn": "dsh-v0.1.6-alpha.1", "anchor": "2026-09-12; seam is native, provider is experimental", "confidence": "documented" },
-    { "id": "A12", "area": "MCP client", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "client note 2026-07-07; group first tag 2026-09-04", "confidence": "documented" },
-    { "id": "A13", "area": "Observability / OpenTelemetry", "introducedIn": "dsh-v0.2.0-rc.1", "anchor": "otel package 2026-09-25; product adapter 2026-09-21 -> 0.1.7-alpha.2; session adapter 2026-09-04 -> 0.1.3-alpha.1", "confidence": "documented" },
-    { "id": "A14", "area": "Deliverables, documents, attachments", "introducedIn": "dsh-v0.1.6-alpha.2", "anchor": "deliverables 2026-09-14; office-to-pdf 2026-09-16; attachment seam 2026-09-04 -> 0.1.3-alpha.1", "confidence": "documented" },
-    { "id": "A15", "area": "Session store, checkpoints, search, fork/resume/export", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "session/llm 2026-06-11; checkpoint policy 2026-08-09; session-query 2026-09-04; V4 format 2026-09-16", "confidence": "documented" },
-    { "id": "A16", "area": "Web access", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "seam note 2026-06-24; group first tag 2026-09-04", "confidence": "documented" },
-    { "id": "A17", "area": "Outbound webhooks", "introducedIn": "dsh-v0.1.2-alpha.1", "anchor": "group 2026-08-23; GitHub adapter 2026-09-04 -> 0.1.3-alpha.1", "confidence": "documented" },
-    { "id": "A18", "area": "Terminal, SSH, shell", "introducedIn": "dsh-v0.1.6-alpha.1", "anchor": "shell/terminal 2026-08-13; SSH 2026-09-12 -> this release; terminal permission note 2026-09-16", "confidence": "documented" },
-    { "id": "A19", "area": "Permissions, approval, sandboxing", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "sandbox/permission/user-approval/commands 2026-09-04; guards 2026-07-08", "confidence": "documented" },
-    { "id": "A20", "area": "Extension points: skills, dynamic plugins, hooks, presets", "introducedIn": "dsh-v0.1.6-alpha.2", "anchor": "skill 2026-07-10 and hooks 2026-07-01 were earlier; plugin-manager tool 2026-09-14 -> this release; preset registry 2026-09-21 -> 0.1.7-alpha.2", "confidence": "documented" },
-    { "id": "A21", "area": "Context management: compaction, spill, observation policy", "introducedIn": "dsh-v0.1.3-alpha.1", "anchor": "compaction seam 2026-06-18; spill group 2026-09-04 -> this release; image offload 2026-09-08 -> 0.1.6-alpha.1", "confidence": "documented" },
-    { "id": "A22", "area": "Plugin and API surfaces: Remote controllers, Typert, SDK, ACP, bundles", "introducedIn": "dsh-v0.1.2-alpha.1", "anchor": "acp 2026-06-16, sdk 2026-07-15, api/typert 2026-07-29..08-07 were earlier; sdk-minimal 2026-08-24 -> this release", "confidence": "documented" },
-    { "id": "M1", "area": "ctx.hmr, ctx.pluginManager, ctx.profileContext", "introducedIn": "dsh-v0.1.6-alpha.2", "anchor": "three packages first appear in the same release", "confidence": "documented" },
-    { "id": "M2", "area": "peer compatibility runtime gate", "introducedIn": "dsh-v0.1.7-rc.1", "anchor": "plugin-compatibility.ts and two sibling files first appear", "confidence": "documented" },
-    { "id": "M3", "area": "Session format V4", "introducedIn": "dsh-v0.1.7-alpha.1", "anchor": "SESSION_FORMAT_VERSION 3 -> 4", "confidence": "documented" },
-    { "id": "M4", "area": "ctx.mcpResources, ctx.browserUse, ctx.computerUse, ctx.ssh, ctx.inspector, ctx.dynamicCordisRunner", "introducedIn": "dsh-v0.2.1-alpha.1", "anchor": "seam rows A10/A11/A12/A18/A20", "confidence": "documented" },
-    { "id": "M5", "area": "conversation.input.permission and sidebar.right.tab.guide.entry slots", "introducedIn": "dsh-v0.2.1-alpha.1", "anchor": "official slot documentation", "confidence": "documented" },
-    { "id": "M6", "area": "webStartup replaces webRuntime", "introducedIn": "dsh-v0.2.1-alpha.2", "anchor": "L3", "confidence": "documented" },
-    { "id": "M7", "area": "BundleInfo.official and BundleInfo.availability", "introducedIn": "dsh-v0.2.1-alpha.2", "anchor": "L11", "confidence": "documented" },
-    { "id": "M8", "area": "working_directory tool and create_worktree", "introducedIn": "dsh-v0.2.1-alpha.2", "anchor": "tool catalog", "confidence": "inferred", "inferredFrom": "Present in the pinned tool catalog; the exact introducing release was not established by a first-tag search." },
-    { "id": "M9", "area": "dsh-invariants removed", "introducedIn": "removed in dsh-v0.2.1-alpha.1", "anchor": "S3", "confidence": "documented" },
-    { "id": "M10", "area": "dsh-experimental-schedule-bundle retired", "introducedIn": "retired in dsh-v0.2.0-rc.2", "anchor": "S5", "confidence": "documented" },
-    { "id": "M11", "area": "subpath plugins stop reading their own package.json", "introducedIn": "removed in dsh-v0.2.1-alpha.1", "anchor": "S4", "confidence": "documented" }
+    {
+      "id": "A1",
+      "area": "Subagents",
+      "introducedIn": "<=dsh-v0.1.0-rc.7",
+      "anchor": "note 2026-06-21; continuable note 2026-07-28; control tools first commit 2026-08-02",
+      "confidence": "documented"
+    },
+    {
+      "id": "A2",
+      "area": "Agent Teams (experimental)",
+      "introducedIn": "dsh-v0.1.0-rc.8",
+      "anchor": "packages first commit 2026-08-19; profile bundle 2026-09-04 -> dsh-v0.1.3-alpha.1",
+      "confidence": "documented"
+    },
+    {
+      "id": "A3",
+      "area": "Workflow orchestration",
+      "introducedIn": "dsh-v0.1.6-alpha.1",
+      "anchor": "tool-workflow 2026-07-05 and tool-ralph 2026-07-20 were earlier; workflow-ptc 2026-09-13 -> this release",
+      "confidence": "documented"
+    },
+    {
+      "id": "A4",
+      "area": "Background jobs",
+      "introducedIn": "<=dsh-v0.1.0-rc.7",
+      "anchor": "first commit 2026-08-13; consolidation note 2026-09-03",
+      "confidence": "documented"
+    },
+    {
+      "id": "A5",
+      "area": "Scheduling and cron",
+      "introducedIn": "dsh-v0.2.1-alpha.1",
+      "anchor": "after 2026-08-05 and fixed-rate+cron 2026-08-06 were earlier; the tool package became preset-scoped 2026-09-24 -> this release",
+      "confidence": "documented"
+    },
+    {
+      "id": "A6",
+      "area": "Goal tracking",
+      "introducedIn": "<=dsh-v0.1.0-rc.7",
+      "anchor": "2026-07-19",
+      "confidence": "documented"
+    },
+    {
+      "id": "A7",
+      "area": "Plan mode",
+      "introducedIn": "<=dsh-v0.1.0-rc.7",
+      "anchor": "2026-07-22",
+      "confidence": "documented"
+    },
+    {
+      "id": "A8",
+      "area": "Todo list",
+      "introducedIn": "<=dsh-v0.1.0-rc.7",
+      "anchor": "2026-06-29",
+      "confidence": "documented"
+    },
+    {
+      "id": "A9",
+      "area": "LSP navigation",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "seam 2026-07-16; lsp-stdio 2026-08-13 was earlier; tool-lsp 2026-09-04 -> this release",
+      "confidence": "documented"
+    },
+    {
+      "id": "A10",
+      "area": "Browser automation",
+      "introducedIn": "dsh-v0.1.6-alpha.1",
+      "anchor": "2026-09-12/13; seam is native, provider is experimental",
+      "confidence": "documented"
+    },
+    {
+      "id": "A11",
+      "area": "Computer use",
+      "introducedIn": "dsh-v0.1.6-alpha.1",
+      "anchor": "2026-09-12; seam is native, provider is experimental",
+      "confidence": "documented"
+    },
+    {
+      "id": "A12",
+      "area": "MCP client",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "client note 2026-07-07; group first tag 2026-09-04",
+      "confidence": "documented"
+    },
+    {
+      "id": "A13",
+      "area": "Observability / OpenTelemetry",
+      "introducedIn": "dsh-v0.2.0-rc.1",
+      "anchor": "otel package 2026-09-25; product adapter 2026-09-21 -> 0.1.7-alpha.2; session adapter 2026-09-04 -> 0.1.3-alpha.1",
+      "confidence": "documented"
+    },
+    {
+      "id": "A14",
+      "area": "Deliverables, documents, attachments",
+      "introducedIn": "dsh-v0.1.6-alpha.2",
+      "anchor": "deliverables 2026-09-14; office-to-pdf 2026-09-16; attachment seam 2026-09-04 -> 0.1.3-alpha.1",
+      "confidence": "documented"
+    },
+    {
+      "id": "A15",
+      "area": "Session store, checkpoints, search, fork/resume/export",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "session/llm 2026-06-11; checkpoint policy 2026-08-09; session-query 2026-09-04; V4 format 2026-09-16",
+      "confidence": "documented"
+    },
+    {
+      "id": "A16",
+      "area": "Web access",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "seam note 2026-06-24; group first tag 2026-09-04",
+      "confidence": "documented"
+    },
+    {
+      "id": "A17",
+      "area": "Outbound webhooks",
+      "introducedIn": "dsh-v0.1.2-alpha.1",
+      "anchor": "group 2026-08-23; GitHub adapter 2026-09-04 -> 0.1.3-alpha.1",
+      "confidence": "documented"
+    },
+    {
+      "id": "A18",
+      "area": "Terminal, SSH, shell",
+      "introducedIn": "dsh-v0.1.6-alpha.1",
+      "anchor": "shell/terminal 2026-08-13; SSH 2026-09-12 -> this release; terminal permission note 2026-09-16",
+      "confidence": "documented"
+    },
+    {
+      "id": "A19",
+      "area": "Permissions, approval, sandboxing",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "sandbox/permission/user-approval/commands 2026-09-04; guards 2026-07-08",
+      "confidence": "documented"
+    },
+    {
+      "id": "A20",
+      "area": "Extension points: skills, dynamic plugins, hooks, presets",
+      "introducedIn": "dsh-v0.1.6-alpha.2",
+      "anchor": "skill 2026-07-10 and hooks 2026-07-01 were earlier; plugin-manager tool 2026-09-14 -> this release; preset registry 2026-09-21 -> 0.1.7-alpha.2",
+      "confidence": "documented"
+    },
+    {
+      "id": "A21",
+      "area": "Context management: compaction, spill, observation policy",
+      "introducedIn": "dsh-v0.1.3-alpha.1",
+      "anchor": "compaction seam 2026-06-18; spill group 2026-09-04 -> this release; image offload 2026-09-08 -> 0.1.6-alpha.1",
+      "confidence": "documented"
+    },
+    {
+      "id": "A22",
+      "area": "Plugin and API surfaces: Remote controllers, Typert, SDK, ACP, bundles",
+      "introducedIn": "dsh-v0.1.2-alpha.1",
+      "anchor": "acp 2026-06-16, sdk 2026-07-15, api/typert 2026-07-29..08-07 were earlier; sdk-minimal 2026-08-24 -> this release",
+      "confidence": "documented"
+    },
+    {
+      "id": "M1",
+      "area": "ctx.hmr, ctx.pluginManager, ctx.profileContext",
+      "introducedIn": "dsh-v0.1.6-alpha.2",
+      "anchor": "three packages first appear in the same release",
+      "confidence": "documented"
+    },
+    {
+      "id": "M2",
+      "area": "peer compatibility runtime gate",
+      "introducedIn": "dsh-v0.1.7-rc.1",
+      "anchor": "plugin-compatibility.ts and two sibling files first appear",
+      "confidence": "documented"
+    },
+    {
+      "id": "M3",
+      "area": "Session format V4",
+      "introducedIn": "dsh-v0.1.7-alpha.1",
+      "anchor": "SESSION_FORMAT_VERSION 3 -> 4",
+      "confidence": "documented"
+    },
+    {
+      "id": "M4",
+      "area": "ctx.mcpResources, ctx.browserUse, ctx.computerUse, ctx.ssh, ctx.inspector, ctx.dynamicCordisRunner",
+      "introducedIn": "dsh-v0.2.1-alpha.1",
+      "anchor": "seam rows A10/A11/A12/A18/A20",
+      "confidence": "documented"
+    },
+    {
+      "id": "M5",
+      "area": "conversation.input.permission and sidebar.right.tab.guide.entry slots",
+      "introducedIn": "dsh-v0.2.1-alpha.1",
+      "anchor": "official slot documentation",
+      "confidence": "documented"
+    },
+    {
+      "id": "M6",
+      "area": "webStartup replaces webRuntime",
+      "introducedIn": "dsh-v0.2.1-alpha.2",
+      "anchor": "L3",
+      "confidence": "documented"
+    },
+    {
+      "id": "M7",
+      "area": "BundleInfo.official and BundleInfo.availability",
+      "introducedIn": "dsh-v0.2.1-alpha.2",
+      "anchor": "L11",
+      "confidence": "documented"
+    },
+    {
+      "id": "M8",
+      "area": "working_directory tool and create_worktree",
+      "introducedIn": "dsh-v0.2.1-alpha.2",
+      "anchor": "tool catalog",
+      "confidence": "inferred",
+      "inferredFrom": "Present in the pinned tool catalog; the exact introducing release was not established by a first-tag search."
+    },
+    {
+      "id": "M9",
+      "area": "dsh-invariants removed",
+      "introducedIn": "removed in dsh-v0.2.1-alpha.1",
+      "anchor": "S3",
+      "confidence": "documented"
+    },
+    {
+      "id": "M10",
+      "area": "dsh-experimental-schedule-bundle retired",
+      "introducedIn": "retired in dsh-v0.2.0-rc.2",
+      "anchor": "S5",
+      "confidence": "documented"
+    },
+    {
+      "id": "M11",
+      "area": "subpath plugins stop reading their own package.json",
+      "introducedIn": "removed in dsh-v0.2.1-alpha.1",
+      "anchor": "S4",
+      "confidence": "documented"
+    }
+  ],
+  "unreleased": [
+    {
+      "id": "U1",
+      "title": "Client module metadata",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/client-module-metadata/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U2",
+      "title": "Token Provider and route admission migration",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/connection-page-peer/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U3",
+      "title": "`ctx[Context.root]` replaces `ctx.root`, and service intercept metadata is renamed",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/cordis-root-and-intercept-metadata/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U4",
+      "title": "CUA gives Agents without a preset `cua_run_code`",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/cua-agents-without-preset/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U5",
+      "title": "macOS Computer Use provider name",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/cua-macos-provider/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U6",
+      "title": "macOS CUA isolates unavailable AX branches",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/cua-partial-observations/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U7",
+      "title": "DeepSeek image upload timeout",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/deepseek-files-timeout/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U8",
+      "title": "Experimental plugin failures carry error codes",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/experimental-tool-error-codes/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U9",
+      "title": "Update removed package subpath imports",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/package-export-cleanup/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U10",
+      "title": "Python PTC removal",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/python-ptc-removal/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U11",
+      "title": "Session status moves to `@deepseek-ai/dsh-client-ui-session-status` and completion reminders follow Host reading records",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/session-status-package/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U12",
+      "title": "Shared search filter replaces rankByName and searchMode",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/shared-search-filter/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    },
+    {
+      "id": "U13",
+      "title": "Shell and read_image failures use consolidated error codes",
+      "authoredIn": "0.2.2-rc.2",
+      "landing": "after 0.2.2-rc.3 (not part of the rc.3 release tag; next release)",
+      "doc": "docs/upgrade-guide/v0.2.2-rc.2/shell-fs-tool-error-codes/guide.md",
+      "confidence": "documented",
+      "note": "Authored at v0.2.2-rc.2 and merged to master after the rc.3 tag. Do not count it as an rc.3 change."
+    }
   ]
 }

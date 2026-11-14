@@ -89,6 +89,12 @@ function bulletsInSection(text, ordinal) {
   if (commit !== facts.mirror.pinnedCommit) bad('mirror pinned commit', `${commit} in SNAPSHOT.md vs ${facts.mirror.pinnedCommit} in facts.json`)
   else ok('mirror pinned commit', commit.slice(0, 7))
 
+  // A snapshot pinned to a release tag must say so: the old 'origin/master' ref is what let a
+  // master sync commit get labelled as a release tag.
+  const ref = /^\|\s*Source ref\s*\|\s*`([^`]+)`\s*\|/m.exec(snap)?.[1]
+  if (ref !== facts.mirror.pinnedTag) bad('mirror pinned tag', `${ref} in SNAPSHOT.md vs ${facts.mirror.pinnedTag} in facts.json`)
+  else ok('mirror pinned tag', ref)
+
   // Count the mirrored markdown pages and the zh pairs independently.
   let md = 0
   let zh = 0
@@ -117,7 +123,60 @@ function bulletsInSection(text, ordinal) {
   }
 }
 
-// ---- 4. CLI check counts ---------------------------------------------------------
+// ---- 4. Host line and the rc.3 upgrade-guide counts -------------------------------
+// The facts.json host block is the one home for the published line. Two things drift:
+// the dist-tags are restated in six prose files, and the "46 guides in rc.3" count only
+// holds if the 13 v0.2.2-rc.2 guides stay out of it.
+{
+  const host = facts.host
+  const guideDir = join(root, 'references', 'official-docs', 'docs', 'upgrade-guide')
+  const counts = {}
+  for (const version of Object.keys(host.rc3GuideCounts).filter((v) => v !== 'total')) {
+    let dirs = []
+    try {
+      dirs = readdirSync(join(guideDir, `v${version}`), { withFileTypes: true })
+    } catch {
+      bad('rc.3 guide directories', `missing docs/upgrade-guide/v${version} in the mirror`)
+      continue
+    }
+    counts[version] = dirs.filter((e) => e.isDirectory()).length
+    const want = host.rc3GuideCounts[version]
+    if (counts[version] !== want) bad(`rc.3 guides v${version}`, `${counts[version]} dirs vs ${want} in facts.json`)
+    else ok(`rc.3 guides v${version}`, String(counts[version]))
+  }
+  const total = Object.values(counts).reduce((a, b) => a + b, 0)
+  if (total !== host.rc3GuideCounts.total) bad('rc.3 guides total', `${total} vs ${host.rc3GuideCounts.total} in facts.json`)
+  else ok('rc.3 guides total', String(total))
+
+  // The next-version guides are master-only; they must not be in the mirror at all.
+  const nextDir = join(guideDir, `v${host.nextVersion.authoredAt}`)
+  let nextPresent = false
+  try { readdirSync(nextDir); nextPresent = true } catch { /* absent, as expected */ }
+  if (nextPresent) bad('next-version guides in mirror', `docs/upgrade-guide/v${host.nextVersion.authoredAt} is present but belongs after the rc.3 tag`)
+  else ok('next-version guides absent from mirror', host.nextVersion.authoredAt)
+
+  // Every prose file that states the host line must restate these exact tokens.
+  const docFiles = ['README.md', 'README.en.md', 'README.es.md', 'README.pt.md', 'README.hi.md', 'SKILL.md', 'guide/version-matrix.md']
+  const tokens = [host.npmLatest, host.npmNext, host.npmAlpha, host.newestTag, String(host.npmVersionCount), String(host.githubReleaseCount)]
+  for (const f of docFiles) {
+    const t = read(f)
+    const missing = tokens.filter((token) => !t.includes(token))
+    if (missing.length) bad(`${f} host line`, `missing ${missing.join(', ')}`)
+    else ok(`${f} host line`, `${host.npmLatest}/${host.npmNext}/${host.npmAlpha}`)
+  }
+
+  // The mirror pin and its counts are restated in the same places.
+  const pinFiles = ['README.md', 'README.en.md', 'README.es.md', 'README.pt.md', 'README.hi.md', 'SKILL.md', 'references/sources.md', 'references/official-docs/README.md', 'guide/quick-reference.md', 'guide/quick-reference.zh-CN.md', 'guide/quick-reference.es.md', 'guide/quick-reference.pt.md', 'guide/quick-reference.hi.md']
+  const pinTokens = [facts.mirror.pinnedCommit.slice(0, 8), String(facts.mirror.mdPages), String(facts.mirror.zhPairs)]
+  for (const f of pinFiles) {
+    const t = read(f)
+    const missing = pinTokens.filter((token) => !t.includes(token))
+    if (missing.length) bad(`${f} mirror pin`, `missing ${missing.join(', ')}`)
+    else ok(`${f} mirror pin`, facts.mirror.pinnedCommit.slice(0, 8))
+  }
+}
+
+// ---- 5. CLI check counts ---------------------------------------------------------
 {
   const src = read('src/cli/skill-sections.ts')
   const n = [...src.matchAll(/^\s*'[a-z0-9-]+':\s*\{/gm)].length
@@ -125,7 +184,7 @@ function bulletsInSection(text, ordinal) {
   else ok('CLI static checks', String(n))
 }
 
-// ---- 5. Seam index consistency ---------------------------------------------------
+// ---- 6. Seam index consistency ---------------------------------------------------
 {
   const idx = JSON.parse(read('data/seams/index.json'))
   const corridor = idx.seams.filter((s) => /^L\d+$/.test(s.id)).length
@@ -143,9 +202,28 @@ function bulletsInSection(text, ordinal) {
   else ok('statically detectable seams', String(detectable))
   if (advisory !== facts.seams.advisoryOnly) bad('advisory-only seams', `${advisory} vs ${facts.seams.advisoryOnly}`)
   else ok('advisory-only seams', String(advisory))
+
+  // The 0.2.2 line covered by the rc.3 tag: 46 K seams, and the 13 master-only rc.2 guides
+  // recorded separately rather than smuggled into the rc.3 count.
+  const kSeams = idx.seams.filter((s) => /^K\d+$/.test(s.id))
+  if (kSeams.length !== facts.seams.corridorK) bad('corridor K seams', `${kSeams.length} vs ${facts.seams.corridorK}`)
+  else ok('corridor K seams', String(kSeams.length))
+  const kDetectable = kSeams.filter((s) => s.detectable).length
+  if (kDetectable !== facts.seams.corridorKDetectable) bad('corridor K detectable', `${kDetectable} vs ${facts.seams.corridorKDetectable}`)
+  else ok('corridor K detectable', String(kDetectable))
+  const kAdvisory = kSeams.length - kDetectable
+  if (kAdvisory !== facts.seams.corridorKAdvisory) bad('corridor K advisory', `${kAdvisory} vs ${facts.seams.corridorKAdvisory}`)
+  else ok('corridor K advisory', String(kAdvisory))
+  const unreleased = Array.isArray(idx.unreleased) ? idx.unreleased.length : -1
+  if (unreleased !== facts.seams.unreleased) bad('unreleased seams', `${unreleased} vs ${facts.seams.unreleased}`)
+  else ok('unreleased seams', String(unreleased))
+
+  // The seam index must baseline on the same release the mirror is pinned to.
+  if (idx.hostBaseline !== facts.mirror.pinnedTag) bad('seam host baseline', `${idx.hostBaseline} vs ${facts.mirror.pinnedTag}`)
+  else ok('seam host baseline', idx.hostBaseline)
 }
 
-// ---- 6. Release consistency ------------------------------------------------------
+// ---- 7. Release consistency ------------------------------------------------------
 {
   const pkg = JSON.parse(read('package.json'))
   const changelog = read('CHANGELOG.md')

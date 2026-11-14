@@ -29,8 +29,10 @@ jobs:
 
       - name: Probe official-docs drift
         id: drift
-        shell: pwsh
-        run: ./scripts/check-docs-drift.ps1
+        # The mirror is pinned to a release tag (SNAPSHOT.md "Source ref"), so the freshness
+        # authority is the newest remote dsh-v* tag, not the master tip: a branch-tip
+        # comparison is guaranteed red by construction.
+        run: node scripts/check-docs-drift.mjs
 
       # A drift report that names no file is why this job could sit red for weeks
       # without action. Fetch upstream and list exactly which in-scope paths were
@@ -62,4 +64,4 @@ jobs:
         run: |
           gh issue create \
             --title "docs drift: references/official-docs is stale" \
-            --body "$(printf 'Upstream `deepseek-ai/deepseek-harness` (`master`) has moved while the KB mirror at `references/official-docs` is pinned to an older commit.\n\n### What changed upstream\n\n```\n%s\n```\n\nRun `pwsh -File scripts/sync-official-docs.ps1` to refresh the mirror; do not hand-edit the mirror.' "${{ steps.detail.outputs.detail }}")"
+            --body "$(printf 'Upstream `deepseek-ai/deepseek-harness` (`master`) has moved while the KB mirror at `references/official-docs` is pinned to an older commit.\n\n### What changed upstream\n\n```\n%s\n```\n\nRun `pwsh -File scripts/sync-official-docs.ps1 -Ref <newest tag reported above>` to refresh the mirror to that release tag; do not hand-edit the mirror.' "${{ steps.detail.outputs.detail }}")"

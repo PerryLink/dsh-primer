@@ -6,7 +6,7 @@
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `{{dshBaseline}}` (npm `alpha`); `latest`/`next` = `0.2.0-rc.2` |
+| Harness | DeepSeek Harness `{{dshBaseline}}` (npm `next`); `latest` = `0.2.2-rc.1`, `next` = `0.2.2-rc.3` |
 | Node | `^22.19.0 || >=24.0.0` |
 | प्लेटफ़ॉर्म | सभी (शुद्ध ESM; कोई नेटिव कोड नहीं, कोई नेटवर्क नहीं) |
 

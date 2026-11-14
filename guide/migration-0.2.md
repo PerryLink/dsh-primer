@@ -1,10 +1,12 @@
 # 迁移到 0.2 世代（migration-0.2.md）
 
 > **适用对象**：所有针对 DeepSeek Harness `0.1.6-alpha.2` 及更早版本开发的第三方插件（bundle / 纯 cordis 插件 / UI 插件 / MCP 配置包）。
-> **基线**：本文件对照 `d743267388641bc76f17c45ce8b4c231aed1d32c`（tag `dsh-v0.2.1-alpha.2`，2026-10-09，master HEAD）核验；区间起点为 `ddefc45fbc7f8e46dd73185e68295696d1297887`（tag `dsh-v0.1.6-alpha.2`，2026-09-17）。
+> **基线 1（0.1.6→0.2.1 线）**：本文件对照 `d743267388641bc76f17c45ce8b4c231aed1d32c`（tag `dsh-v0.2.1-alpha.2`，2026-10-09）核验；区间起点为 `ddefc45fbc7f8e46dd73185e68295696d1297887`（tag `dsh-v0.1.6-alpha.2`，2026-09-17）。
+> **基线 2（当前线）**：官方文档镜像已钉到发布 tag `dsh-v0.2.2-rc.3`（`38a6a5c965aa99ab525161efb7cc5cf1fe62fced`，2026-11-13）；rc.3 包内 `docs/upgrade-guide` 只到 `v0.2.2-rc.1`。
 > **覆盖范围**：§0–§12 覆盖 `0.1.6-alpha.2` → `0.2.1-alpha.1`；
-> **§13 覆盖 `0.2.1-alpha.1` → `0.2.1-alpha.2`（19 个 seam，`L1`–`L19`）**。
-> 两段跨度都已有稳定 ID，可被扫描器引用（`dsh-plugin-upgrade` 的走廊目前只到 `legC`）。
+> **§13 覆盖 `0.2.1-alpha.1` → `0.2.1-alpha.2`（19 个 seam，`L1`–`L19`）**；
+> **§14 覆盖 rc.3 包内 0.2.2 线的 46 个 seam（`K1`–`K46`）**，并单列 `v0.2.2-rc.2` 的 13 条**下一版**指南（不属于 rc.3）。
+> 三段跨度都已有稳定 ID，可被扫描器引用（`dsh-plugin-upgrade` 的走廊目前只到 `legC`）。
 > **权威优先级**：官方 `docs/upgrade-guide/**`（原文副本 `references/official-docs/docs/upgrade-guide/`）> 本文件 > 社区文章。官方每一条"next release removes X"都对应本文件的一节。
 > 事实核实方式：源码 `path:line` + 提交号，全部可在 `D:\deepseek-harness`（或你的 checkout）复核；无法核实的项已标注 `UNVERIFIED`。
 
@@ -18,12 +20,13 @@
 
 | 问题 | 答案（**2026-10-09 复核**；完整谱系见 [version-matrix.md](version-matrix.md)） |
 |---|---|
-| master 最新 tag | `dsh-v0.2.1-alpha.2`（2026-10-09，`d743267388641bc76f17c45ce8b4c231aed1d32c`；**= master HEAD**） |
-| npm `latest` dist-tag | `0.2.0-rc.2`（**不是** master 最新 tag） |
-| npm `alpha` / `next` | `alpha`=`0.2.1-alpha.2`、`next`=`0.2.0-rc.2` |
-| 是否存在稳定版 | **否**。全部 31 个 npm 版本都是 `-alpha.N`/`-rc.N`，全部 26 个 GitHub Release 都是 `prerelease: true` |
+| master 最新 tag | `dsh-v0.2.2-rc.3`（2026-11-13，`38a6a5c965aa99ab525161efb7cc5cf1fe62fced`）——本机 checkout 的 master 已合并 rc.3 发布 |
+| npm `latest` dist-tag | `0.2.2-rc.1`（**不是**最新 tag） |
+| npm `next` / `alpha` | `next`=`0.2.2-rc.3`、`alpha`=`0.2.2-alpha.3` |
+| 是否存在稳定版 | **否**。全部 44 个 npm 版本都是 `-alpha.N`/`-rc.N`，全部 39 个 GitHub Release 都是 `prerelease: true` |
+| rc.3 包内的 0.2.2 线指南 | **46 条**：22 条 authored 于 `v0.2.2-alpha.2`（落 alpha.3）、5 条 `v0.2.2-alpha.3`（落 rc.1）、19 条 `v0.2.2-rc.1`（落 rc.2）——见 §14 |
 | 区间内发布线（9 个） | `0.1.6-alpha.2`(09-17) → `0.1.7-alpha.1`(09-22) → `0.1.5-rc.3`(09-22) → `0.1.7-alpha.2`(09-22) → `0.1.7-rc.1`(09-23) → `0.1.7-rc.2`(09-24) → `0.2.0-rc.1`(09-28) → `0.2.0-rc.2`(09-29) → `0.2.1-alpha.1`(10-03) |
-| Node 门槛 | `^22.19.0 \|\| >=24.0.0`；跟随 dsh 0.2.2-alpha.3 的包可用 `>=24.9.0`（无 `.nvmrc`/`.node-version` 文件） |
+| Node 门槛 | **`>=24.9.0`**（rc.3 宿主 `package.json`）；0.2.1-alpha.2 时代为 `^22.19.0 \|\| >=24.0.0`（无 `.nvmrc`/`.node-version` 文件） |
 | `dsh.version` 字段 | **不存在**。DSH 的包清单只有 `dsh.bundle` / `dsh.profile` / `dsh.client` 三组键 |
 | 官方发布说明在哪 | 仓库里**没有 `CHANGELOG.md`**、也没有 `docs/persistence-changes/releases/*` 新条目，所以逐版本说明只在 GitHub **Releases** 的 body 里（`gh release view <tag>` 或 Releases API）。本文件的每一条都对照过 tag `dsh-v0.1.7-alpha.1` / `dsh-v0.2.0-rc.2` / `dsh-v0.2.1-alpha.1` 的发布说明 |
 
@@ -33,7 +36,7 @@
 
 **npm 陷阱（最贵的一条）**：库包（`dsh-tools`、`dsh-base`、`dsh-headless`、`dsh-session-persistence-jsonl`、`dsh-session`、`dsh-settings`、`dsh-workflow` …）的 `latest` 至今钉在 **`0.0.1-rc.1`**。写 `"@deepseek-ai/dsh-session": "latest"` 会装到远古版本；必须写死版本或钉 `next`/`alpha`。唯一的例外是 CLI 包 `@deepseek-ai/dsh`（`latest`=`0.2.0-rc.2`）。
 
-**跨线 peer 范围**：`^0.1.x` 与 `^0.2.x` 互不覆盖，要同时支持两条线必须写两侧范围。⚠️ **peer 范围会被安装期强制**（本节早期版本写成"DSH 不校验范围"，已更正）：`dsh plugin add` 会拿运行时的版本去比插件声明的 peer 范围，不匹配就**拒绝安装**并把声明的范围原样打印出来。跨线支持因此必须**在范围里同时列出两侧的 prerelease 元组**（每个元组一个 clause），否则 0.2.x 宿主装不上——详见 [plugin-dev-guide.md](plugin-dev-guide.md) §7.3 的 `dsh-plugin` 段。范围之外仍要配**运行时特性探测**，因为范围只能表达"能不能装"，表达不了"某个 API 在不在"。
+**跨线 peer 范围**：`^0.1.x` 与 `^0.2.x` 互不覆盖，要同时支持两条线必须写两侧范围。⚠️ **兼容性门禁是强制的，且 `engines.dsh` 优先**（本节早期版本写成"DSH 不校验范围"，已更正）：清单**有 `engines.dsh`** 时该范围**单独决定**、忽略 `@deepseek-ai/dsh*` peers；**没有**时才回退到 peer 规则。`dsh plugin add` 会拿运行时的版本去比生效范围，不匹配就**拒绝安装**并把范围原样打印出来（官方语义：`references/official-docs/docs/upgrade-guide/v0.2.1-alpha.3/plugin-engines-dsh/guide.md`）。跨线支持因此必须**在范围里同时列出两侧的 prerelease 元组**（每个元组一个 clause），否则 0.2.x 宿主装不上——详见 [plugin-dev-guide.md](plugin-dev-guide.md) §7.3 的 `dsh-plugin` 段。范围之外仍要配**运行时特性探测**，因为范围只能表达"能不能装"，表达不了"某个 API 在不在"。
 
 ## 2. 会话格式 V3 → V4（影响最深，涉及历史日志）
 
@@ -88,7 +91,7 @@
 
 - `dsh.bundle.patch` 现在接受**有序数组**：`{ "patch": ["./base.patch.yml", "./web.patch.yml"] }`，按序作为同一层应用，且每个文件里的相对插件路径**相对该文件所在目录**解析。校验失败信息：`dsh.bundle.patch must be a file path or a list of file paths`。
 - 层顺序未变：`dsh.profile.bundles` 顺序 → profile 自己的 `cordis.patch.yml` → `$DSH_HOME/cordis.patch.yml` → 各 `--patch`（argv 顺序）。**按 id 覆盖时整段 `config` 被替换，不做深合并。**
-- 包清单还可以声明 `dsh.manifestVersion`（格式标识，当前 `1`，与 npm 版本、会话格式版本无关）与 `engines.dsh`（作者声明的兼容范围，**当前安装器/加载器都不强制**——真正会被强制的是 `@deepseek-ai/dsh-*` 的 **peerDependencies**，安装期即拒绝不匹配者，见 [plugin-dev-guide.md](plugin-dev-guide.md) §7.3）。类型定义见 `@deepseek-ai/dsh-package-manifest`。
+- 包清单还可以声明 `dsh.manifestVersion`（格式标识，当前 `1`，与 npm 版本、会话格式版本无关）与 `engines.dsh`（**运行时兼容门禁**：声明了就**单独决定**安装/启动是否放行，并**忽略** `@deepseek-ai/dsh*` peer 范围；只有**缺失**时才回退 peers。语义自 `0.2.1-alpha.4` 起生效、rc.3 仍如此，官方原文见 `references/official-docs/docs/upgrade-guide/v0.2.1-alpha.3/plugin-engines-dsh/guide.md`）。判定用 `includePrerelease: true`，所以 0.2.2 线要写 `>=0.2.2-0 <0.3.0` 这类带预发布下界的范围；`workspace:` 在 `engines.dsh` 中不合法。类型定义见 `@deepseek-ai/dsh-package-manifest`。
 - 展示元数据契约（Plugin Manager / Settings 在**不激活插件**的前提下读取）：包根读 `package.json` 的 `name`/`description`/`icon`，或导出 `./locale/*.json` 的 `meta.title`/`meta.description` 与 `./icon`；图标支持 SVG/PNG/JPEG/WebP，**≤ 256 KiB 且必须落在包内**（绝对路径、URL、指向包外的 symlink 都被拒）。子路径插件**永远不读** `<subpath>/package.json`——标题/描述走 `locale/*.json` 的 `meta.*`，图片走导出的 `<subpath>/icon`。
 - `dsh.client` 键**未变**：`platform`（web）、`inject`（仅排序，不是 cordis 服务注入）、`immediately`（一阶段预取）、`external`（基线与注入边之外的精确模块请求）。但客户端半侧只挂在**说明符恰为裸包名**的那一行上：把一个包拆成多行的组合包，其 UI 只随根行启停。
 
@@ -216,7 +219,8 @@ DSH 自带的 preset 里有一整套**官方插件开发技能**，这是本世�
 > 本节给该跨度**稳定 ID（`L1`–`L19`）**、**症状**、**修法**与**官方出处**。
 >
 > **适用判定**：`dsh --version` 落在 `0.2.1-alpha.2`（或更新）时，**逐条核对**；
-> 停在 `0.2.0-rc.2` 及更早的**与本节无关**。
+> 停在 `0.2.0-rc.2` 及更早的**与本节无关**。落在 `0.2.2-alpha.3` 及更新（当前 rc.3）时，
+> **本节的 19 条与 §14 的 46 条都要核对**——0.2.2 线没有推翻本节，只有新增。
 > 官方出处全部已随镜像落地：`references/official-docs/docs/upgrade-guide/v0.2.1-alpha.1/<item>/guide.md`。
 >
 > ⚠️ **目录名陷阱**：`v0.2.1-alpha.1/` 是**变更被引入时仓库的版本号**，描述的是
@@ -261,9 +265,96 @@ DSH 自带的 preset 里有一整套**官方插件开发技能**，这是本世�
 
 ---
 
-## 14. 已知分歧与未核实项（诚实标注）
+## 14. 新走廊：rc.3 包内的 `0.2.2` 线（46 个 seam，`K1`–`K46`）
 
-1. ✅ **已解决（2026-10-13）**：上游 `docs/session-format-status.md` 已是 `latestReleasedVersion: 4` / `evidenceTag: dsh-v0.2.0-rc.2`，与代码和 npm 一致；本项目 `references/official-docs/` 镜像**已重同步**到 `d743267388641bc76f17c45ce8b4c231aed1d32c`（`dsh-v0.2.1-alpha.2`，2026-10-13），该矛盾在本库内部也一并消失。
+> **本节解决 0.2.2 线的缺口**：rc.3 发布包的 `docs/upgrade-guide` 只到 `v0.2.2-rc.1`（22+5+19=46 条），
+> 但本文件此前只覆盖到 0.2.1 线。本节把 46 条整理成可引用 seam（`K1`–`K46`）、带症状与修法，并标注每条
+> 是否**静态可扫**；数据同步落在 `data/seams/index.json`（`seams` 的 K 记录 + `unreleased` 的 13 条）。
+>
+> **口径（与 §2/§13 相同）**：官方 `docs/upgrade-guide/v<X>/` 的目录名 `X` 是**变更被写下的版本**，
+> 描述的是**从 X 升到下一个 release** 的行为；表里 `landed` 列才是**变更落地**的版本。
+> 因此 `K1`–`K22` 落 `0.2.2-alpha.3`、`K23`–`K27` 落 `0.2.2-rc.1`、`K28`–`K46` 落 `0.2.2-rc.2`，
+> **全部都在 rc.3 发布包的快照范围内**（镜像已钉 `dsh-v0.2.2-rc.3` / `38a6a5c9…`）。
+>
+> **不要混淆下一版**：`v0.2.2-rc.2/` 的 13 条只存在于 rc.3 tag **之后**的 master，**不属于 rc.3**，
+> 单列在本节末尾与 `data/seams/index.json` 的 `unreleased` 中。
+
+| ID | 官方项 | authored 于 | landed | 标题 | 破坏/移除面 | 修法 | 静态可判 |
+|---|---|---|---|---|---|---|---|
+| **K1** | `context-menu-target` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Context menu types and icons | unprefixed context-menu action types and hooks；unkeyed icon components | Use the prefixed context-menu types and hooks and register keyed icon components. | 是（静态可扫） |
+| **K2** | `cordis-loader-entry-trees` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Loader entry tree reports and Include persistence | Loader entry-tree mutation reports without commit(change) | Report entry-tree mutations through commit(change); Include persists them through a journal. | 是（静态可扫） |
+| **K3** | `css-anchored-menus` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | CSS-anchored menus | JavaScript panel positioning；Menu rectangle callbacks | Position menus with CSS anchors instead of JavaScript panel positioning and rectangle callbacks. | 是（静态可扫） |
+| **K4** | `cua-source-dev-helper` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Source-built Computer Use helper identity | source-built CUA helper bundle identity | Grant the source-built helper its separate macOS permission. | 否（运行时/部署面） |
+| **K5** | `desktop-stable-channel` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Desktop stable channel name | Desktop update channel named latest | Subscribe Desktop updates to the renamed stable channel. | 否（运行时/部署面） |
+| **K6** | `forge-git-permissions` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Forge Git query permissions and content conversion | Forge Git queries not tied to Session permissions；configured diff helpers during Git queries | Let Forge Git queries run under Session permissions; remove configured diff helpers. | 否（运行时/部署面） |
+| **K7** | `forge-worktree-entry` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | One plugin entry for change requests and worktrees | standalone Git worktrees card on the Plugins page | Use the Change requests and worktrees entry on the Plugins page. | 否（运行时/部署面） |
+| **K8** | `fs-observation-policy-default-off` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Filesystem mutations no longer require a prior read by default | fs-observation-policy row enabled by default；apply_patch absent from dsh-base and the Web standard preset | Re-enable the fs-observation-policy row if read-before-write is required; account for apply_patch in the base and standard presets. | 否（运行时/部署面） |
+| **K9** | `llm-error-builtin-codes` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | `new LlmError` accepts only built-in failure codes | new LlmError with non-builtin failure codes | Construct built-in LlmError codes directly; route other cases through LlmError.fromFailure. | 是（静态可扫） |
+| **K10** | `llm-request-purpose-declarations` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Declare auxiliary LLM request purposes | shared fixed union of auxiliary LLM request purposes | Declare auxiliary request purposes with producer-owned type declarations. | 是（静态可扫） |
+| **K11** | `pi-ai-request-image-count` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | pi-ai request image count | all retained history images kept per pi-ai request | Expect history-image offloading after 50 retained images on pi-ai routes. | 否（运行时/部署面） |
+| **K12** | `projection-event-frames` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Projection frames list every key one event changed | one-key-per-frame live projection frames | Read frames that list every key one committed event changed. | 是（静态可扫） |
+| **K13** | `projection-released-checkpoint` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Released projection units stay in checkpoints | released projection unit omitted from session checkpoints | Expect a released projection unit to keep its last checkpoint row. | 否（运行时/部署面） |
+| **K14** | `projection-snapshot-scope` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Projection snapshot scope | registry cached snapshot read；context pressure and breakdown in Session list summaries | Compute only the units a snapshot returns; stop using the cached registry read and the Session-list pressure fields. | 是（静态可扫） |
+| **K15** | `retained-ptc-timeout` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Retained PTC timeout recovery | immediate process termination on retained PTC timeout | Expect cooperative stop first and process termination only when acknowledgement fails. | 否（运行时/部署面） |
+| **K16** | `schedule-agent-tools` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Schedule tools manage every Host task by RRULE and target | schedule_update tool；schedule_delete tool | Use schedule_create / schedule_list / schedule_view / schedule_edit against every Host task. | 是（静态可扫） |
+| **K17** | `schedule-remote-host-tasks` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Schedule uses one Host-wide management API | client-side Host task data layout | Use the single Host-wide schedule management API and its typed timing records. | 是（静态可扫） |
+| **K18** | `sdk-run-commands` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | SDK run accepts native commands | SDK run results before native command handling | Handle recognized native commands and await RunResult after the input completes. | 是（静态可扫） |
+| **K19** | `session-header-menu` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Session Header menus and export dialogs | custom Web compositions without Session context menus；export dialogs closed by Session switches | Provide Session context menus in custom Web compositions; expect export dialogs to stay visible across Session switches. | 否（运行时/部署面） |
+| **K20** | `subagent-explicit-reasoning` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Subagent reasoning overrides require an explicit route | reasoning overrides without an explicit provider and model | Pass an explicit provider and model route; omit effort to inherit the model default. | 是（静态可扫） |
+| **K21** | `web-search-credential-modes` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | DeepSeek web search and fetch follow the DeepSeek model route | shared web-search baseURL / apiKeyEnv / apiKey fields | Derive web search and fetch endpoints from the DeepSeek model route and use per-capability fields. | 是（静态可扫） |
+| **K22** | `web-search-default-provider` | 0.2.2-alpha.2 | **0.2.2-alpha.3** | Search defaults to the DeepSeek Search API; Exa and Perplexity are removed | legacy Messages search default；@deepseek-ai/dsh-web-search-exa；@deepseek-ai/dsh-web-search-perplexity | Rely on the DeepSeek Search API default and remove the Exa/Perplexity packages. | 是（静态可扫） |
+| **K23** | `chat-process-activity-context` | 0.2.2-alpha.3 | **0.2.2-rc.1** | Chat `ProcessActivity` adds `context` | ProcessActivity without a context category；older RunningProcessActivity shape | Handle the context category and the current RunningProcessActivity shape. | 是（静态可扫） |
+| **K24** | `office-kit-package` | 0.2.2-alpha.3 | **0.2.2-rc.1** | `@deepseek-ai/dsh-office-kit` replaces `@deepseek-ai/dsh-office-to-pdf` | @deepseek-ai/dsh-office-to-pdf；office-to-pdf service, Remote methods, exported types and config row | Move to @deepseek-ai/dsh-office-kit and its renamed service, Remote methods, types and row. | 是（静态可扫） |
+| **K25** | `office-operation-tools` | 0.2.2-alpha.3 | **0.2.2-rc.1** | Office operation skills are replaced by Office tools | office-render / office-recalculate / office-export-pdf skills；skill-office node and cli keys；two Office CLI environment variables | Use the skill-activated Office tools instead of the removed skills and CLI keys. | 是（静态可扫） |
+| **K26** | `office-skill-resources` | 0.2.2-alpha.3 | **0.2.2-rc.1** | Office skills load from the packaged assets | DSH_BUNDLED_OFFICE_SKILLS；office-skills/ resource directories | Load Office skills from the skill-office package assets; drop the environment variable and resource dirs. | 是（静态可扫） |
+| **K27** | `subagent-names` | 0.2.2-alpha.3 | **0.2.2-rc.1** | Subagent tools address agents by name | Subagent control and Team task tools addressed by id；previous list_agents row shape；subagent catalog payload version 2 | Address agents by name and handle the new list_agents rows and catalog payload version 3. | 是（静态可扫） |
+| **K28** | `account-notification-fields` | 0.2.2-rc.1 | **0.2.2-rc.2** | Update account notification consumers | bonus-specific account notification methods；notification requests outside the Harness domain | Use the generic account notification APIs and Harness-domain notification requests. | 是（静态可扫） |
+| **K29** | `account-remote-provider` | 0.2.2-rc.1 | **0.2.2-rc.2** | Account service and Remote imports | abstract account composition；Remote imports from the abstract account package | Compose the concrete deepseek-account service and import its Remote types. | 是（静态可扫） |
+| **K30** | `archive-worktrees` | 0.2.2-rc.1 | **0.2.2-rc.2** | Worktree cleanup on archive | archiving a Session left its worktree untouched | Expect archiving to remove a clean worktree while keeping the branch. | 否（运行时/部署面） |
+| **K31** | `attachment-error-codes` | 0.2.2-rc.1 | **0.2.2-rc.2** | Attachment failures keep their codes | AttachmentError not extending HarnessError；attachment failures recorded as UNKNOWN | Treat AttachmentError as a HarnessError subclass and read the preserved attachment codes. | 是（静态可扫） |
+| **K32** | `cua-ax-read-limits` | 0.2.2-rc.1 | **0.2.2-rc.2** | macOS AX tree read limits | fixed macOS AX traversal budgets | Pass per-read overrides and expect the larger default AX node budget. | 是（静态可扫） |
+| **K33** | `cua-hover-ax-only` | 0.2.2-rc.1 | **0.2.2-rc.2** | macOS hover keeps the system pointer in place by default | mouseMove that moves the system pointer | Expect macOS mouseMove to require AX alternate UI and return HOVER_UNAVAILABLE instead of moving the cursor. | 否（运行时/部署面） |
+| **K34** | `cua-native-platform` | 0.2.2-rc.1 | **0.2.2-rc.2** | Native CUA application and window API | global native CUA window input API；numeric element ids | Use scoped window input, string element IDs and platform capabilities. | 是（静态可扫） |
+| **K35** | `dsh-doc-skill` | 0.2.2-rc.1 | **0.2.2-rc.2** | `dsh-doc` replaces the Creator mode skills | cordis-plugin-development skill；editing-cordis-compositions skill；cordis-composition-reference skill；agent-experience skill；packages/preset/agent-preset/skills/cordis-plugin-development/** | Load the single dsh-doc skill; its references and templates now live under skills/dsh-doc/. | 是（静态可扫） |
+| **K36** | `forge-change-request-overview` | 0.2.2-rc.1 | **0.2.2-rc.2** | Forge snapshots carry the change request overview, and actions report unknown outcomes | ChangeRequestSnapshot without overview fields；ChangeRequestCheck without rerun；ForgeActionFailure without unknown | Populate the required overview and rerun fields and handle the unknown action outcome. | 是（静态可扫） |
+| **K37** | `forge-pinned-diff` | 0.2.2-rc.1 | **0.2.2-rc.2** | Forge diffs read one head commit | ForgeProvider.diff without a head commit；ForgeFailure without stale；ChangeRequestSnapshot without threadsTruncated | Pass the head commit to ctx.forge.diff / ForgeProvider.diff and handle stale plus threadsTruncated. | 是（静态可扫） |
+| **K38** | `forge-review-reads` | 0.2.2-rc.1 | **0.2.2-rc.2** | Forge failures report unsupported reads | review reads that silently succeed without provider support | Handle ForgeFailure code unsupported returned by ctx.forge.readReview. | 是（静态可扫） |
+| **K39** | `plugin-update-method` | 0.2.2-rc.1 | **0.2.2-rc.2** | `BundleInfo.update` replaces `BundleInfo.updatable` | BundleInfo.updatable | Read BundleInfo.update (registry \| git \| undefined) and handle ManagementError code unexpected-package. | 是（静态可扫） |
+| **K40** | `runtime-context-reminders` | 0.2.2-rc.1 | **0.2.2-rc.2** | Runtime-context reminder records | runtime-context log text without reminder framing；clear markers without empty-section records | Read the reminder framing and empty-snapshot-section clear markers in runtime-context log text. | 否（运行时/部署面） |
+| **K41** | `session-append-overloads` | 0.2.2-rc.1 | **0.2.2-rc.2** | Update replacements for `Session.append` | a replacement Session.append that implements only one overload | Implement both the single-event and array overloads when replacing Session.append. | 是（静态可扫） |
+| **K42** | `subagent-interrupt-default` | 0.2.2-rc.1 | **0.2.2-rc.2** | Built-in configurations disable agent interruption | interrupt_agent enabled by default for subagents and Team mode | Re-enable interrupt_agent explicitly in built-in configurations if interruption is required. | 否（运行时/部署面） |
+| **K43** | `terminal-backend-cleanup-error` | 0.2.2-rc.1 | **0.2.2-rc.2** | `TerminalBackendCleanupError` extends `TerminalError` | TerminalBackendCleanupError extending AggregateError | Extend TerminalError and carry the CLEANUP_FAILED code. | 是（静态可扫） |
+| **K44** | `terminal-bundle-sidebar-backend` | 0.2.2-rc.1 | **0.2.2-rc.2** | Persistent terminals open in the Web sidebar | optional-terminal-bash row；optional-terminal-pwsh row | Target optional-terminal-panel rows; Agent terminals now open in the Web sidebar. | 是（静态可扫） |
+| **K45** | `web-search-billing` | 0.2.2-rc.1 | **0.2.2-rc.2** | DeepSeek web search and fetch choose their credential by billing | provider authentication fields on DeepSeek Search/Fetch | Use per-capability billing and ordered credential sources for DeepSeek Search and Fetch. | 是（静态可扫） |
+| **K46** | `window-drag-regions` | 0.2.2-rc.1 | **0.2.2-rc.2** | Explicit window regions for custom Client overlays | global macOS no-drag exclusions for custom overlays | Declare explicit window regions for custom Client overlays. | 否（运行时/部署面） |
+
+**下一版（`v0.2.2-rc.2`，**不是** rc.3）的 13 条指南**（master-only，镜像里没有，别当 rc.3 变更）：
+
+| ID | 官方项 | 说明 |
+|---|---|---|
+| U1 | `guide.md` | Client module metadata |
+| U2 | `guide.md` | Token Provider and route admission migration |
+| U3 | `guide.md` | `ctx[Context.root]` replaces `ctx.root`, and service intercept metadata is renamed |
+| U4 | `guide.md` | CUA gives Agents without a preset `cua_run_code` |
+| U5 | `guide.md` | macOS Computer Use provider name |
+| U6 | `guide.md` | macOS CUA isolates unavailable AX branches |
+| U7 | `guide.md` | DeepSeek image upload timeout |
+| U8 | `guide.md` | Experimental plugin failures carry error codes |
+| U9 | `guide.md` | Update removed package subpath imports |
+| U10 | `guide.md` | Python PTC removal |
+| U11 | `guide.md` | Session status moves to `@deepseek-ai/dsh-client-ui-session-status` and completion reminders follow Host reading records |
+| U12 | `guide.md` | Shared search filter replaces rankByName and searchMode |
+| U13 | `guide.md` | Shell and read_image failures use consolidated error codes |
+
+> 这 13 条描述的是 rc.3 之后的下一次升级（其中 `cordis-root-and-intercept-metadata` 对应 Cordis 上游 rc.12，
+> rc.3 的 vendor 仍是上游 rc.11）。下一次审计以它们为输入，同时先核对目标发布包是否已包含它们。
+
+---
+
+## 15. 已知分歧与未核实项（诚实标注）
+
+1. ✅ **已解决（2026-11-14）**：上游 `docs/session-format-status.md` 已是 `latestReleasedVersion: 4` / `evidenceTag: dsh-v0.2.0-rc.2`，与代码和 npm 一致；本项目 `references/official-docs/` 镜像已重同步到**发布 tag** `dsh-v0.2.2-rc.3`（`38a6a5c965aa99ab525161efb7cc5cf1fe62fced`，709 md / 352 zh，2026-11-14），并通过 `scripts/check-facts.mjs` 校验 pin 与计数。
+   ⚠️ **历史更正**：0.4.5 曾把 master 同步 commit `e8f7b93…` 标成 `dsh-v0.2.2-rc.2`。它不是 rc.2 tag（rc.2 tag = `ddac9676…`），也多带了 4 个只在 master 的 `v0.2.2-rc.1` 指南（717/356）；该错误已随本次重同步修正。
 2. `UNVERIFIED`：未解包已发布的 npm tarball 逐字节确认产物与 tag 一致。
 3. `UNVERIFIED`：仓库内无 `CHANGELOG.md`、无 `docs/persistence-changes/releases/*` 新条目，因此**没有官方逐版本 release notes 可引**；tag 对应的提交主题是唯一线索。
 4. `ctx.agent` 在两个基线都**不存在**（不是"被移除"）。
@@ -272,4 +363,4 @@ DSH 自带的 preset 里有一整套**官方插件开发技能**，这是本世�
 
 ---
 
-*维护：官方每次发版后重跑 `pwsh -File scripts/sync-official-docs.ps1`，再按 `references/official-docs/docs/upgrade-guide/**` 与 `docs/persistence-changes/**` 增量更新本文件；行号与提交号引用 `references/official-docs/SNAPSHOT.md` 的基线。*
+*维护：官方每次发版后重跑 `pwsh -File scripts/sync-official-docs.ps1 -Ref dsh-v<X>`（钉发布 tag，不取 master HEAD；当前 tag 见 `references/official-docs/SNAPSHOT.md`），再按 `references/official-docs/docs/upgrade-guide/**` 与 `docs/persistence-changes/**` 增量更新本文件；行号与提交号引用 `references/official-docs/SNAPSHOT.md` 的基线。*

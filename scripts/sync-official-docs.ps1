@@ -1,11 +1,13 @@
 ﻿# dsh-plugin-guide official-docs sync script.
 # Purpose: sync the deepseek-harness checkout's official docs into references/official-docs/ (verbatim copy).
-# Source is pinned to origin/master (HEAD fallback): untracked drafts and unpushed commits in the checkout never enter the KB.
+# Source is pinned to origin/master (HEAD fallback) by default, or to the ref passed with -Ref (a release
+# tag makes a reproducible snapshot): untracked drafts and unpushed commits in the checkout never enter the KB.
 # Output: references/official-docs/SNAPSHOT.md (source ref/SHA, sync time, file counts - the freshness authority for READMEs).
-# Usage:  pwsh -File scripts/sync-official-docs.ps1 [-Checkout <path>] [-SkipGit]
+# Usage:  pwsh -File scripts/sync-official-docs.ps1 [-Checkout <path>] [-Ref <tag|sha>] [-SkipGit]
 # Verify: pwsh -File scripts/verify-kit.ps1 -Checkout <path>   # drift report KB vs checkout (tracked files only)
 param(
   [string]$Checkout = 'D:\deepseek-harness',
+  [string]$Ref = '',
   [switch]$SkipGit
 )
 $ErrorActionPreference = 'Stop'
@@ -31,9 +33,13 @@ $zhCount = 0
 $paths = @(':(top)docs', ':(top)AGENTS.md', ':(top)BENCHMARK.md', ':(top)CONTRIBUTING.md', ':(top)CONTRIBUTING.zh.md', ':(top)CONTRIBUTING.i18n.yaml', ':(top)README.zh.md', ':(top)README.i18n.yaml', ':(top)THIRD_PARTY_NOTICES.md', ':(top)LICENSE', ':(top)packages/AGENTS.md', ':(top)packages/README.md', ':(top)vendor/README.md', ':(top)website/docs.ts')
 
 if ($gitOk) {
-  # Prefer origin/master, fall back to HEAD - never the working tree (may contain untracked/unpushed content).
-  if ((& git -C $Checkout rev-parse --verify -q origin/master 2>$null)) { $ref = 'origin/master' } else { $ref = 'HEAD' }
-  $sha = (& git -C $Checkout rev-parse $ref).Trim()
+  # An explicit -Ref (normally a release tag) pins a reproducible snapshot; otherwise prefer
+  # origin/master, fall back to HEAD - never the working tree (may contain untracked/unpushed content).
+  if ($Ref) {
+    if (-not (& git -C $Checkout rev-parse --verify -q "$Ref^{commit}" 2>$null)) { Write-Error "ref not found in checkout: $Ref"; exit 1 }
+    $ref = $Ref
+  } elseif ((& git -C $Checkout rev-parse --verify -q origin/master 2>$null)) { $ref = 'origin/master' } else { $ref = 'HEAD' }
+  $sha = (& git -C $Checkout rev-parse "$ref^{commit}").Trim()
 
   $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("dsh-official-docs-$sha.tar")
   Remove-Item $tmp -Force -ErrorAction SilentlyContinue
@@ -133,6 +139,11 @@ $L = @(
   '',
   'Drift check: `pwsh -File scripts/verify-kit.ps1 -Checkout <checkout>` (tracked files only).'
 )
+if ($Ref) {
+  # A tag pin is the point of this mode: record why the numbers differ from master HEAD, so the
+  # next reader does not 'fix' the snapshot back to master.
+  $L = $L[0..($L.Count - 2)] + @('', "> Pinned to ``$Ref`` (commit ``$sha``), not the checkout's master HEAD. Docs that exist only after this ref are not part of the snapshot.") + $L[-1]
+}
 Set-Content -Path (Join-Path $dest 'SNAPSHOT.md') -Value ($L -join "`r`n") -Encoding UTF8
 
 Write-Output "DONE: ref=$ref sha=$sha pruned=$pruned -> $dest"

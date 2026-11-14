@@ -44,7 +44,7 @@ Why not just read the official docs? Because they are written for someone who al
 | Gap | What this plugin adds |
 |---|---|
 | **"Which DSH am I even targeting?"** | A [version matrix](guide/version-matrix.md): the five different values that all call themselves "latest", the frozen sub-package `latest` tags, the breaking-change seams, and how to pick a `peerDependencies` range. **There is no stable line.** |
-| **"What does this break?"** | A [migration guide](guide/migration-0.2.md) covering `0.1.6-alpha.2` → `0.2.1-alpha.2` as citable seams with symptom *and* fix, each with its official source — including a data-loss hazard and a change that makes prompts fail before a model request is built. |
+| **"What does this break?"** | A [migration guide](guide/migration-0.2.md) covering `0.1.6-alpha.2` → `0.2.2-rc.3` as citable seams (§0–§13 cover the 0.1.6→0.2.1 line; §14 is the 46 `K1`–`K46` seams of the 0.2.2 line released in rc.3) with symptom *and* fix, each with its official source — including a data-loss hazard and a change that makes prompts fail before a model request is built. |
 | **"Is my plugin actually correct?"** | A [zero-dependency CLI](SKILL.md) (`dsh-plugin-dev new / check / verify`) plus an [offline verbatim mirror](references/official-docs/) of the official docs, so your agent can cite the exact page instead of guessing. |
 
 <picture>
@@ -103,7 +103,7 @@ All PerryLink plugins are browsable in the built-in DSH Desktop Market: **Market
 
 - **Plugin contract and hard rules** — effects/disposers, waterfall listeners that must call `next()`, host-owned session events, model-visible ⟺ logged, Schemastery config, UI and performance rules.
 - **Official docs mirror** — `references/official-docs/`: a verbatim copy of the official repo docs (EN + ZH), byte-identical to upstream at the last verified snapshot, including the pages that never reach the documentation site.
-- **Version-adaptivity matrix** — [guide/version-matrix.md](guide/version-matrix.md): the five different "latest" values, the frozen sub-package `latest` tags, the four breaking-change seams, how to pick a peer range, the session-format lineage V0→V4, and the 19 breaking changes that landed in `0.2.1-alpha.2`.
+- **Version-adaptivity matrix** — [guide/version-matrix.md](guide/version-matrix.md): the five different "latest" values, the frozen sub-package `latest` tags, the four breaking-change seams, how to pick a peer range, the session-format lineage V0→V4, the 19 breaking changes that landed in `0.2.1-alpha.2`, and the 46 seams of the 0.2.2 line released in rc.3 (`K1`–`K46`, see migration §14).
 - **Migration guide** — [guide/migration-0.2.md](guide/migration-0.2.md): every breaking change from `0.1.6-alpha.2` to `0.2.1-alpha.1` (session format V4, the settings rebuild, invariant removal, `readBytes`, new slots, the retired `plugin` message source), each with its official source and a 12-item checklist.
 - **Cordis primer and the official skill, distilled** — the five Cordis concepts and the mechanism timeline; [references/official-plugin-dev-skill.md](references/official-plugin-dev-skill.md) distils the harness's own `cordis-plugin-development` prohibitions, display-metadata checklist, and UI/performance rules.
 - **Verified issue index** — [guide/unfixed-issues.md](guide/unfixed-issues.md): 22 unfixed + 11 newly verified items with `path:line`, workarounds and fixing commits, plus a design-vs-bug table and an explicit "unreproducible" section.
@@ -127,8 +127,8 @@ All PerryLink plugins are browsable in the built-in DSH Desktop Market: **Market
 | `SKILL.md` | The `dsh-primer` agent skill: hard rules + task-based development paths |
 | `package.json` · `cordis.patch.yml` · `index.js` · `locale/` · `icon.svg` | The installable DSH bundle: `dsh.bundle.patch` manifest, entry point that registers the skill, and the display metadata Plugin Manager reads |
 | `guide/plugin-dev-guide.md` | The complete development guide (10 chapters) |
-| `guide/version-matrix.md` | Version-adaptivity matrix: the five "latest" values, frozen sub-package `latest` tags, breaking-change seams, peer-range selection, session-format lineage, the 19 changes in `0.2.1-alpha.2` |
-| `guide/migration-0.2.md` | Breaking-change migration guide for the 0.2 generation (§0–§12 up to `0.2.1-alpha.1`, §13 covering the 19 seams of `0.2.1-alpha.2`) |
+| `guide/version-matrix.md` | Version-adaptivity matrix: the five "latest" values, frozen sub-package `latest` tags, breaking-change seams, peer-range selection, session-format lineage, the 19 changes in `0.2.1-alpha.2` plus the 46 in the 0.2.2 line |
+| `guide/migration-0.2.md` | Breaking-change migration guide for the 0.2 generation (§0–§12 up to `0.2.1-alpha.1`, §13 covering the 19 seams of `0.2.1-alpha.2`, §14 covering the 46 seams (`K1`–`K46`) released in rc.3 and listing the 13 next-version guides separately) |
 | `guide/unfixed-issues.md` | Source-verified bug index + fixed-on-master list + design-vs-bug table |
 | `guide/quick-reference.md` | One-page cheat sheet (5 languages) |
 | `guide/links.md` | Curated URL index: official dev docs (site ↔ local copies) + community doc links + repo-only pages |
@@ -194,7 +194,7 @@ L3  webRuntime service replaced by webStartup
     detectable  yes — inspect: src/**/*.ts, cordis.patch.yml
 ```
 
-*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:44`*
+*Observed from `src/cli/commands/seams.ts:54; data/seams/index.json:66`*
 
 ### Failure branch
 
@@ -309,7 +309,7 @@ This plugin does **not** interfere with other plugins:
 
 | Surface | Status |
 |---|---|
-| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0`. Current host line: npm `latest` = `next` = `0.2.1-rc.2`, `alpha` = `0.2.1-alpha.5`, newest tag = `dsh-v0.2.1-rc.2`; **there is no stable line** — all 31 npm versions and all 26 GitHub Releases are prereleases. The official-docs mirror is pinned to `e8f7b93a…` (synced 2026-11-13, 717 md pages / 356 EN-ZH pairs). |
+| Harness | `engines.dsh` = `>=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0`. Current host line: npm `latest` = `0.2.2-rc.1`, `next` = `0.2.2-rc.3`, `alpha` = `0.2.2-alpha.3`, newest tag = `dsh-v0.2.2-rc.3`; **there is no stable line** — all 44 npm versions and all 39 GitHub Releases are prereleases. The official-docs mirror is pinned to the release tag `dsh-v0.2.2-rc.3` (`38a6a5c9…`, synced 2026-11-14, 709 md pages / 352 EN-ZH pairs). |
 | Node | `>=24.9.0` |
 | Platforms | Anywhere DSH runs (plain ESM bundle; no native code, no network) |
 | Model | Any (no model interaction: the host injects the skill body into context) |
