@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.7] - 2026-11-14
+
+Patch release on the 0.4.6 line: the target line is unchanged (DeepSeek Harness `0.2.2-rc.3`, tag `dsh-v0.2.2-rc.3` = `38a6a5c9…`, Node `>=24.9.0`, Cordis wrapper `4.1.0`, upstream `4.0.0-rc.11`) and the official-docs mirror is not touched.
+
+### Changed
+
+- **dsh-standards baseline `1.6.10` → `1.6.12`** (published 2026-11-14; release commit `711f69e6347ed90b24d8a15f288c429d9042039d`). `data/standards.json` pins `canonical.packageVersion` and both `tools.*.package` entries to `dsh-standards@1.6.12`; the `>=1.6.10` floor stays in the notes because that is when the checkers first shipped publicly. 1.6.12 adds the reserved capability-id table for the rc.3 host seams (declaring a reserved id is never an "unknown capability id" FAIL and the C-11.2 FAIL surface is unchanged) and lands **rc.3 runtime evidence** — the 2026-11-14 ENTRY full-base and web-runtime runs, 18 rows each — while the standards' ENTRY cell for rc.3 remains `partial`, not `runtime`. This repo still keeps `dsh.standards` in `package.json` as a placeholder (`entry`/`flow` = `not-run`, `boost` = `not-measured`, `evidence: null`): the baseline is a dependency pin, not a self-certification.
+- `.github/workflows/release.yml` gains a `publish-${{ github.ref }}` concurrency group with `cancel-in-progress: false`, so two runs for the same ref (the original tag run and a `workflow_dispatch` re-run after a red publish) queue instead of overlapping, and an in-flight publish is never cancelled mid-publish.
+- `package.json` version 0.4.7; `package-lock.json` root metadata follows. No dependency changes, `pnpm-lock.yaml` untouched.
+
+### Verified
+
+- Node `24.22.1`, pnpm `11.7.0` (the `packageManager` pin): `pnpm install --frozen-lockfile` OK, `pnpm run build` OK (`dist/dsh-plugin-dev.js`, tsdown 0.23.1), `vitest run` **82/82**.
+- `check:facts`, `check:readmes`, `check:parity`, `check:ps1-bom` OK.
+- The release artifacts themselves are produced by the tag-triggered workflow (build + `verify-kit.ps1` + tag/package/changelog gates + `npm publish --provenance` + GitHub Release); `dist/` is generated in CI and is not committed.
+
 ## [0.4.6] - 2026-11-14
 
 Target: DeepSeek Harness `0.2.2-rc.3` (tag `dsh-v0.2.2-rc.3` = `38a6a5c9…`), Node `>=24.9.0`, Cordis wrapper `4.1.0` (upstream `4.0.0-rc.11`).

@@ -17,11 +17,11 @@
       "33-DSH-BOOST加速实践.md",
       "34-三层分级模型-GB-GBT-GBZ类比.md"
     ],
-    "auditStatus": "available — the checkers ship in the public dsh-standards package (>=1.6.10) and are no longer private or planned",
+    "auditStatus": "available — the checkers ship in the public dsh-standards package (>=1.6.10; baseline 1.6.12) and are no longer private or planned",
     "entryChecker": "40-checker/bin/dsh-plugin-verify.mjs",
     "private": false,
     "packageName": "dsh-standards",
-    "packageVersion": "1.6.10",
+    "packageVersion": "1.6.12",
     "packageUrl": "https://www.npmjs.com/package/dsh-standards"
   },
   "disclaimer": "Not an official DeepSeek standard, not a certification, not a security audit, and not a legal GB/GB-T/GB-Z instrument. The GB analogy is a communication aid only. Certification grades A-D are orthogonal to the three levels.",
@@ -277,15 +277,15 @@
       "url": "https://www.npmjs.com/package/dsh-standards",
       "status": "available",
       "command": "dsh-levels <plugin-dir> --no-runtime --format json   # bin/dsh-levels.mjs shipped by dsh-standards",
-      "note": "Ships in the public npm package dsh-standards (>=1.6.10). Paths are relative to that package root, not to this guide.",
-      "package": "dsh-standards@1.6.10"
+      "note": "Ships in the public npm package dsh-standards (>=1.6.10; baseline 1.6.12). Paths are relative to that package root, not to this guide.",
+      "package": "dsh-standards@1.6.12"
     },
     "entryChecker": {
       "path": "40-checker/bin/dsh-plugin-verify.mjs",
       "url": "https://www.npmjs.com/package/dsh-standards",
       "command": "node 40-checker/bin/dsh-plugin-verify.mjs <plugin-dir> --scope entry --entry-claim static",
-      "package": "dsh-standards@1.6.10",
-      "note": "Ships in the public npm package dsh-standards (>=1.6.10); path relative to that package root."
+      "package": "dsh-standards@1.6.12",
+      "note": "Ships in the public npm package dsh-standards (>=1.6.10; baseline 1.6.12); path relative to that package root."
     },
     "localStatic": {
       "command": "dsh-plugin-dev check --json",

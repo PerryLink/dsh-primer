@@ -1,5 +1,9 @@
 name: Release
 
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   # workflow_dispatch is how a tag whose publish failed gets re-run after a fix:
   # a tag push executes the workflow file AT THE TAGGED COMMIT, so a fix committed
