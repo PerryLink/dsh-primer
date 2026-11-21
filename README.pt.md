@@ -52,6 +52,11 @@ Por que não basta ler a documentação oficial? Porque ela é escrita para quem
   <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="Estrutura de dois canais do dsh-primer: um bundle somente leitura alimenta uma camada cognitiva (registro da skill → uma entrada de catálogo → páginas sob demanda) e uma camada mecânica (new / check / verify / seams); os dois canais convergem num mesmo veredicto">
 </picture>
 
+![dsh-primer: execução real de terminal](docs/assets/dsh-plugin-guide-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instalar** (um de três canais):

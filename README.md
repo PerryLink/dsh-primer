@@ -35,6 +35,10 @@ dsh plugin --profile <name> add dsh-primer
 
 ## 它是什么
 
+![dsh-primer 真实终端运行](docs/assets/dsh-plugin-guide-demo.gif)
+
+*本仓库一次真实运行的动图回放。*
+
 `dsh-primer` 把 DSH 插件开发所需的东西打成一个可安装 bundle：一部分是知识库，注册成 `dsh-primer` agent 技能（每个会话的技能目录里可见，按需把工作流步骤、官方文档与社区深读加载进上下文）；另一部分是零运行时依赖的 `dsh-plugin-dev` CLI，在知识库之上提供三个机械层。
 
 社区维护，**非** DeepSeek 官方产品。DeepSeek Harness 处于开发者预览期并持续发布破坏性变更；有疑问时以 `references/official-docs/` 里的官方文档为准。
