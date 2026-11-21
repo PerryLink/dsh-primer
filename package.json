@@ -36,6 +36,7 @@
     "README.pt.md",
     "README.hi.md",
     "STANDARDS.md",
+    "docs/assets/*",
     "MIGRATION.md"
   ],
   "keywords": [
