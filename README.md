@@ -35,7 +35,7 @@ dsh plugin --profile <name> add dsh-primer
 
 ## 它是什么
 
-![dsh-primer 真实终端运行](docs/assets/dsh-plugin-guide-demo.gif)
+![dsh-primer 真实终端运行](docs/assets/dsh-primer-demo.gif)
 
 *本仓库一次真实运行的动图回放。*
 

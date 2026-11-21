@@ -52,7 +52,7 @@ dsh plugin --profile <name> add dsh-primer
   <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="dsh-primer की दो-चैनल संरचना: एक केवल-पढ़ने योग्य bundle संज्ञानात्मक परत (स्किल पंजीकरण → कैटलॉग में एक प्रविष्टि → माँगने पर पृष्ठ) और यांत्रिक परत (new / check / verify / seams) को भरता है; दोनों चैनल एक ही निष्कर्ष पर मिलते हैं">
 </picture>
 
-![dsh-primer का असली टर्मिनल रन](docs/assets/dsh-plugin-guide-demo.gif)
+![dsh-primer का असली टर्मिनल रन](docs/assets/dsh-primer-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
 

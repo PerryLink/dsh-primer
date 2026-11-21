@@ -169,7 +169,7 @@ dsh-plugin-dev seams <query> | --since <version>   # is this API in my target ho
 
 ## Examples
 
-![dsh-primer: real terminal run](docs/assets/dsh-plugin-guide-demo.gif)
+![dsh-primer: real terminal run](docs/assets/dsh-primer-demo.gif)
 
 *Animated replay of a real run recorded in this repository.*
 

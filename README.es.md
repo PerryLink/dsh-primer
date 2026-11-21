@@ -52,7 +52,7 @@ Mantenido por la comunidad, **no** es un producto oficial de DeepSeek. DeepSeek 
   <img src="docs/assets/dsh-primer-flow-v5-light.svg" width="100%" alt="Estructura de doble canal de dsh-primer: un bundle de solo lectura alimenta una capa cognitiva (registro de la skill → una entrada de catálogo → páginas bajo demanda) y una capa mecánica (new / check / verify / seams); ambas convergen en un mismo veredicto">
 </picture>
 
-![dsh-primer: ejecución real de terminal](docs/assets/dsh-plugin-guide-demo.gif)
+![dsh-primer: ejecución real de terminal](docs/assets/dsh-primer-demo.gif)
 
 *Repetición animada de una ejecución real registrada en este repositorio.*
 
