@@ -11,6 +11,8 @@
 
 面向 DeepSeek Harness 的插件开发知识库：官方文档逐字镜像、版本兼容矩阵、迁移 seam 与实战踩坑，装成一项按需加载的 agent 技能；外加 `dsh-plugin-dev new / check / verify` 脚手架与检查 CLI。
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)

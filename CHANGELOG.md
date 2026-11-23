@@ -101,6 +101,10 @@ Target: DeepSeek Harness `0.2.2-rc.3` (tag `dsh-v0.2.2-rc.3` = `38a6a5c9…`), N
 
 ## [Unreleased]
 
+## [0.4.8] - 2026-11-22
+
+- Compatibility: declare DeepSeek Harness 0.2.3-alpha.1 support (>=0.2.3-0 <0.3.0-0 in engines.dsh and every @deepseek-ai/dsh-* peer range) and refresh README verification stamps.
+
 ### Changed
 
 - **`dsh-plugin-dev new` now emits a `dsh.standards` placeholder** in both `templates/ts/package.json` and `templates/js/package.json`: `schema: "dsh-levels/1"`, `entry`/`flow` = `not-run`, `boost` = `not-measured`, and `evidence: null` for every level. The block is merged into the existing `dsh` object, so `manifestVersion` and `dsh.bundle.patch` are unchanged. The scaffolder copies template files with placeholder substitution, so the field survives generation; tests render both skeletons and generate temporary TS/JS projects to assert the placeholder is present and that no level reads as a pass. Each template README gains a `## Standards` section stating that the block is a placeholder to replace after a `level-audit` run, and that without evidence it stays `not-run`. `guide/standards.md` (EN/ZH) says the same. Non-official; no certification claim and no npm version bump.
